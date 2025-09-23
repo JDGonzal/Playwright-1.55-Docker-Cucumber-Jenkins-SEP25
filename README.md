@@ -411,5 +411,148 @@
 
 
 
+## Section 2: Typescript Basics
+
+### 11. Typescript Introduction
+
+>[!NOTE]
+>
+>**¿Qué es TypeScript?**
+>
+>![What is Typescript](images/2025-09-23_084920.png "What is Typescript")
+>
+> * TypeScript es un superconjunto estadísticamente tipado y de código abierto de JavaScript creado para mejorar el
+>lenguaje de programación JavaScript.</br>
+>TypeScript no es más que una envoltura construida sobre JavaScript, que tiene muchas más ventajas en comparación
+>con JavaScript.
+>
+> * TypeScript añade tipado estático opcional, que permite a los desarrolladores especificar los tipos de variables,
+>funciones, parámetros y valores de retorno de funciones.</br>
+>Este sistema de tipado ayuda a detectar errores relacionados con el tipo durante el desarrollo, proporcionando mejores herramientas
+>y calidad de código.
+>
+> * La principal diferencia entre JavaScript y TypeScript es este sistema de tipado, donde podemos detectar los problemas
+>relacionados con el tipo durante el tiempo de compilación, en lugar de durante el despliegue.
+>
+>**Ahora entenderemos la historia de TypeScript.**
+>
+>![History of Typescript](images/2025-09-23_085705.png "History of Typescript")
+>
+> * TypeScript fue presentado por primera vez por Microsoft en octubre de 2012 por Anders Hesselberg, creador de C-sharp y principal
+>arquitecto del proyecto TypeScript.</br>
+>Introdúzcalo para hacer frente a las limitaciones de JavaScript para aplicaciones a gran escala.
+>
+> * TypeScript ganó popularidad muy rápidamente debido a su capacidad para ayudar a los desarrolladores a escribir código más robusto
+>y mantenible.</br>
+>Grandes empresas y proyectos como angular adoptaron TypeScript, impulsando aún más su prominencia en la comunidad
+>de desarrollo web.
+>
+>**Vamos a ver cuáles son las características de TypeScript.**
+>
+>![Features of Typescript](images/2025-09-23_085947.png "Features of Typescript (Part 1)")
+>
+> * La primera característica es la tipificación estática.
+>   * TypeScript introduce la tipificación estática, permitiendo a los desarrolladores especificar los tipos de datos de las variables, parámetros
+>de función y valores de retorno, lo que significa que siempre que estemos creando una variable, podemos mencionarlo específicamente.
+>Por ejemplo, quería crear una variable de tipo número o de tipo cadena.
+>   * Esto ayuda a detectar los errores relacionados con el tipo durante el tiempo de compilación.
+>
+>![Features of Typescript (Part 2)](images/2025-09-23_090844.png "Features of Typescript (Part 2)")
+> * La siguiente característica es la inferencia de tipos.</br>
+>TypeScript a menudo puede inferir tipos sin anotaciones explícitas, reduciendo la necesidad de declaraciones de tipos
+>repetitivas.
+>
+> * Lo siguiente es la interfaz y las clases.</br>
+>TypeScript admite conceptos de programación orientada a objetos como clases e interfaces, lo que permite al desarrollador
+>crear un código bien
+>
+>![Features of Typescript (Part 3)](images/2025-09-23_091143.png "Features of Typescript (Part 3)")
+>
+> * La siguiente característica son los genéricos.</br>
+>TypeScript proporciona soporte para genéricos, permitiendo a las funciones y estructuras de datos trabajar con varios
+>tipos de datos manteniendo la seguridad de tipos.
+>
+> * Y lo siguiente son los tipos de unión e intersección.</br>
+>TypeScript admite la unión, que consiste en combinar varios tipos, y la intersección de tipos, que consiste en combinar
+>varios tipos en uno.</br>
+>Lo que quiere decir con esto es que, por ejemplo, si quisiera crear una variable que aceptara un número
+>o una cadena, esto no es posible en otros lenguajes de programación, pero es muy posible en
+>TypeScript.
+>
+>![Features of Typescript (Part 4)](images/2025-09-23_091440.png "Features of Typescript (Part 4)")
+>
+> * Y la siguiente característica es el acceso al ecosistema JavaScript.</br>
+>TypeScript es compatible con el código JavaScript existente, lo que permite a los desarrolladores adoptar TypeScript de forma
+>incremental en sus proyectos.</br>
+>Esta es una de las principales características por las que TypeScript fue un gran éxito, porque todos los proyectos JavaScript existentes
+>se pueden convertir en un proyecto TypeScript.</br>
+>La razón es porque TypeScript no es más que una envoltura de JavaScript.
+>Y soporte avanzado de identificación.
+>
+> * TypeScript ofrece excelentes herramientas e integración con el popular entorno de desarrollo integrado,
+>que se llama IDs.</br>
+>Las más populares, como Visual Studio Code, que ofrece herramientas inteligentes de compleción de código, comprobación
+>de tipos e incluso refactorización.
+>
+>Ahora hemos entendido las características de TypeScript.
+>
+>**Ahora veremos en qué se diferencian TypeScript y JavaScript.**
+>
+>![TypeScript vs. JavaScript (Part 1)](images/2025-09-23_091848.png "TypeScript vs. JavaScript (Part 1)")
+>
+> * El primero es el sistema de tipos.
+>
+>   * TypeScript introduce un sistema de tipos estáticos que permite a los desarrolladores especificar los tipos de los parámetros de las funciones
+>variables y los valores de retorno.
+>
+>   * Pero en JavaScript, JavaScript es un tipo dinámico, lo que significa que los tipos de datos se determinan en tiempo de ejecución.</br>
+>Así que cuando creas una variable en JavaScript, no necesitas mencionar el tipo, pero entenderá que hemos introducido una variable
+>numérica o una variable de cadena durante el tiempo de ejecución.</br>
+>Las variables pueden cambiar su tipo de datos durante la ejecución, lo que puede provocar un comportamiento inesperado
+>en JavaScript.
+>JavaScript se basa en la comprobación en tiempo de ejecución, por lo que es más propenso a los errores relacionados con el tipo.
+>
+>Esta es una de las principales diferencias entre TypeScript y JavaScript.
+>
+>![TypeScript vs. JavaScript (Part 2)](images/2025-09-23_093029.png "TypeScript vs. JavaScript (Part 2)")
+>
+> * La siguiente es la compatibilidad.
+>   * TypeScript está diseñado como un superconjunto de JavaScript, lo que significa que todo el código JavaScript válido es también
+>código TypeScript válido.</br>
+>Esto facilita el incremento.
+>Adopción de TypeScript en un proyecto JavaScript existente.
+>
+>   * Mientras que en JavaScript, JavaScript es un lenguaje omnipresente de la web y todos los navegadores web lo soportan de forma
+>nativa, es el lenguaje por defecto para el desarrollo web y se puede utilizar sin ninguna configuración
+>o compilación adicional.
+>
+>![TypeScript vs. JavaScript (Part 3)](images/2025-09-23_093552.png "TypeScript vs. JavaScript (Part 3)")
+>
+> * La siguiente diferencia importante es la compilación.
+>   * El código TypeScript debe transpilarse o convertirse en código JavaScript antes de poder ejecutarse en un navegador
+>o en un entorno NodeJS.</br>
+>Esto añade un paso más al proceso de desarrollo, pero garantiza la compatibilidad con el entorno JavaScript.</br>
+>Lo que significa es que si escribes un código TypeScript e intentas ejecutarlo, el entorno NodeJS no puede
+>tomar directamente el código TypeScript y ejecutarlo.
+>
+>   * En su lugar, tenemos que convertir el código TypeScript existente en un código JavaScript, porque el NodeJS
+>o los navegadores sólo entenderán el código JavaScript.</br>
+>Mientras que en JavaScript, el código JavaScript es ejecutado directamente por los navegadores o el NodeJS
+>sin necesidad de compilación.
+>Esto simplifica el proceso de implantación.
+>
+>![Summary](images/2025-09-23_094001.png "Summary")
+>
+> * En resumen, TypeScript es un superconjunto estáticamente tipado de JavaScript que aporta características adicionales
+>y medidas de seguridad al lenguaje, haciéndolo especialmente valioso para proyectos de software complejos y a
+>gran escala.
+>
+> * Proporciona a los desarrolladores herramientas mejoradas y ayuda para evitar errores comunes en tiempo de ejecución.
+>
+> * Sin embargo, la elección entre TypeScript y JavaScript depende de los requisitos del proyecto y de la familiaridad
+>con el tipado estático.
+>
+>Así que este es el TypeScript y las ventajas de utilizar TypeScript sobre JavaScript.
+>
 
 
