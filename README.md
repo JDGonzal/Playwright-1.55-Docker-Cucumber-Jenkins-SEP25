@@ -634,3 +634,211 @@ Prefiero la segunda opción.
 23. Estando con el archivo abierto de **`012_helloWorld.ts`**, se presiona el triángulo en la parte superior ⏯️ o dando clic derecho sobre el archivo para la opción de `Run Code`, nos parece la respuesta abajo en `OUTPUT`.
 
 
+### 13. Variables
+
+1. Creamos el archivo **`013_variables.ts`**, con estas definiciones:
+```js
+var myName = "JuanPiza";
+var myAge = 25;
+const myGender = "Male";
+```
+2. Luego las muestro por pantalla:
+```js
+console.log(
+	"My Name is " +
+		myName +
+		" and my age is " +
+		myAge +
+		" and I am a " +
+		myGender,
+);
+```
+3. Ejecuto y aparce esto en el `OUTPUT`: </br> `My Name is JuanPiza and my age is 25 and I am a Male`
+
+
+### 14. Data Types
+
+1. Creamos el archivo **`014_dataTypes.ts`**, con  definiciones de _Boolean_:
+```js
+// Boolean
+let isDone: boolean = true;
+let isEnabled: boolean = false;
+
+console.log(isDone, isEnabled);
+```
+2. Añado al archivo **`014_dataTypes.ts`**, mas  definiciones como _Number_:
+```js
+// Number
+let num1: number = 25;
+let num2: number = 99.99999;
+
+console.log(num1, num2);
+```
+3. Añado al archivo **`014_dataTypes.ts`**, mas  definiciones  _String_:
+```js
+// String
+let firstName: string = "Juan";
+let lastName: string = "Piza";
+
+console.log(firstName, lastName);
+```
+4. Añado al archivo **`014_dataTypes.ts`**, mas  definiciones  _Any_:
+```js
+// Any
+// biome-ignore lint/suspicious/noExplicitAny: demonstrating let usage for tutorial
+let dynamicValue: any = 42;
+console.log(dynamicValue);
+dynamicValue = "David";
+console.log(dynamicValue);
+```
+5. Añado al archivo **`014_dataTypes.ts`**, mas  definiciones  _Null_ y _Undefined_:
+```js
+// Null and Undefined
+let nullValue: null = null;
+// biome-ignore lint/complexity/noUselessUndefinedInitialization: demonstrating let usage for tutorial
+let undefiniedValue: undefined = undefined; //It's not necessary to initialize undefiniedValue to undefined.
+
+console.log(nullValue, undefiniedValue);
+```
+
+### 15. Operators
+
+1. Empezamos creando el archivo **`015_Operators.ts`**, y algunos _Arithmetic Operators_:
+```js
+// Arithmetic Operators
+/** biome-ignore-all lint/style/useConst: demonstrating let usage for tutorial */
+let a = 10;
+let b = 3;
+let sum = a + b; // 13
+let difference = a - b; // 7
+let product = a * b; // 30
+let quotient = a / b; // 3.333...
+let remainder = a % b; // 1
+console.log(sum, difference, product, quotient, remainder);
+```
+2. Agregamos un _Comparison Operator_:
+```js
+// Comparison Operator
+let x = 5;
+let y = 10;
+
+// biome-ignore lint/suspicious/noDoubleEquals: demonstrating let usage for tutorial
+let isEqual = x == y; // false
+let isStrictEqual = x === y; // false
+// biome-ignore lint/suspicious/noDoubleEquals: demonstrating let usage for tutorial
+let isNotEqual = x != y; // true
+let isGreaterThan = x > y; // false
+let isLessThan = x < y; // true
+let isGreaterOrEqual = x >= y; // false
+let isLessOrEqual = x <= y; // true
+console.log(
+	isEqual,
+	isStrictEqual,
+	isNotEqual,
+	isGreaterThan,
+	isLessThan,
+	isGreaterOrEqual,
+	isLessOrEqual,
+);
+```
+3. Agregamos un _Logical Operator_:
+```js
+// Logical Operator
+let isTrue = true;
+let isFalse = false;
+
+let andResult = isTrue && isFalse; // false
+let orResult = isTrue || isFalse; // true
+let notResult = !isTrue; // false
+console.log(andResult, orResult, notResult);
+```
+4. Agregamos _Assignment Operator_:
+```js
+// Asignment Operator
+let num = 5;
+num += 3; // 5 + 3 = 8
+num -= 2; // 8 - 2 = 6
+num *= 4; // 6 * 4 =24
+num /= 3; // 24/ 3 = 8
+num %= 5; // 8 % 5 = 3
+console.log(num);
+```
+5. Agregamos un _Ternary Operator_:
+```js
+// Ternary Operator
+let age = 20;
+let message = age >= 18 ? "Adult" : "Minor";
+console.log(message);
+```
+
+### 16. Conditional statements
+
+1. Empezamos creando el archivo **`016_conditionalStatements.ts`**.
+2. Añadimo el condicional _if_:
+```js
+// If Statement
+let myAgeNow = 15;
+if (myAgeNow >= 18) {
+	console.log("You are an adult");
+}
+```
+3. Agrego un _Else If Statement_:
+```js
+// Else if Statement
+let num = 0;
+if (num > 0) {
+	console.log("This is positive Number");
+} else if (num < 0) {
+	console.log("This is negative Number");
+} else {
+	console.log("This is zero");
+}
+```
+
+### 17. Switch Statements
+
+1. Empezamos creando el archivo **`017_switchStatetement.ts`**.
+2. Ingresamos este código:
+```js
+let today = new Date().getDay(); // Get the current day of the week (0-6)
+let dayName;
+
+switch (today) {
+  case 0:
+    dayName = "Sunday";
+    console.log("It's Sunday, time to relax!");
+    break;
+  case 1:
+    dayName = "Monday";
+    console.log("Happy Monday! Start of the work week.");
+    break;
+  case 2:
+    dayName = "Tuesday";
+    console.log("It's Tuesday. You got this!");
+    break;
+  case 3:
+    dayName = "Wednesday";
+    console.log("Hump day already!");
+    break;
+  case 4:
+    dayName = "Thursday";
+    console.log("Just one more day 'til the weekend!");
+    break;
+  case 5:
+    dayName = "Friday";
+    console.log("Happy Friday! The weekend is here!");
+    break;
+  case 6:
+    dayName = "Saturday";
+    console.log("Have a wonderful Saturday!");
+    break;
+  default:
+    dayName = "Unknown Day";
+    console.log("Something went wrong, unable to determine the day.");
+}
+
+console.log("Today is " + dayName + ".");
+```
+
+
+
