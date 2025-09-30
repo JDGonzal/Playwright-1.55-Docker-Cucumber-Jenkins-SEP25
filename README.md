@@ -2,7 +2,7 @@
 
 ## Playwright-1.55-Docker-Cucumber-Jenkins-SEP25
 
-[![Curso reciente ](images/2025-09-16_094059.png "Master `Playwright` V1.55+ Docker, Cucumber, Jenkins -SEP'25")](https://www.udemy.com/course/master-`Playwright`-docker-cucumber-jenkins)
+[![Curso reciente ](images/2025-09-16_094059.png "Master Playwright V1.55+ Docker, Cucumber, Jenkins -SEP'25")](https://www.udemy.com/course/master-Playwright-docker-cucumber-jenkins)
 
 >[!IMPORTANT]
 >
@@ -554,5 +554,83 @@
 >
 >Así que este es el TypeScript y las ventajas de utilizar TypeScript sobre JavaScript.
 >
+
+
+### 12. Prerequisite needed and Project Creation
+
+1. El primer requisito es un IDE y se sugiere usar [`Visual Studio Code`](https://code.visualstudio.com/download)
+2. El segundo es el Node.js, que tiene dos opciones:
+    * Descargar de este sitio [`Node.js®`](https://nodejs.org/en/download) el instalador, </br> o
+    * Instalar con con [`nvm Windows`](https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe), o [`nvm MAC`](https://formulae.brew.sh/formula/nvm)</br> siguiendo las instrucciones de [Instalar múltiples versiones de Node.js](https://rafaelneto.dev/blog/instalar-multiples-versiones-nodejs-windows/).
+
+Prefiero la segunda opción.
+
+3. Verificamos que versión tenemos de `Node.js` con este comando en una `TERMINAL` de `Visual Studio Code`: </br> `node - v` </br> En mi caso la respuesta es: </br> `v22.18.0`
+4. También verificamos el `npm` que versión tiene, con el comando: </br> `npm -v` </br> Y la respuesta es: </br> `10.9.3`
+5. Prefiero utilizar el [`pnpm`](https://pnpm.io/installation) o el [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable). </br> Del primero ejecuto este comando: </br> `pnpm -v` </br> Y obtengo esta respuesta: </br> `10.17.1` </br> Esto en el MACBook Pro.
+6. Hacemos una instalación global de `Typescript`, ejecutando en una `TERMINAL` el comando: </br> `npm i -g typescript` </br> Esta sería la respuesta: `added 1 package`
+7. Otra dependencia a ejecutar en una `TERMINAL` sería: </br> `npm install -g ts-node` </br> Y esta es la respuesta: `added 20 packages`
+8. Podemos inicializar el ambiente para `Typescript` con este comando en una `TERMINAL`: </br> `tsc --init` </br> y la respuesta es: </br> `Created a new tsconfig.json` </br> `You can learn more at https://aka.ms/tsconfig`
+9. Este es el archivo **`tsconfig.json`**:
+```json
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    // "rootDir": "./src",
+    // "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    "module": "nodenext",
+    "target": "esnext",
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+  }
+}
+```
+10. La primera parte del archivo **`tsconfig.json`**, es `"compilerOptions":`, la primera es `"target"`, en mi caso aparece `"esnext"` y al instructor `"es2016"`.
+11. El `"module":` en mi caso aparece `"nodenext"`, al instructor le aparece `"commonjs"`.
+12. **"target":** </br> Así que aquí el primero son los objetivos. </br> Aquí se especifica la versión de script a la que se debe transpilar el código TypeScript. </br> En este caso, se ha configurado para ES 2006, lo que significa que el código JavaScript generado será compatible con la versión Ecmascript 2016, que básicamente no es otra cosa que Es7.
+13. **"module":** </br> El siguiente es el módulo. </br> Define el sistema de módulos que se utilizará al generar los módulos JavaScript. </br> Y aquí el módulo al que se refiere es Commonjs, que es una opción popular para el entorno NodeJS.
+14. **"esModuleInterop":** </br> Cuando este valor está establecido en true, esta opción habilita el modo de compatibilidad para trabajar con módulos ES. </br>Simplifica la interoperabilidad entre el código TypeScript y JavaScript.</br> Se lo agregué que no lo tenía en las opciones.
+15. **"forceConsistentCasingInFileNames":** </br> La siguiente es para la coherencia entre mayúsculas y minúsculas en los nombres de archivo. </br> Cuando este valor se establece en true, TypeScript impone el uso coherente de las mayúsculas y minúsculas en los nombres de archivo. </br> Esto significa que el nombre de un archivo debe coincidir exactamente con las mayúsculas y minúsculas, lo que puede ayudar a evitar problemas en los sistemas de archivos que distinguen entre mayúsculas y minúsculas. </br> Otro opción agregada.
+16. **"strict":** </br> El siguiente es estricto. </br> Estricto cuando el valor se establece como verdadero. </br> Activa la comprobación estricta de tipos y reglas adicionales relacionadas con tipos en TypeScript. </br> Es una configuración recomendada para escribir código robusto y mantenible.
+17. **"skipLibCheck":** </br>Y la última es saltarse la comprobación de lib. </br> Cuando este valor se establece en true, se salta la comprobación de tipo de los archivos de declaración, como los archivos que tenemos con extensión **`.tsx`** o  **`.ts`**.
+18. Esto puede mejorar el rendimiento de la compilación, pero también puede suprimir posibles errores de tipo en el archivo de declaración.
+19. Creamos el archivo **`012_helloWorld.ts`** con solo esta línea: </br> `console.log("Hello World");`
+20. Para ejecutarlo en una `TERMINAL` este comando: </br> `tsc ./012_helloWorld` </br> Y el la respuesta del proceso es que aparece el archivo **`012_helloWorld.js`**.
+21. Ahora bien ya podemos ejectar con este comando en la `TERMINAL`: </br> `node ./012_helloWorld` </br> Y nos aparece el la respuesta esperada: </br> `Hello World`
+22. En este punto nos sugieren instalar en `Visual Studio Code`, la extensión [<img title="Code Runner" alt="Code Runner" src="https://formulahendry.gallerycdn.vsassets.io/extensions/formulahendry/code-runner/0.12.2/1712309175692/Microsoft.VisualStudio.Services.Icons.Default" style="top:0.5px;visibility:visible" width="48px"> `Code Runner`](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) de [Jun Han](https://marketplace.visualstudio.com/publishers/formulahendry).
+23. Estando con el archivo abierto de **`012_helloWorld.ts`**, se presiona el triángulo en la parte superior ⏯️ o dando clic derecho sobre el archivo para la opción de `Run Code`, nos parece la respuesta abajo en `OUTPUT`.
 
 
