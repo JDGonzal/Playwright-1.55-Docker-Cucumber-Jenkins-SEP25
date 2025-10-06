@@ -840,5 +840,305 @@ switch (today) {
 console.log("Today is " + dayName + ".");
 ```
 
+## Section 3: Typescript Advanced
+
+### 18. Loops
+
+1. Paso todos los archivos a la carpeta **"02_Typescript_Basics"**.
+2. Creo la carpeta **"03_Typescript_Advanced"** y dentro pondremos todos los archivos de esta sección
+3. Empezamos creando el archivo **`018_loops.ts`**.
+4. Añadimos el ciclo _For Loop_:
+```js
+// For Loop
+for (let i = 0; i < 5; i++) {
+	console.log(i);
+}
+```
+5. Agrego el _While Loop_:
+```js
+// While Loop
+let count = 0;
+while (count < 5) {
+	console.log(count);
+	count++;
+}
+```
+6. Ponemos otro _Do While Loop_:
+```js
+// Do While Loop
+let num = 0;
+do {
+	console.log(num);
+	num++;
+} while (num < 5);
+```
+7. Un _For Loop and break_:
+```js
+// For Loop and break
+for (let i = 0; i < 10; i++) {
+	if (i === 5) {
+		break;
+	}
+	console.log(i);
+}
+```
+
+### 19. Arrays
+
+1. Empezamos creando el archivo **`03_Typescript_Advanced/019_arrays.ts`**.
+2. Creamos un _Array Literal_:
+```js
+// Array Literal
+const fruits: string[] = ["Apple", "Banana", "Orange"];
+console.log(fruits); // Output: ["Apple", "Banana", "Orange"]
+```
+3. Añadimos otrro _Array Constructor_:
+```js
+// Array Constructor 1
+const numbers: Array<number> = new Array(1, 2, 3, 4, 5);
+console.log(numbers); // Output: [1, 2, 3, 4, 5]
+
+// Array Constructor 2
+const numbers2: number[] = new Array(1, 2, 3, 4, 5);
+console.log(numbers2); // Output: [1, 2, 3, 4, 5]
+```
+4. Vamos por un _Inizialize an empty Array
+```js
+// Initializate an empty array
+const emptyArray: string[] = [];
+console.log(emptyArray); // Output: []
+```
+5. Accediendo a los elementos del arreglo:
+```js
+// Accessing array elements
+console.log(fruits[0]); // Output: Apple
+console.log(numbers[2]); // Output: 3
+```
+6. Adicionando elementos al arreglo:
+```js
+// Adding elements to an array
+fruits.push("Mango");
+console.log(fruits); // Output: ["Apple", "Banana", "Orange", "Mango"]
+```
+7. Borrando elementos de un arreglo:
+```js
+// Removing elements from an array
+let lastFruit = fruits.pop();
+console.log(lastFruit); // Output: Mango
+console.log(fruits); // Output: ["Apple", "Banana", "Orange"]
+```
+8. Removiendo el primer elemento del arreglo:
+```js
+// Removing the first element from an array
+let firstFruit = fruits.shift();
+console.log(firstFruit); // Output: Apple
+console.log(fruits); // Output: ["Banana", "Orange"]
+```
+9. Adicionando el primer elemento de un arreglo:
+```js
+// Adding elements to the beginning of an array
+fruits.unshift("Strawberry");
+console.log(fruits); // Output: ["Strawberry", "Banana", "Orange"]
+```
+10. Retorna una copia de una parte del arreglo:
+```js
+// Returns a copy of a section of an array. 
+let citrus = fruits.slice(1, 3);
+console.log(citrus); // Output: ["Banana", "Orange"]
+```
+11. Con _map()_ creamos la copia del arreglo pero afectando cada elemento de este:
+```js
+// map() method creates a new array populated with the results of calling a provided function on every element in the calling array.
+let upperFruits = fruits.map(fruit => fruit.toUpperCase());
+console.log(upperFruits); // Output: ["STRAWBERRY", "BANANA", "ORANGE"]
+```
+12. Con _filter()_ Se crea un nuevo arreglo con condiciones:
+```js
+// filter() method creates a new array with all elements that pass the test implemented by the provided function.
+let longNamedFruits = fruits.filter(fruit => fruit.length > 5);
+console.log(longNamedFruits); // Output: ["Strawberry", "Banana", "Orange"]
+```
+13. Un Arreglo de solo lectura:
+```js
+// Readonly arrays
+const readOnlyFruits: ReadonlyArray<string> = ["Apple", "Banana", "Orange"];
+console.log(readOnlyFruits); // Output: ["Apple", "Banana", "Orange"]
+// readOnlyFruits.push("Mango"); // Error: Property 'push' does not exist on type 'readonly string[]'.
+```
+
+### 20. Tuples
+
+1. Empezamos creando el archivo **`03_Typescript_Advanced/020_tuples.ts`**
+2. Hacemos una definición y una inicialización:
+```js
+// Tuple type definition
+let person: [string, number, boolean];
+
+// Initializing a tuple
+person = ["Alice", 30, true];
+```
+3. Mostramos los elementos:
+```js
+// Accessing tuple elements
+console.log(person[0]); // Output: Alice
+console.log(person[1]); // Output: 30
+console.log(person[2]); // Output: true
+```
+4. Modificamos un elemento de la _Tuple_:
+```js
+// Modifying tuple elements
+person[1] = 31; // Update age
+console.log(person); // Output: ["Alice", 31, true]
+```
+5. Un _Tuple_ con elementos opcionales:
+```js
+// Tuple with optional elements
+let employee: [string, number, string?];
+employee = ["Bob", 101];
+console.log(employee); // Output: ["Bob", 101]
+```
+6. Diferencias entre _Tuple_ y _Array_:
+    * La primera diferencia clave es la coherencia tipográfica. </br>Las tuplas tienen una longitud fija y cada elemento tiene un tipo específico, por lo que imponen una estructura coherente. </br> Mientras que en las matrices, las matrices pueden tener una longitud variable y básicamente almacenan los elementos del mismo tipo,pero también pueden almacenar en el tipo mixto.
+    * La siguiente es la seguridad de los tipos. </br>Las tuplas proporcionan una fuerte seguridad de tipos ya que TypeScript comprueba los tipos de los elementos en tiempo de compilación, mientras que las matrices son menos estrictas en términos de seguridad de tipos ya que permitirán tipos mixtos y el cese dinámico del siguiente.
+    * Inmutabilidad. </br>Las tuplas son inmutables en cuanto a su longitud y elementos. </br>tipos después de la declaración, lo que significa que una vez que declaramos un tipo en a en una tupla, no nos permitirá cambiar después de eso. </br>Mientras que en las matrices. Las matrices son mutables, por lo que se pueden redimensionar y modificar libremente. </br>Lo que significa que aunque declaremos un array más adelante en el código, nos permitirá incluso cambiar los </br> valores dentro del array, o incluso borrar un array entero, algo así, pero que no es posible en tuple.
+    * Y la última es Casos prácticos.</br> Las tuplas se utilizan a menudo cuando se trata de datos que tienen una estructura fija específica, como la representación de coordenadas o pares de valores relacionados o tipos de retorno de funciones. </br> Mientras que las matrices son más versátiles y se utilizan para colecciones de datos en las que los elementos pueden variar </br>en tipo y número en el resumen.
+    * Las tuplas en TypeScript son una poderosa característica para trabajar con datos estructurados, proporcionando tipo, seguridad y longitud fija, mientras que las matrices no tienen tanta seguridad de tipo, pero nos permitirá jugar libremente con ellas, como cambiar los valores y todo eso.
+
+
+### 21. Objects
+
+1. Empezamos creando el archivo **`03_Typescript_Advanced/021_objects.ts`**.
+2. Definición simple de un objeto:
+```js
+const person= 
+{
+	name: "Maximilian",
+	age: 30,
+	hobbies: ["Sports", "Cooking"],
+	role: [2, "author"],
+};
+
+console.log(person);
+```
+3. Definicón del Objeto de forma mas apropiada:
+```js
+const person2: {
+	name: string;
+	age: number;
+	hobbies: string[];
+	role: [number, string];
+} = {
+	name: "Manu",
+	age: 30,
+	hobbies: ["Sports", "Cooking"],
+	role: [2, "author"],
+};
+
+console.log(person2);
+```
+4. Mezclar objetos:
+```js
+const contactInfo: {
+	email: string;
+	phone: number;
+} = {
+	email: "kljslak@mail.com",
+	phone: 1234567890,
+};
+
+console.log(contactInfo);
+
+// Merged Object
+const mergedPerson = { ...person, ...contactInfo };
+console.log("merged:", mergedPerson);
+```
+5. Definición de _Type_ y de _Alias_:
+```js
+// Type Aliases
+type Person = {
+	name: string;
+	age: number;
+	hobbies: string[];
+	role: [number, string];
+};
+
+const person3: Person = {
+	name: "Anna",
+	age: 25,
+	hobbies: ["Dancing", "Singing"],
+	role: [1, "admin"],
+};
+
+console.log(person3);
+```
+
+
+### 22. Functions
+
+1. Empezamos con el archivo **`022_function.ts`**.
+2. Estas funciones básicas:
+```js
+function hi() {
+	console.log("Hello, I'm a function");
+}
+
+hi();
+
+function calculateTotal(price: number, quantity: number): number {
+	return price * quantity;
+}
+console.log(calculateTotal(5, 3));
+
+function greet(name:string, greetMessage:string='Hi'):string{
+  return (`${greetMessage} ${name}`);
+}
+console.log(greet('Juan'));
+console.log(greet('Juan', 'Good morning'));
+```
+3. Estas funciones tipo _arrow_ o flecha:
+```js
+// Arrow Functions
+const multiply = (f1: number, f2: number): number => {
+	return f1 * f2;
+};
+console.log(multiply(6, 18));
+```
+4. Creo un _type_ para asignarselo a una _const_ y usarla como una función:
+```js
+type MathOperation = (a: number, b: number) => number;
+const add: MathOperation = (n1, n2) =>{ return(n1 + n2)};
+console.log(add (6,7));
+```
+
+### 23. Scope
+
+1. Empezamos con el archivo **`023_scope.ts`**.
+2. Esto sería una variable o constante de uso global:
+```js
+// Global Scope
+const globalVar = 10;
+
+function anyName() {
+	console.log(globalVar);
+}
+anyName();
+```
+3. Esto una de uso local:
+```js
+// Local Scope
+function another() {
+	const localVar = 20;
+	console.log(localVar);
+}
+another();
+```
+4. El alcance solo en un bloque de código:
+```js
+// Block Scope
+if (true) {
+	const blockVar = 30;
+	console.log(blockVar);
+}
+```
 
 
