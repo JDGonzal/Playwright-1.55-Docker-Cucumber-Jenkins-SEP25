@@ -1142,3 +1142,21 @@ if (true) {
 ```
 
 
+
+## Section 4: Playwright Installation and Project Setup
+
+
+### 24. Prerequisites Needed before Installing Playwright
+
+1. El primer requisito es un IDE y se sugiere usar [`Visual Studio Code`](https://code.visualstudio.com/download)
+2. El segundo es el Node.js, que tiene dos opciones:
+    * Descargar de este sitio [`Node.js®`](https://nodejs.org/en/download) el instalador, </br> o
+    * Instalar con con [`nvm Windows`](https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe), o [`nvm MAC`](https://formulae.brew.sh/formula/nvm)</br> siguiendo las instrucciones de [Instalar múltiples versiones de Node.js](https://rafaelneto.dev/blog/instalar-multiples-versiones-nodejs-windows/).
+
+Prefiero la segunda opción.
+
+3. Verificamos que versión tenemos de `Node.js` con este comando en una `TERMINAL` de `Visual Studio Code`: </br> `node - v` </br> En mi caso la respuesta es: </br> `v22.18.0`
+4. También verificamos el `npm` que versión tiene, con el comando: </br> `npm -v` </br> Y la respuesta es: </br> `10.9.3`
+5. Prefiero utilizar el [`pnpm`](https://pnpm.io/installation) o el [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable). </br> Del primero ejecuto este comando: </br> `pnpm -v` </br> Y obtengo esta respuesta: </br> `10.17.1` </br> Esto en el MACBook Pro.
+
+
