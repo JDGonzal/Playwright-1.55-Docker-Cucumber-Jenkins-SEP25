@@ -1157,6 +1157,299 @@ Prefiero la segunda opción.
 
 3. Verificamos que versión tenemos de `Node.js` con este comando en una `TERMINAL` de `Visual Studio Code`: </br> `node - v` </br> En mi caso la respuesta es: </br> `v22.18.0`
 4. También verificamos el `npm` que versión tiene, con el comando: </br> `npm -v` </br> Y la respuesta es: </br> `10.9.3`
-5. Prefiero utilizar el [`pnpm`](https://pnpm.io/installation) o el [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable). </br> Del primero ejecuto este comando: </br> `pnpm -v` </br> Y obtengo esta respuesta: </br> `10.17.1` </br> Esto en el MACBook Pro.
+5. Prefiero utilizar el [`pnpm`](https://pnpm.io/installation) o el [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable). </br> Del primero ejecuto este comando: </br> `pnpm -v` </br> Y obtengo esta respuesta: </br> `10.17.1` </br> Esto en el MACBook Pro. </br> El segundo ejecuto esto: </br> `yarn -v` </br> Y la respuesta es: </br> `1.22.22` </br> En Octubre de 2025.
 
+
+### 25. Important Note: Playwright Version Update
+
+>[!NOTE]
+>
+>**Important Note: Playwright Version Update**
+>
+>In the upcoming video, we will be installing Playwright Version `1.51.0`
+>
+>But the current month's latest Playwright version is `1.55`
+>
+>Do not worry. All the videos in the course work with the latest Playwright Version `1.55`
+>
+>HAPPY LEARNING !!!
+
+
+### 26. Installation of Playwright - Way 1
+
+1. Basado en este sitio [**Installing Playwright**](https://playwright.dev/docs/intro#installing-playwright), lo voy a hacer con `yarn`, en una `TERMINAL` de `Visual Studio Code`: </br> `yarn create playwright`.
+2. El Empieza diferente al Instructor a el le sale: </br> `Do you want to use TypeScript or Javascript` </br> El de `yard` empieza con: </br> `Where to put your end-to-end tests?` </br> Para responder el valor por defecto: `test`.
+3. En la siguiente opción: </br> `Add a GitHub Actions workflow?` </br> Lo dejo en el por defecto: `true`.
+4. La tercera pregunta: </br> `Install Playwright browsers (can be done manually via 'yarn playwright install')?` </br> La dejo por defecto: `true`.
+5. Este es el proceso generado:
+```dos
+Initializing Yarn project (yarn init -y)…
+yarn init v1.22.22
+warning The yes flag has been set. This will automatically answer yes to all questions, which may have security implications.
+success Saved package.json
+✨  Done in 0.07s.
+Installing Playwright Test (yarn add --dev @playwright/test)…
+yarn add v1.22.22
+info No lockfile found.
+[1/4] 🔍  Resolving packages...
+[2/4] 🚚  Fetching packages...
+[3/4] 🔗  Linking dependencies...
+[4/4] 🔨  Building fresh packages...
+success Saved lockfile.
+success Saved 4 new dependencies.
+info Direct dependencies
+└─ @playwright/test@1.56.0
+info All dependencies
+├─ @playwright/test@1.56.0
+├─ fsevents@2.3.2
+├─ playwright-core@1.56.0
+└─ playwright@1.56.0
+✨  Done in 4.81s.
+Installing Types (yarn add --dev @types/node)…
+yarn add v1.22.22
+[1/4] 🔍  Resolving packages...
+[2/4] 🚚  Fetching packages...
+[3/4] 🔗  Linking dependencies...
+[4/4] 🔨  Building fresh packages...
+success Saved lockfile.
+success Saved 2 new dependencies.
+info Direct dependencies
+└─ @types/node@24.7.0
+info All dependencies
+├─ @types/node@24.7.0
+└─ undici-types@7.14.0
+✨  Done in 2.50s.
+Writing playwright.config.ts.
+Writing .github/workflows/playwright.yml.
+Writing tests/example.spec.ts.
+Writing package.json.
+Downloading browsers (yarn playwright install)…
+yarn run v1.22.22
+$ $HOME/Development/tutorials/nodejs/Playwright-1.55-Docker-Cucumber-Jenkins-SEP25/node_modules/.bin/playwright install
+Downloading Chromium 141.0.7390.37 (playwright build v1194) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1194/chromium-mac-arm64.zip
+129.7 MiB [====================] 100% 0.0s
+Chromium 141.0.7390.37 (playwright build v1194) downloaded to $HOME/Library/Caches/ms-playwright/chromium-1194
+Downloading Chromium Headless Shell 141.0.7390.37 (playwright build v1194) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1194/chromium-headless-shell-mac-arm64.zip
+81.7 MiB [====================] 100% 0.0s
+Chromium Headless Shell 141.0.7390.37 (playwright build v1194) downloaded to $HOME/Library/Caches/ms-playwright/chromium_headless_shell-1194
+Downloading Firefox 142.0.1 (playwright build v1495) from https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1495/firefox-mac-arm64.zip
+89.9 MiB [====================] 100% 0.0s
+Firefox 142.0.1 (playwright build v1495) downloaded to $HOME/Library/Caches/ms-playwright/firefox-1495
+Downloading Webkit 26.0 (playwright build v2215) from https://cdn.playwright.dev/dbazure/download/playwright/builds/webkit/2215/webkit-mac-15-arm64.zip
+70.8 MiB [====================] 100% 0.0s
+Webkit 26.0 (playwright build v2215) downloaded to $HOME/Library/Caches/ms-playwright/webkit-2215
+Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-mac-arm64.zip
+1 MiB [====================] 100% 0.0s
+FFMPEG playwright build v1011 downloaded to $HOME/Library/Caches/ms-playwright/ffmpeg-1011
+✨  Done in 51.69s.
+✔ Success! Created a Playwright Test project at $HOME/Development/tutorials/nodejs/Playwright-1.55-Docker-Cucumber-Jenkins-SEP25
+
+Inside that directory, you can run several commands:
+
+  yarn playwright test
+    Runs the end-to-end tests.
+
+  yarn playwright test --ui
+    Starts the interactive UI mode.
+
+  yarn playwright test --project=chromium
+    Runs the tests only on Desktop Chrome.
+
+  yarn playwright test example
+    Runs the tests in a specific file.
+
+  yarn playwright test --debug
+    Runs the tests in debug mode.
+
+  yarn playwright codegen
+    Auto generate tests with Codegen.
+
+We suggest that you begin by typing:
+
+    yarn playwright test
+
+And check out the following files:
+  - ./tests/example.spec.ts - Example end-to-end test
+  - ./playwright.config.ts - Playwright Test configuration
+
+Visit https://playwright.dev/docs/intro for more information. ✨
+
+Happy hacking! 🎭
+✨  Done in 15569.57s.
+```
+6. Obtengo el archivo **`package.json`**, con esta información:
+```json
+{
+  "name": "Playwright-1.55-Docker-Cucumber-Jenkins-SEP25",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/JDGonzal/Playwright-1.55-Docker-Cucumber-Jenkins-SEP25.git",
+  "author": "Juan David Gonzalez Piza <jdgonzal2@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.7.0"
+  },
+  "scripts": {}
+}
+```
+7. El único cambio a realizar es quitar lo _carets_ o este símbolo `^` de las dependencias.
+8. Debo de agregar el campo `"type":` con el valor de `"module"`.
+9. Adicional tengo la carpeta **"tests"**, con el archivo **`tests/example.spec.ts`** y este contenido:
+```js
+import { test, expect } from '@playwright/test';
+
+test('has title', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle(/Playwright/);
+});
+
+test('get started link', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+
+  // Click the get started link.
+  await page.getByRole('link', { name: 'Get started' }).click();
+
+  // Expects page to have a heading with the name of Installation.
+  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+});
+```
+10. Otro archivo nuevo es **`.github/workflows/playwright.yml`**, con este código:
+```yml
+name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm install -g yarn && yarn
+    - name: Install Playwright Browsers
+      run: yarn playwright install --with-deps
+    - name: Run Playwright tests
+      run: yarn playwright test
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
+```
+11. Otro archivo es **`playwright.config.ts`**, con esta información:
+```js
+import { defineConfig, devices } from '@playwright/test';
+
+/**
+ * Read environment variables from file.
+ * https://github.com/motdotla/dotenv
+ */
+// import dotenv from 'dotenv';
+// import path from 'path';
+// dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+/**
+ * See https://playwright.dev/docs/test-configuration.
+ */
+export default defineConfig({
+  testDir: './tests',
+  /* Run tests in files in parallel */
+  fullyParallel: true,
+  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  forbidOnly: !!process.env.CI,
+  /* Retry on CI only */
+  retries: process.env.CI ? 2 : 0,
+  /* Opt out of parallel tests on CI. */
+  ...(process.env.CI ? { workers: 1 } : {}),
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  reporter: 'html',
+  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  use: {
+    /* Base URL to use in actions like `await page.goto('')`. */
+    // baseURL: 'http://localhost:3000',
+
+    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    trace: 'on-first-retry',
+  },
+
+  /* Configure projects for major browsers */
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+
+    /* Test against mobile viewports. */
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    // },
+
+    /* Test against branded browsers. */
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    // },
+  ],
+
+  /* Run your local dev server before starting the tests */
+  // webServer: {
+  //   command: 'npm run start',
+  //   url: 'http://localhost:3000',
+  //   reuseExistingServer: !process.env.CI,
+  // },
+});
+```
+12. Adicional debo hacer unas correcciones en el archivo **`tsconfig.json`**:
+```js
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    ...
+    "module": "nodenext",
+    "target": "esnext",
+    "types": ["node"],
+
+    ...
+  }
+}
+```
+13. Ejecutamos este comando en la `TERMINAL`, para verificar que todo este funcionando correctamente: </br> `npx playwright test` </br> y nos muestra esto:
+```dos
+Running 6 tests using 6 workers
+  6 passed (13.1s)
+
+To open last HTML report run:
+
+  npx playwright show-report
+```
+14. Ejecutamos el comando que nos sugiere: </br> `npx playwright show-report`</br> Y nos parece una pantalla en el _browser_ como esta: </br> ![.]( "")
 
