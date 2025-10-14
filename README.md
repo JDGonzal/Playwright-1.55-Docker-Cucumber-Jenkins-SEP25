@@ -1451,5 +1451,30 @@ To open last HTML report run:
 
   npx playwright show-report
 ```
-14. Ejecutamos el comando que nos sugiere: </br> `npx playwright show-report`</br> Y nos parece una pantalla en el _browser_ como esta: </br> ![.]( "")
+14. Ejecutamos el comando que nos sugiere: </br> `npx playwright show-report`</br> Y nos parece una pantalla en el _browser_ como esta: </br> ![First report -> localhost:9323](images/2025-10-08_171947.png "First report -> localhost:9323")
+
+
+
+
+
+>[!NOTE]
+>
+>Hubo un proceso que se corrió en el repositorio de `Github`.
+>
+>Validación de un test de `Playwright`, arrojando este resultado: </br> [![Test #1 en GitHub](images/2025-10-08_180136.png "Abrir archivo de `.pdf` del Test #1 en GitHub")](images/2025-10-08_175435.pdf)
+>
+
+
+
+
+
+### 27. Installation of Playwright - Way 2
+
+
+1. En esta opción usaremos una extensión de `Visual Studio Code` de nombre [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) de <img alt="Microsof logo" src="https://ms.gallerycdn.vsassets.io/extensions/ms/12550355" style="width:20;height:20;"> [Microsoft](https://marketplace.visualstudio.com/publishers/Microsoft)
+2. Presionas las teclas [`Shift`]+[`Ctrl`]+[`P`] o en _MAC_ serían [`Shift`]+[`Command`]+[`P`], y escribe: </br> `Test: Install Play`y escoje el primero.
+3. Nos pregunta como lo vamos a ejecutar, y dejamos los valores por defecto: </br> ![Install Playwright con _Extensions_](images/2025-10-14_105107.png "Install Playwright con _Extensions_")
+4. Hace un proceso similar al anterior [26. Installation of Playwright - Way 1](#26-installation-of-playwright---way-1), desde el paso 5, pero utilizando por defecto `npm`, en vez de uno seleccionado por el usuario como `pnpm` o `yarn`.
+5. Se hacen los ajustes necesarios antes de que en una `TERMINAL`, se ejecute ese comando: </br> `npx playwright test` </br>
+
 
