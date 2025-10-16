@@ -1478,3 +1478,30 @@ To open last HTML report run:
 5. Se hacen los ajustes necesarios antes de que en una `TERMINAL`, se ejecute ese comando: </br> `npx playwright test` </br>
 
 
+### 28. How to write a Sample test in Playwright
+
+1. Empezamos borrando el archivo **`tests/example.spec.ts`**.
+2. Luego borramos la carpeta **"test-examples"**, si existe.
+3. Creamos el archivo **`tests/028_firstTest.spec.ts`**.
+4. Empezamos con la importación de `{ test, expect }` de `"@playwright/test"`.
+5. Llamamos la función `test()`, con los siguiente parámetros:
+```js
+test("My first Playwright test", async ({ page }) => {
+	await page.goto("https://playwright.dev/");
+	const title = page.locator(".navbar__inner .navbar__title");
+	await expect(title).toHaveText("Playwright");
+});
+```
+6. Lo puedo ejecutar del <span style="color:green">triángulo verde</span> que aparece en la izquierda del código o en una `TERMINAL` ejecutando el comando: </br> `npx playwright test`
+7. Al archivo **`playwright.config.ts`**, le anexo estos cambios, justo encima de `trace: 'on-first-retry'`:
+```js
+    headless: true,
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    viewport: { width: 1280, height: 720 },
+    trace: 'on-first-retry',    
+```
+
+
+
+
