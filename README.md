@@ -152,48 +152,48 @@
 >
 >Veamos ahora cuáles son las principales características que ofrece el `Playwright`.
 >
-> * **La característica clave más importante es la compatibilidad entre navegadores**. </br>
+> * **La característica clave más importante es la compatibilidad entre navegadores**. <br/>
 >`Playwright` es compatible con todos los motores de renderizado modernos, incluidos chromium, WebKit y Firefox.
 >Por lo tanto, si escribe su prueba una vez en `Playwright` test, puede ejecutar estas pruebas en todos los navegadores
 >que desee.
 >
-> * **La segunda característica clave importante es la prueba multiplataforma en windows, Linux y macOS de forma local o en headless o header.** </br>
+> * **La segunda característica clave importante es la prueba multiplataforma en windows, Linux y macOS de forma local o en headless o header.** <br/>
 >Lo que significa que `Playwright` es compatible para trabajar con cualquier sistema operativo y se ejecutará incluso en local
 >o incluso en cualquiera como Jenkins o Circleci, tanto en modo headless como headed.
 >
-> * **La siguiente característica es el lenguaje cruzado.**</br>
+> * **La siguiente característica es el lenguaje cruzado.**<br/>
 >Mediante la API de `Playwright`, podemos escribir el script de `Playwright` en TypeScript, JavaScript,
 >Python, DotNet e incluso en Java.
 >
-> * **La siguiente característica importante es probar la emulación móvil nativa de Google Chrome para Android y Safari para móviles.**</br>
+> * **La siguiente característica importante es probar la emulación móvil nativa de Google Chrome para Android y Safari para móviles.**<br/>
 >El mismo motor de renderizado funciona en un ordenador de sobremesa y en la nube.
 >Cuando escribimos nuestra prueba `Playwright`, además de probar en el navegador web, también podemos modificar nuestra prueba para que
 >se ejecute de la misma forma que funciona en los navegadores móviles.
 >
-> * **La siguiente es la automatización fiable.**</br>
+> * **La siguiente es la automatización fiable.**<br/>
 >`Playwright` gestiona los fallos del navegador, garantizando una automatización estable y coherente.
 >La siguiente función es la depuración mejorada.
 >
-> * **Depure fácilmente el código de automatización con herramientas detalladas de inspección y mensajes de error**. </br>
+> * **Depure fácilmente el código de automatización con herramientas detalladas de inspección y mensajes de error**. <br/>
 >Siempre que se produzca un fallo en nuestra prueba de `Playwright`, `Playwright` le dará un mensaje de error detallado
 >e incluso le indicará dónde se produce el error, junto con las herramientas de inspección.
-></br></br>
+><br/><br/>
 >
 >La siguiente característica clave es la automatización.
 >Esta es una de las características más importantes del `Playwright`.
 >
 >![.](images/2025-09-22_180710.png "")
 >
-> * **El `Playwright` espera a que los elementos sean accionables antes de realizar las acciones.**</br>
+> * **El `Playwright` espera a que los elementos sean accionables antes de realizar las acciones.**<br/>
 >También cuenta con un rico conjunto de eventos de introspección.
 >La combinación de ambos elimina la necesidad de tiempos de espera artificiales, que es la causa principal de las pruebas
 >defectuosas.
 >Cuando trabaje con `Playwright`, ya no tendrá que mencionar el tiempo de espera manualmente.
 >Playwright lo hace automáticamente por nosotros.
 >
-> * **La siguiente característica clave son las afirmaciones _web first_.**</br>
+> * **La siguiente característica clave son las afirmaciones _web first_.**<br/>
 >Las aserciones de `Playwright` se crean específicamente para la web dinámica.
->Los cheques se retiran automáticamente hasta que se cumplen las condiciones necesarias.</br>
+>Los cheques se retiran automáticamente hasta que se cumplen las condiciones necesarias.<br/>
 >Playwright incorpora aserciones especialmente diseñadas para la automatización web.
 >
 > * **La siguiente función es el rastreo**.
@@ -222,21 +222,21 @@
 >Usando `Playwright`, podemos crear eventos de confianza para el navegador, que se asegurará de cómo el usuario en tiempo
 >real lo utiliza.
 >
-> * **El siguiente es Frames y _Shadow-DOM_**.</br>
+> * **El siguiente es Frames y _Shadow-DOM_**.<br/>
 >El `Playwright` nos selecciona.
 >Perfora el domo de sombra y permite entrar en los marcos sin problemas.
 >Esta es una de las características clave de `Playwright` que no ofrecen otras herramientas de automatización.
 >
 >![.](images/2025-09-22_181858.png "")
 >
-> * **Contexto del navegador**. </br>
+> * **Contexto del navegador**. <br/>
 >`Playwright` crea un contexto de navegador para cada prueba.
 >El contexto del navegador equivale a un nuevo perfil de navegador.
 >Así se consigue un aislamiento total de las pruebas sin sobrecarga.
 >Crear un nuevo contexto de navegación sólo lleva un puñado de milisegundos.
 >Cada prueba se ejecutará en un nuevo contexto, lo que significa que una prueba no obstaculizará la ejecución de otras.
 >
-> * **La siguiente característica clave es el inicio de sesión.**</br>
+> * **La siguiente característica clave es el inicio de sesión.**<br/>
 >Una vez, guarda el estado de autenticación de automatización del contexto, y lo reutiliza en todas las pruebas.
 >Así que si tu
 >UI necesita una autenticación, entonces tenemos que guardar que sólo una vez.
@@ -332,40 +332,40 @@
 >Ahora veamos esta tabla una a una para entender las ventajas de `Playwright` frente a `Selenium`
 >y `Cypress`.
 >
-> * La primera ventaja es **la compatibilidad entre procesos**.</br>
+> * La primera ventaja es **la compatibilidad entre procesos**.<br/>
 >`Playwright` por soportes nativos para chromium, Firefox y WebKit, mientras que para `Selenium` requiere una configuración
 >WebDriver separada, y para `Cypress` requiere una configuración WebDriver separada también.
 >
-> * Y en cuanto a **la compatibilidad multilingüe**. </br> `Playwright` admite JavaScript, Python, C-sharp, Java e incluso TypeScript.
+> * Y en cuanto a **la compatibilidad multilingüe**. <br/> `Playwright` admite JavaScript, Python, C-sharp, Java e incluso TypeScript.
 >Mientras que `Selenium` soporta Java, C, sharp, Python, Ruby y JavaScript, mientras que `Cypress` sólo se ejecutará
 >en JavaScript.
 >
-> * La siguiente es **la automatización asíncrona**.</br>
+> * La siguiente es **la automatización asíncrona**.<br/>
 >Ejecución asíncrona para la estabilidad y la sincronización es posible en `Playwright`, mientras que `Selenium`
 >y `Cypress` trabajará en.
 >`Selenium` trabajará en ejecución síncrona y `Cypress` también soportará la ejecución asíncrona.
 >
-> * La siguiente se basa en **las pruebas entre navegadores**.</br>
+> * La siguiente se basa en **las pruebas entre navegadores**.<br/>
 >`Playwright` elimina la configuración WebDriver separada para cada navegador, lo que significa que si escribe la prueba
 >una vez, se puede ejecutar en cualquier navegador sin necesidad de configuración adicional, mientras que para `Selenium` requiere una configuración
 >WebDriver separada, y para `Cypress` también requiere una configuración WebDriver separada.
 >
-> * La siguiente ventaja es el **inicio de la red**.</br>
+> * La siguiente ventaja es el **inicio de la red**.<br/>
 >`Playwright` tiene una potente capacidad de interceptación de red, lo que significa que cuando se está ejecutando la
 >prueba, podemos incluso simular la respuesta de lo que estamos recibiendo del servidor.
 >Mientras que para el `Selenium` hay una interceptación limitada de la red e incluso para `Cypress` hay una interceptación
 >limitada de la red.
 >
-> * La siguiente ventaja son **las herramientas de depuración mejoradas**.</br>
+> * La siguiente ventaja son **las herramientas de depuración mejoradas**.<br/>
 >`Playwright`.
 >Por defecto, fuera de la caja da un mensaje de error detallado y herramientas de inspección cuando hay un
 >fallo, mientras que Selenium y `Cypress` son limitados en términos de capacidades de depuración.
 >
-> * El siguiente es el **rendimiento y la eficiencia**. </br>
+> * El siguiente es el **rendimiento y la eficiencia**. <br/>
 >En comparación con Selenium y `Cypress`, `Playwright` es una herramienta de alto rendimiento y optimizada, mientras
 >que Selenium y `Cypress` son más lentas en comparación con `Playwright`,
 >
-> * y la última parte es **la creciente comunidad y ecosistema**. </br>
+> * y la última parte es **la creciente comunidad y ecosistema**. <br/>
 >`Playwright` es una comunidad en rápido crecimiento y hay múltiples colaboradores en todo el mundo, mientras que
 >`Selenium` es una herramienta muy antigua.
 >Así que hay una comunidad establecida y extensa, y `Cypress` cuenta con una comunidad activa y solidaria.
@@ -422,12 +422,12 @@
 >![What is Typescript](images/2025-09-23_084920.png "What is Typescript")
 >
 > * TypeScript es un superconjunto estadísticamente tipado y de código abierto de JavaScript creado para mejorar el
->lenguaje de programación JavaScript.</br>
+>lenguaje de programación JavaScript.<br/>
 >TypeScript no es más que una envoltura construida sobre JavaScript, que tiene muchas más ventajas en comparación
 >con JavaScript.
 >
 > * TypeScript añade tipado estático opcional, que permite a los desarrolladores especificar los tipos de variables,
->funciones, parámetros y valores de retorno de funciones.</br>
+>funciones, parámetros y valores de retorno de funciones.<br/>
 >Este sistema de tipado ayuda a detectar errores relacionados con el tipo durante el desarrollo, proporcionando mejores herramientas
 >y calidad de código.
 >
@@ -439,11 +439,11 @@
 >![History of Typescript](images/2025-09-23_085705.png "History of Typescript")
 >
 > * TypeScript fue presentado por primera vez por Microsoft en octubre de 2012 por Anders Hesselberg, creador de C-sharp y principal
->arquitecto del proyecto TypeScript.</br>
+>arquitecto del proyecto TypeScript.<br/>
 >Introdúzcalo para hacer frente a las limitaciones de JavaScript para aplicaciones a gran escala.
 >
 > * TypeScript ganó popularidad muy rápidamente debido a su capacidad para ayudar a los desarrolladores a escribir código más robusto
->y mantenible.</br>
+>y mantenible.<br/>
 >Grandes empresas y proyectos como angular adoptaron TypeScript, impulsando aún más su prominencia en la comunidad
 >de desarrollo web.
 >
@@ -458,39 +458,39 @@
 >   * Esto ayuda a detectar los errores relacionados con el tipo durante el tiempo de compilación.
 >
 >![Features of Typescript (Part 2)](images/2025-09-23_090844.png "Features of Typescript (Part 2)")
-> * La siguiente característica es la inferencia de tipos.</br>
+> * La siguiente característica es la inferencia de tipos.<br/>
 >TypeScript a menudo puede inferir tipos sin anotaciones explícitas, reduciendo la necesidad de declaraciones de tipos
 >repetitivas.
 >
-> * Lo siguiente es la interfaz y las clases.</br>
+> * Lo siguiente es la interfaz y las clases.<br/>
 >TypeScript admite conceptos de programación orientada a objetos como clases e interfaces, lo que permite al desarrollador
 >crear un código bien
 >
 >![Features of Typescript (Part 3)](images/2025-09-23_091143.png "Features of Typescript (Part 3)")
 >
-> * La siguiente característica son los genéricos.</br>
+> * La siguiente característica son los genéricos.<br/>
 >TypeScript proporciona soporte para genéricos, permitiendo a las funciones y estructuras de datos trabajar con varios
 >tipos de datos manteniendo la seguridad de tipos.
 >
-> * Y lo siguiente son los tipos de unión e intersección.</br>
+> * Y lo siguiente son los tipos de unión e intersección.<br/>
 >TypeScript admite la unión, que consiste en combinar varios tipos, y la intersección de tipos, que consiste en combinar
->varios tipos en uno.</br>
+>varios tipos en uno.<br/>
 >Lo que quiere decir con esto es que, por ejemplo, si quisiera crear una variable que aceptara un número
 >o una cadena, esto no es posible en otros lenguajes de programación, pero es muy posible en
 >TypeScript.
 >
 >![Features of Typescript (Part 4)](images/2025-09-23_091440.png "Features of Typescript (Part 4)")
 >
-> * Y la siguiente característica es el acceso al ecosistema JavaScript.</br>
+> * Y la siguiente característica es el acceso al ecosistema JavaScript.<br/>
 >TypeScript es compatible con el código JavaScript existente, lo que permite a los desarrolladores adoptar TypeScript de forma
->incremental en sus proyectos.</br>
+>incremental en sus proyectos.<br/>
 >Esta es una de las principales características por las que TypeScript fue un gran éxito, porque todos los proyectos JavaScript existentes
->se pueden convertir en un proyecto TypeScript.</br>
+>se pueden convertir en un proyecto TypeScript.<br/>
 >La razón es porque TypeScript no es más que una envoltura de JavaScript.
 >Y soporte avanzado de identificación.
 >
 > * TypeScript ofrece excelentes herramientas e integración con el popular entorno de desarrollo integrado,
->que se llama IDs.</br>
+>que se llama IDs.<br/>
 >Las más populares, como Visual Studio Code, que ofrece herramientas inteligentes de compleción de código, comprobación
 >de tipos e incluso refactorización.
 >
@@ -505,9 +505,9 @@
 >   * TypeScript introduce un sistema de tipos estáticos que permite a los desarrolladores especificar los tipos de los parámetros de las funciones
 >variables y los valores de retorno.
 >
->   * Pero en JavaScript, JavaScript es un tipo dinámico, lo que significa que los tipos de datos se determinan en tiempo de ejecución.</br>
+>   * Pero en JavaScript, JavaScript es un tipo dinámico, lo que significa que los tipos de datos se determinan en tiempo de ejecución.<br/>
 >Así que cuando creas una variable en JavaScript, no necesitas mencionar el tipo, pero entenderá que hemos introducido una variable
->numérica o una variable de cadena durante el tiempo de ejecución.</br>
+>numérica o una variable de cadena durante el tiempo de ejecución.<br/>
 >Las variables pueden cambiar su tipo de datos durante la ejecución, lo que puede provocar un comportamiento inesperado
 >en JavaScript.
 >JavaScript se basa en la comprobación en tiempo de ejecución, por lo que es más propenso a los errores relacionados con el tipo.
@@ -518,7 +518,7 @@
 >
 > * La siguiente es la compatibilidad.
 >   * TypeScript está diseñado como un superconjunto de JavaScript, lo que significa que todo el código JavaScript válido es también
->código TypeScript válido.</br>
+>código TypeScript válido.<br/>
 >Esto facilita el incremento.
 >Adopción de TypeScript en un proyecto JavaScript existente.
 >
@@ -530,13 +530,13 @@
 >
 > * La siguiente diferencia importante es la compilación.
 >   * El código TypeScript debe transpilarse o convertirse en código JavaScript antes de poder ejecutarse en un navegador
->o en un entorno NodeJS.</br>
->Esto añade un paso más al proceso de desarrollo, pero garantiza la compatibilidad con el entorno JavaScript.</br>
+>o en un entorno NodeJS.<br/>
+>Esto añade un paso más al proceso de desarrollo, pero garantiza la compatibilidad con el entorno JavaScript.<br/>
 >Lo que significa es que si escribes un código TypeScript e intentas ejecutarlo, el entorno NodeJS no puede
 >tomar directamente el código TypeScript y ejecutarlo.
 >
 >   * En su lugar, tenemos que convertir el código TypeScript existente en un código JavaScript, porque el NodeJS
->o los navegadores sólo entenderán el código JavaScript.</br>
+>o los navegadores sólo entenderán el código JavaScript.<br/>
 >Mientras que en JavaScript, el código JavaScript es ejecutado directamente por los navegadores o el NodeJS
 >sin necesidad de compilación.
 >Esto simplifica el proceso de implantación.
@@ -560,17 +560,17 @@
 
 1. El primer requisito es un IDE y se sugiere usar [`Visual Studio Code`](https://code.visualstudio.com/download)
 2. El segundo es el Node.js, que tiene dos opciones:
-    * Descargar de este sitio [`Node.js®`](https://nodejs.org/en/download) el instalador, </br> o
-    * Instalar con con [`nvm Windows`](https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe), o [`nvm MAC`](https://formulae.brew.sh/formula/nvm)</br> siguiendo las instrucciones de [Instalar múltiples versiones de Node.js](https://rafaelneto.dev/blog/instalar-multiples-versiones-nodejs-windows/).
+    * Descargar de este sitio [`Node.js®`](https://nodejs.org/en/download) el instalador, <br/> o
+    * Instalar con con [`nvm Windows`](https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe), o [`nvm MAC`](https://formulae.brew.sh/formula/nvm)<br/> siguiendo las instrucciones de [Instalar múltiples versiones de Node.js](https://rafaelneto.dev/blog/instalar-multiples-versiones-nodejs-windows/).
 
 Prefiero la segunda opción.
 
-3. Verificamos que versión tenemos de `Node.js` con este comando en una `TERMINAL` de `Visual Studio Code`: </br> `node - v` </br> En mi caso la respuesta es: </br> `v22.18.0`
-4. También verificamos el `npm` que versión tiene, con el comando: </br> `npm -v` </br> Y la respuesta es: </br> `10.9.3`
-5. Prefiero utilizar el [`pnpm`](https://pnpm.io/installation) o el [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable). </br> Del primero ejecuto este comando: </br> `pnpm -v` </br> Y obtengo esta respuesta: </br> `10.17.1` </br> Esto en el MACBook Pro.
-6. Hacemos una instalación global de `Typescript`, ejecutando en una `TERMINAL` el comando: </br> `npm i -g typescript` </br> Esta sería la respuesta: `added 1 package`
-7. Otra dependencia a ejecutar en una `TERMINAL` sería: </br> `npm install -g ts-node` </br> Y esta es la respuesta: `added 20 packages`
-8. Podemos inicializar el ambiente para `Typescript` con este comando en una `TERMINAL`: </br> `tsc --init` </br> y la respuesta es: </br> `Created a new tsconfig.json` </br> `You can learn more at https://aka.ms/tsconfig`
+3. Verificamos que versión tenemos de `Node.js` con este comando en una `TERMINAL` de `Visual Studio Code`: <br/> `node - v` <br/> En mi caso la respuesta es: <br/> `v22.18.0`
+4. También verificamos el `npm` que versión tiene, con el comando: <br/> `npm -v` <br/> Y la respuesta es: <br/> `10.9.3`
+5. Prefiero utilizar el [`pnpm`](https://pnpm.io/installation) o el [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable). <br/> Del primero ejecuto este comando: <br/> `pnpm -v` <br/> Y obtengo esta respuesta: <br/> `10.17.1` <br/> Esto en el MACBook Pro.
+6. Hacemos una instalación global de `Typescript`, ejecutando en una `TERMINAL` el comando: <br/> `npm i -g typescript` <br/> Esta sería la respuesta: `added 1 package`
+7. Otra dependencia a ejecutar en una `TERMINAL` sería: <br/> `npm install -g ts-node` <br/> Y esta es la respuesta: `added 20 packages`
+8. Podemos inicializar el ambiente para `Typescript` con este comando en una `TERMINAL`: <br/> `tsc --init` <br/> y la respuesta es: <br/> `Created a new tsconfig.json` <br/> `You can learn more at https://aka.ms/tsconfig`
 9. Este es el archivo **`tsconfig.json`**:
 ```json
 {
@@ -620,16 +620,16 @@ Prefiero la segunda opción.
 ```
 10. La primera parte del archivo **`tsconfig.json`**, es `"compilerOptions":`, la primera es `"target"`, en mi caso aparece `"esnext"` y al instructor `"es2016"`.
 11. El `"module":` en mi caso aparece `"nodenext"`, al instructor le aparece `"commonjs"`.
-12. **"target":** </br> Así que aquí el primero son los objetivos. </br> Aquí se especifica la versión de script a la que se debe transpilar el código TypeScript. </br> En este caso, se ha configurado para ES 2006, lo que significa que el código JavaScript generado será compatible con la versión Ecmascript 2016, que básicamente no es otra cosa que Es7.
-13. **"module":** </br> El siguiente es el módulo. </br> Define el sistema de módulos que se utilizará al generar los módulos JavaScript. </br> Y aquí el módulo al que se refiere es Commonjs, que es una opción popular para el entorno NodeJS.
-14. **"esModuleInterop":** </br> Cuando este valor está establecido en true, esta opción habilita el modo de compatibilidad para trabajar con módulos ES. </br>Simplifica la interoperabilidad entre el código TypeScript y JavaScript.</br> Se lo agregué que no lo tenía en las opciones.
-15. **"forceConsistentCasingInFileNames":** </br> La siguiente es para la coherencia entre mayúsculas y minúsculas en los nombres de archivo. </br> Cuando este valor se establece en true, TypeScript impone el uso coherente de las mayúsculas y minúsculas en los nombres de archivo. </br> Esto significa que el nombre de un archivo debe coincidir exactamente con las mayúsculas y minúsculas, lo que puede ayudar a evitar problemas en los sistemas de archivos que distinguen entre mayúsculas y minúsculas. </br> Otro opción agregada.
-16. **"strict":** </br> El siguiente es estricto. </br> Estricto cuando el valor se establece como verdadero. </br> Activa la comprobación estricta de tipos y reglas adicionales relacionadas con tipos en TypeScript. </br> Es una configuración recomendada para escribir código robusto y mantenible.
-17. **"skipLibCheck":** </br>Y la última es saltarse la comprobación de lib. </br> Cuando este valor se establece en true, se salta la comprobación de tipo de los archivos de declaración, como los archivos que tenemos con extensión **`.tsx`** o  **`.ts`**.
+12. **"target":** <br/> Así que aquí el primero son los objetivos. <br/> Aquí se especifica la versión de script a la que se debe transpilar el código TypeScript. <br/> En este caso, se ha configurado para ES 2006, lo que significa que el código JavaScript generado será compatible con la versión Ecmascript 2016, que básicamente no es otra cosa que Es7.
+13. **"module":** <br/> El siguiente es el módulo. <br/> Define el sistema de módulos que se utilizará al generar los módulos JavaScript. <br/> Y aquí el módulo al que se refiere es Commonjs, que es una opción popular para el entorno NodeJS.
+14. **"esModuleInterop":** <br/> Cuando este valor está establecido en true, esta opción habilita el modo de compatibilidad para trabajar con módulos ES. <br/>Simplifica la interoperabilidad entre el código TypeScript y JavaScript.<br/> Se lo agregué que no lo tenía en las opciones.
+15. **"forceConsistentCasingInFileNames":** <br/> La siguiente es para la coherencia entre mayúsculas y minúsculas en los nombres de archivo. <br/> Cuando este valor se establece en true, TypeScript impone el uso coherente de las mayúsculas y minúsculas en los nombres de archivo. <br/> Esto significa que el nombre de un archivo debe coincidir exactamente con las mayúsculas y minúsculas, lo que puede ayudar a evitar problemas en los sistemas de archivos que distinguen entre mayúsculas y minúsculas. <br/> Otro opción agregada.
+16. **"strict":** <br/> El siguiente es estricto. <br/> Estricto cuando el valor se establece como verdadero. <br/> Activa la comprobación estricta de tipos y reglas adicionales relacionadas con tipos en TypeScript. <br/> Es una configuración recomendada para escribir código robusto y mantenible.
+17. **"skipLibCheck":** <br/>Y la última es saltarse la comprobación de lib. <br/> Cuando este valor se establece en true, se salta la comprobación de tipo de los archivos de declaración, como los archivos que tenemos con extensión **`.tsx`** o  **`.ts`**.
 18. Esto puede mejorar el rendimiento de la compilación, pero también puede suprimir posibles errores de tipo en el archivo de declaración.
-19. Creamos el archivo **`012_helloWorld.ts`** con solo esta línea: </br> `console.log("Hello World");`
-20. Para ejecutarlo en una `TERMINAL` este comando: </br> `tsc ./012_helloWorld` </br> Y el la respuesta del proceso es que aparece el archivo **`012_helloWorld.js`**.
-21. Ahora bien ya podemos ejectar con este comando en la `TERMINAL`: </br> `node ./012_helloWorld` </br> Y nos aparece el la respuesta esperada: </br> `Hello World`
+19. Creamos el archivo **`012_helloWorld.ts`** con solo esta línea: <br/> `console.log("Hello World");`
+20. Para ejecutarlo en una `TERMINAL` este comando: <br/> `tsc ./012_helloWorld` <br/> Y el la respuesta del proceso es que aparece el archivo **`012_helloWorld.js`**.
+21. Ahora bien ya podemos ejectar con este comando en la `TERMINAL`: <br/> `node ./012_helloWorld` <br/> Y nos aparece el la respuesta esperada: <br/> `Hello World`
 22. En este punto nos sugieren instalar en `Visual Studio Code`, la extensión [<img title="Code Runner" alt="Code Runner" src="https://formulahendry.gallerycdn.vsassets.io/extensions/formulahendry/code-runner/0.12.2/1712309175692/Microsoft.VisualStudio.Services.Icons.Default" style="top:0.5px;visibility:visible" width="48px"> `Code Runner`](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) de [Jun Han](https://marketplace.visualstudio.com/publishers/formulahendry).
 23. Estando con el archivo abierto de **`012_helloWorld.ts`**, se presiona el triángulo en la parte superior ⏯️ o dando clic derecho sobre el archivo para la opción de `Run Code`, nos parece la respuesta abajo en `OUTPUT`.
 
@@ -653,7 +653,7 @@ console.log(
 		myGender,
 );
 ```
-3. Ejecuto y aparce esto en el `OUTPUT`: </br> `My Name is JuanPiza and my age is 25 and I am a Male`
+3. Ejecuto y aparce esto en el `OUTPUT`: <br/> `My Name is JuanPiza and my age is 25 and I am a Male`
 
 
 ### 14. Data Types
@@ -998,10 +998,10 @@ employee = ["Bob", 101];
 console.log(employee); // Output: ["Bob", 101]
 ```
 6. Diferencias entre _Tuple_ y _Array_:
-    * La primera diferencia clave es la coherencia tipográfica. </br>Las tuplas tienen una longitud fija y cada elemento tiene un tipo específico, por lo que imponen una estructura coherente. </br> Mientras que en las matrices, las matrices pueden tener una longitud variable y básicamente almacenan los elementos del mismo tipo,pero también pueden almacenar en el tipo mixto.
-    * La siguiente es la seguridad de los tipos. </br>Las tuplas proporcionan una fuerte seguridad de tipos ya que TypeScript comprueba los tipos de los elementos en tiempo de compilación, mientras que las matrices son menos estrictas en términos de seguridad de tipos ya que permitirán tipos mixtos y el cese dinámico del siguiente.
-    * Inmutabilidad. </br>Las tuplas son inmutables en cuanto a su longitud y elementos. </br>tipos después de la declaración, lo que significa que una vez que declaramos un tipo en a en una tupla, no nos permitirá cambiar después de eso. </br>Mientras que en las matrices. Las matrices son mutables, por lo que se pueden redimensionar y modificar libremente. </br>Lo que significa que aunque declaremos un array más adelante en el código, nos permitirá incluso cambiar los </br> valores dentro del array, o incluso borrar un array entero, algo así, pero que no es posible en tuple.
-    * Y la última es Casos prácticos.</br> Las tuplas se utilizan a menudo cuando se trata de datos que tienen una estructura fija específica, como la representación de coordenadas o pares de valores relacionados o tipos de retorno de funciones. </br> Mientras que las matrices son más versátiles y se utilizan para colecciones de datos en las que los elementos pueden variar </br>en tipo y número en el resumen.
+    * La primera diferencia clave es la coherencia tipográfica. <br/>Las tuplas tienen una longitud fija y cada elemento tiene un tipo específico, por lo que imponen una estructura coherente. <br/> Mientras que en las matrices, las matrices pueden tener una longitud variable y básicamente almacenan los elementos del mismo tipo,pero también pueden almacenar en el tipo mixto.
+    * La siguiente es la seguridad de los tipos. <br/>Las tuplas proporcionan una fuerte seguridad de tipos ya que TypeScript comprueba los tipos de los elementos en tiempo de compilación, mientras que las matrices son menos estrictas en términos de seguridad de tipos ya que permitirán tipos mixtos y el cese dinámico del siguiente.
+    * Inmutabilidad. <br/>Las tuplas son inmutables en cuanto a su longitud y elementos. <br/>tipos después de la declaración, lo que significa que una vez que declaramos un tipo en a en una tupla, no nos permitirá cambiar después de eso. <br/>Mientras que en las matrices. Las matrices son mutables, por lo que se pueden redimensionar y modificar libremente. <br/>Lo que significa que aunque declaremos un array más adelante en el código, nos permitirá incluso cambiar los <br/> valores dentro del array, o incluso borrar un array entero, algo así, pero que no es posible en tuple.
+    * Y la última es Casos prácticos.<br/> Las tuplas se utilizan a menudo cuando se trata de datos que tienen una estructura fija específica, como la representación de coordenadas o pares de valores relacionados o tipos de retorno de funciones. <br/> Mientras que las matrices son más versátiles y se utilizan para colecciones de datos en las que los elementos pueden variar <br/>en tipo y número en el resumen.
     * Las tuplas en TypeScript son una poderosa característica para trabajar con datos estructurados, proporcionando tipo, seguridad y longitud fija, mientras que las matrices no tienen tanta seguridad de tipo, pero nos permitirá jugar libremente con ellas, como cambiar los valores y todo eso.
 
 
@@ -1150,14 +1150,14 @@ if (true) {
 
 1. El primer requisito es un IDE y se sugiere usar [`Visual Studio Code`](https://code.visualstudio.com/download)
 2. El segundo es el Node.js, que tiene dos opciones:
-    * Descargar de este sitio [`Node.js®`](https://nodejs.org/en/download) el instalador, </br> o
-    * Instalar con con [`nvm Windows`](https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe), o [`nvm MAC`](https://formulae.brew.sh/formula/nvm)</br> siguiendo las instrucciones de [Instalar múltiples versiones de Node.js](https://rafaelneto.dev/blog/instalar-multiples-versiones-nodejs-windows/).
+    * Descargar de este sitio [`Node.js®`](https://nodejs.org/en/download) el instalador, <br/> o
+    * Instalar con con [`nvm Windows`](https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.exe), o [`nvm MAC`](https://formulae.brew.sh/formula/nvm)<br/> siguiendo las instrucciones de [Instalar múltiples versiones de Node.js](https://rafaelneto.dev/blog/instalar-multiples-versiones-nodejs-windows/).
 
 Prefiero la segunda opción.
 
-3. Verificamos que versión tenemos de `Node.js` con este comando en una `TERMINAL` de `Visual Studio Code`: </br> `node - v` </br> En mi caso la respuesta es: </br> `v22.18.0`
-4. También verificamos el `npm` que versión tiene, con el comando: </br> `npm -v` </br> Y la respuesta es: </br> `10.9.3`
-5. Prefiero utilizar el [`pnpm`](https://pnpm.io/installation) o el [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable). </br> Del primero ejecuto este comando: </br> `pnpm -v` </br> Y obtengo esta respuesta: </br> `10.17.1` </br> Esto en el MACBook Pro. </br> El segundo ejecuto esto: </br> `yarn -v` </br> Y la respuesta es: </br> `1.22.22` </br> En Octubre de 2025.
+3. Verificamos que versión tenemos de `Node.js` con este comando en una `TERMINAL` de `Visual Studio Code`: <br/> `node - v` <br/> En mi caso la respuesta es: <br/> `v22.18.0`
+4. También verificamos el `npm` que versión tiene, con el comando: <br/> `npm -v` <br/> Y la respuesta es: <br/> `10.9.3`
+5. Prefiero utilizar el [`pnpm`](https://pnpm.io/installation) o el [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable). <br/> Del primero ejecuto este comando: <br/> `pnpm -v` <br/> Y obtengo esta respuesta: <br/> `10.17.1` <br/> Esto en el MACBook Pro. <br/> El segundo ejecuto esto: <br/> `yarn -v` <br/> Y la respuesta es: <br/> `1.22.22` <br/> En Octubre de 2025.
 
 
 ### 25. Important Note: Playwright Version Update
@@ -1177,10 +1177,10 @@ Prefiero la segunda opción.
 
 ### 26. Installation of Playwright - Way 1
 
-1. Basado en este sitio [**Installing Playwright**](https://playwright.dev/docs/intro#installing-playwright), lo voy a hacer con `yarn`, en una `TERMINAL` de `Visual Studio Code`: </br> `yarn create playwright`.
-2. El Empieza diferente al Instructor a el le sale: </br> `Do you want to use TypeScript or Javascript` </br> El de `yard` empieza con: </br> `Where to put your end-to-end tests?` </br> Para responder el valor por defecto: `test`.
-3. En la siguiente opción: </br> `Add a GitHub Actions workflow?` </br> Lo dejo en el por defecto: `true`.
-4. La tercera pregunta: </br> `Install Playwright browsers (can be done manually via 'yarn playwright install')?` </br> La dejo por defecto: `true`.
+1. Basado en este sitio [**Installing Playwright**](https://playwright.dev/docs/intro#installing-playwright), lo voy a hacer con `yarn`, en una `TERMINAL` de `Visual Studio Code`: <br/> `yarn create playwright`.
+2. El Empieza diferente al Instructor a el le sale: <br/> `Do you want to use TypeScript or Javascript` <br/> El de `yard` empieza con: <br/> `Where to put your end-to-end tests?` <br/> Para responder el valor por defecto: `test`.
+3. En la siguiente opción: <br/> `Add a GitHub Actions workflow?` <br/> Lo dejo en el por defecto: `true`.
+4. La tercera pregunta: <br/> `Install Playwright browsers (can be done manually via 'yarn playwright install')?` <br/> La dejo por defecto: `true`.
 5. Este es el proceso generado:
 ```dos
 Initializing Yarn project (yarn init -y)…
@@ -1442,7 +1442,7 @@ export default defineConfig({
   }
 }
 ```
-13. Ejecutamos este comando en la `TERMINAL`, para verificar que todo este funcionando correctamente: </br> `npx playwright test` </br> y nos muestra esto:
+13. Ejecutamos este comando en la `TERMINAL`, para verificar que todo este funcionando correctamente: <br/> `npx playwright test` <br/> y nos muestra esto:
 ```dos
 Running 6 tests using 6 workers
   6 passed (13.1s)
@@ -1451,7 +1451,7 @@ To open last HTML report run:
 
   npx playwright show-report
 ```
-14. Ejecutamos el comando que nos sugiere: </br> `npx playwright show-report`</br> Y nos parece una pantalla en el _browser_ como esta: </br> ![First report -> localhost:9323](images/2025-10-08_171947.png "First report -> localhost:9323")
+14. Ejecutamos el comando que nos sugiere: <br/> `npx playwright show-report`<br/> Y nos parece una pantalla en el _browser_ como esta: <br/> ![First report -> localhost:9323](images/2025-10-08_171947.png "First report -> localhost:9323")
 
 
 
@@ -1461,7 +1461,7 @@ To open last HTML report run:
 >
 >Hubo un proceso que se corrió en el repositorio de `Github`.
 >
->Validación de un test de `Playwright`, arrojando este resultado: </br> [![Test #1 en GitHub](images/2025-10-08_180136.png "Abrir archivo de `.pdf` del Test #1 en GitHub")](images/2025-10-08_175435.pdf)
+>Validación de un test de `Playwright`, arrojando este resultado: <br/> [![Test #1 en GitHub](images/2025-10-08_180136.png "Abrir archivo de `.pdf` del Test #1 en GitHub")](images/2025-10-08_175435.pdf)
 >
 
 
@@ -1472,10 +1472,10 @@ To open last HTML report run:
 
 
 1. En esta opción usaremos una extensión de `Visual Studio Code` de nombre [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) de <img alt="Microsof logo" src="https://ms.gallerycdn.vsassets.io/extensions/ms/12550355" style="width:20;height:20;"> [Microsoft](https://marketplace.visualstudio.com/publishers/Microsoft)
-2. Presionas las teclas [`Shift`]+[`Ctrl`]+[`P`] o en _MAC_ serían [`Shift`]+[`Command`]+[`P`], y escribe: </br> `Test: Install Play`y escoje el primero.
-3. Nos pregunta como lo vamos a ejecutar, y dejamos los valores por defecto: </br> ![Install Playwright con _Extensions_](images/2025-10-14_105107.png "Install Playwright con _Extensions_")
+2. Presionas las teclas [`Shift`]+[`Ctrl`]+[`P`] o en _MAC_ serían [`Shift`]+[`Command`]+[`P`], y escribe: <br/> `Test: Install Play`y escoje el primero.
+3. Nos pregunta como lo vamos a ejecutar, y dejamos los valores por defecto: <br/> ![Install Playwright con _Extensions_](images/2025-10-14_105107.png "Install Playwright con _Extensions_")
 4. Hace un proceso similar al anterior [26. Installation of Playwright - Way 1](#26-installation-of-playwright---way-1), desde el paso 5, pero utilizando por defecto `npm`, en vez de uno seleccionado por el usuario como `pnpm` o `yarn`.
-5. Se hacen los ajustes necesarios antes de que en una `TERMINAL`, se ejecute ese comando: </br> `npx playwright test` </br>
+5. Se hacen los ajustes necesarios antes de que en una `TERMINAL`, se ejecute ese comando: <br/> `npx playwright test` <br/>
 
 
 ### 28. How to write a Sample test in Playwright
@@ -1492,7 +1492,7 @@ test("My first Playwright test", async ({ page }) => {
 	await expect(title).toHaveText("Playwright");
 });
 ```
-6. Lo puedo ejecutar del <span style="color:green">triángulo verde</span> que aparece en la izquierda del código o en una `TERMINAL` ejecutando el comando: </br> `npx playwright test`
+6. Lo puedo ejecutar del <span style="color:green">triángulo verde</span> que aparece en la izquierda del código o en una `TERMINAL` ejecutando el comando: <br/> `npx playwright test`
 7. Al archivo **`playwright.config.ts`**, le anexo estos cambios, justo encima de `trace: 'on-first-retry'`:
 ```js
     headless: true,
@@ -1503,5 +1503,97 @@ test("My first Playwright test", async ({ page }) => {
 ```
 
 
+### 29. Different ways to execute Test in Command Line
+
+1. El primero que ya se ha ejecutado en la `TERMINAL` es: <br/> `npx playwright test` <br/> Ejecuta todo lo que hay en la carpeta **"tests"**.
+2. Este otro comando: <br/> `npx playwright test --workers 3` <br/> Significa aquí tres sesiones individuales. <br/> Así que ahora si hago click en enter deberíamos ver que ejecutará todas las pruebas usando tres workers en modo paralelo, <br/> lo que significa que ejecutará el _Firefox_, _WebKit_ y _Chromium_ en modo paralelo.
+3. Si al comnado anterior le agrego mas parámetros Lo que hará este comando es ejecutar todas las pruebas mencionadas en la carpeta de pruebas.<br/> Pero aquí asignará tres trabajadores y todos los trabajadores funcionarán en paralelo. Trabajadores significa aquí tres sesiones individuales:
+```dos
+npx playwright test --workers 3
+```
+4. Así que ahora si hago click en enter deberíamos ver que ejecutará todas las pruebas usando tres workers en modo paralelo, lo que significa que ejecutará el Firefox, WebKit y chromium en modo paralelo. <br/> La prueba se ejecutó, pero no podemos ver la invocación del navegador porque se ejecutó en modo _headless_:
+<div style="font-family: 'Courier New', 'Lucida Console', monospace;">
+<p>Running 3 tests using 3 workers<br/>
+<span style="color:lightgreen;margin:10px;">3 passed</span>(20.2s)</p>
+<p>To open last HTML report run:</p>
+<p><span style="color:lightblue;">  npx playwright show-report</span</p>
+</div>
+
+5. El siguiente comando, que vas a ver es cómo ejecutar una prueba específica. </br> En nuestro caso, sólo tenemos un archivo de especificaciones:
+```dos
+npx playwright test tests/028_firstTest.spec.ts
+```
+6. Creamos una copiua del archivo **`tests/028_firstTest.spec.ts`** y le ponemos los nombres de **`029_secondTest.spec.ts`** y **`029_thirdTest.spec.ts`**.
+7. El siguiente comando que vas a ejecutar es para ejecutar múltiples archivos spec de una sola vez:
+```dos
+npx playwright test 028_firstTest.spec.ts 029_secondTest.spec.ts
+```
+8. Así que en total se están ejecutando seis pruebas porque por cada archivo de prueba se ejecutarán tres pruebas, es decir, se ejecutarán contra tres navegadores. </br>Así que tres más tres totalmente seises. </br> E ignoró el tercer archivo de prueba.:
+<div style="font-family: 'Courier New', 'Lucida Console', monospace;">
+<p>Running 6 tests using 6 workers<br/>
+<span style="color:lightgreen;margin:10px;">6 passed</span>(10.7s)</p>
+<p>To open last HTML report run:</p>
+<p><span style="color:lightblue;">  npx playwright show-report</span</p>
+</div>
+
+9. El siguiente comando que va a ejecutar es en lugar de pasar el nombre completo, podemos pasar sólo el nombre de ejemplo de eso. </br> Por ejemplo, en lugar de pasar la primera prueba de sospechosos, si sólo podemos pasar la primera prueba y la segunda prueba, todavía lo recogerá.</br>Así que lo que voy a hacer aquí es que voy a editar el comando anterior:
+```dos
+npx playwright test firstTest secondTest
+```
+10. Así que aquí pide el subconjunto de este nombre. </br> Ahora, si hago clic en entrar todavía se puede ver que se iniciará la ejecución y se ejecutará de la misma manera como se ejecutó antes. </br>Así que esperemos a que se complete la ejecución. </br> Así que ha ejecutado tanto el primer aspecto como el segundo. </br>Así que está agarrando el nombre de esto, y lo está comparando con los archivos que están allí bajo la carpeta de prueba.</br>Así se completa la ejecución.</br>Así que ahora todo lo que hemos visto hasta ahora está relacionado con el nombre de este archivo de especificaciones.</br>Pero también podemos ejecutar la prueba pasando el nombre que se menciona en esta función de prueba.Así que tenemos tres pruebas:
+<div style="font-family: 'Courier New', 'Lucida Console', monospace;">
+<p>Running 6 tests using 6 workers<br/>
+<span style="color:lightgreen;margin:10px;">6 passed</span>(3.9s)</p>
+<p>To open last HTML report run:</p>
+<p><span style="color:lightblue;">  npx playwright show-report</span</p>
+</div>
+
+11. Lo que podemos hacer es escribir el comando Npx playwright. </br>Prueba de espacio y tenemos que pasar un argumento que se llama guión.</br>Por lo tanto, el guión se refiere al nombre de la prueba y no al nombre del archivo.</br>Así que en nuestro caso estamos interesados en ejecutar esta mi segunda prueba:
+```dos
+npx playwright test -g "My second Playwright test"
+```
+12. Así que usted verá que se ejecutará sólo esta prueba y no cualquier otra prueba. </br>Así que puedes ver que está ejecutando la segunda prueba y está ejecutando sólo esta prueba.</br>Así es como podemos pasar el nombre de la prueba en lugar del nombre del archivo:
+<div style="font-family: 'Courier New', 'Lucida Console', monospace;">
+<p>Running 3 tests using 3 workers<br/>
+<span style="color:lightgreen;margin:10px;">3 passed</span>(4.4s)</p>
+<p>To open last HTML report run:</p>
+<p><span style="color:lightblue;">  npx playwright show-report</span</p>
+</div>
+
+13. El siguiente comando que vas a aprender es como.</br>Por el momento, todas las pruebas se están ejecutando en los tres navegadores: _Chrome_, _Firefox_ y _WebKit_.</br>Digamos que estoy interesado en ejecutar sólo en el navegador _chromium_, porque mi proyecto exige probar sólo en _chromium_.</br>Así que en ese caso, lo que podemos hacer es simplemente pasar la prueba Npx playwright seguido de slash slash project igual a _chromium_:
+```dos
+npx playwright test --project=chromium
+```
+14. Así que está ejecutando todas las pruebas, una en el navegador chromium y no en ningún otro navegador.</br>Puede ver que la prueba ha sido superada si abro el informe ejecutando este comando, que es Npx playwright:
+<div style="font-family: 'Courier New', 'Lucida Console', monospace;">
+<p>Running 3 tests using 3 workers<br/>
+<span style="color:lightgreen;margin:10px;">3 passed</span>(3.9s)</p>
+<p>To open last HTML report run:</p>
+<p><span style="color:lightblue;">  npx playwright show-report</span</p>
+</div>
+
+15. Puede ver que la prueba ha sido superada si abro el informe ejecutando este comando, que es Npx playwright show report.</br>Se puede ver que invocó a los tres archivos de especificaciones de prueba.</br>Pero un día con los navegadores de cromo:</br>`npx playwright show-report` </br>![project:chromium](images/2025-11-23_180536.png "project:chromium")
+
+
+
+
+
+16. Si da click en alguno de las descripciones de las pruebas, lo lleva a otra página con el detalle de esa prueba.
+17. Modificamos el archivo **`playwright.config.ts`** y cambiamos `headless: true,` por este `headless: false,` o escribir este comando:
+```dos
+npx playwright test --headed
+```
+18. Ejecuta las pruebas y muestras las ejecuciones en pantalla, y este es el resultado final:
+<div style="font-family: 'Courier New', 'Lucida Console', monospace;">
+<p>Running 9 tests using 6 workers<br/>
+<span style="color:lightgreen;margin:10px;">9 passed</span>(8.3s)</p>
+<p>To open last HTML report run:</p>
+<p><span style="color:lightblue;">  npx playwright show-report</span</p>
+</div>
+
+19. El último comando que vamos a aprender es a ejecutar la prueba en modo depuración. </br>Así que lo que estoy diciendo es, por ejemplo, digamos que quería ejecutar esta prueba en cromo, por ejemplo.</br>Pero quería ejecutarlo en modo depuración.</br>Así que la razón para el modo de depuración es digamos que estamos teniendo algún problema en nuestra prueba, y queríamos depurarlo para encontrar qué línea falla. </br>Este comando de depuración nos ayudará:
+```dos
+npx playwright test --project=chromium --debug
+```
 
 
