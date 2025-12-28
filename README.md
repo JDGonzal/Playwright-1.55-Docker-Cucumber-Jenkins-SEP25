@@ -1478,6 +1478,10 @@ To open last HTML report run:
 5. Se hacen los ajustes necesarios antes de que en una `TERMINAL`, se ejecute ese comando: <br/> `npx playwright test` <br/>
 
 
+
+## Section 5: Writing First Playwright test
+
+
 ### 28. How to write a Sample test in Playwright
 
 1. Empezamos borrando el archivo **`tests/example.spec.ts`**.
@@ -1492,7 +1496,7 @@ test("My first Playwright test", async ({ page }) => {
 	await expect(title).toHaveText("Playwright");
 });
 ```
-6. Lo puedo ejecutar del <span style="color:green">triángulo verde</span> que aparece en la izquierda del código o en una `TERMINAL` ejecutando el comando: <br/> `npx playwright test`
+6. Lo puedo ejecutar del <span style="color:green"> (▶️) triángulo verde</span> que aparece en la izquierda del código o en una `TERMINAL` ejecutando el comando: <br/> `npx playwright test`
 7. Al archivo **`playwright.config.ts`**, le anexo estos cambios, justo encima de `trace: 'on-first-retry'`:
 ```js
     headless: true,
@@ -1595,5 +1599,64 @@ npx playwright test --headed
 ```dos
 npx playwright test --project=chromium --debug
 ```
+
+
+
+## Section 6: Automatic Code Generation
+
+## 30. How to enabled automatic Code Generation
+
+>[!NOTE]
+>
+>Esta es una de las principales características de `playwright`, que nos ayudará a escribir fácilmente la prueba.<br/>
+>Esta característica ayuda mucho a los principiantes que acaban de empezar a aprender codificación y automatización.<br/>
+>El uso de Codegen es.
+>Como su nombre indica, esta herramienta generará el código de `playwright` por nosotros basándose en la acción que realicemos navegador.
+
+1. Para abrir el codegen se exribe en la `TERMINAL` el comando:
+```bash
+npx playwright codegen
+```
+2. Puedes ver que abre dos ventanas. Uno es el navegador _chromium_ y el otro es el  `Playwright Inspector`.<br/> También podemos cambiar el navegador, que veremos más adelante.<br/>Así que aquí se puede ver que ha abierto el navegador _chromium_ y también el `Playwright Inspector`.Guardo ambos uno al lado del otro para que puedas verlo con claridad.<br/> Así que ahora usted puede ver por defecto se inició la grabación, lo que significa que cualquiera que sean las acciones que estamos haciendo en este navegador, que lo grabará y se convertirá automáticamente en el guión `Playwright`.<br/>![Cromium + Inspector](images/2025-12-28_155942.png "Chromium + Inspector")
+
+
+
+
+3. Pego esta _URL_ en el _Chromium_: <br/> `https://opensource-demo.orangehrmlive.com/web/index.php/auth/login` <br/> y graba automáticamente la ruta o _URL_ que empieza el proceso: <br/> ![page.goto()](images/2025-12-28_172222.png "page.goto()")
+
+
+
+
+4. Doy clic en el cuadro de `Username` y le escribo `Admin`.
+5. Doy clic en el cuadro de `Password` y le escribo `admin123`.
+6. Doy clic al botón de `[Login]`. <br/> El ingresa al nuevo sitio después de aceptar el login correcto. <br/> ![OrangeHRM-Dashboard](images/2025-12-28_173026.png "OrangeHRM-Dashboard")
+
+
+
+
+7. Vamos a dare clic en el botón a la derecha-arriba, con algo del texto `profile` y esto despliega un menú.
+8. Del menú seleccionamos `Logout` y le damos clic.
+9. Creamos un archivo de nombre **`tests/030_codeGentest.spec.ts`** , copiamos lo obtenido en el `Playwright Inspector` y lo pegamos en este nuevo archivo.
+10. Adiciono esta línea al final del archivo, para que se tenga al menos un `expect`:
+```js
+	await expect(
+		page.getByRole("img", { name: "company-branding" }),
+	).toBeVisible();
+```
+11. Detengo la ejecución de `npx playwright codegen`.
+12. Lo puedo ejecutar desde el <span style="color:green">(▶️) triángulo verde</span> que aparece en el código o en la terminal con el comando:
+```bash
+npx playwright test 030_codeGentest.spec.ts --project=chromium --headed
+```
+13. Aparece este texto al final y brinda la posibilidad de ejecutar otro comando:
+```bash
+Running 1 test using 1 worker
+  1 passed (8.0s)
+
+To open last HTML report run:
+
+  npx playwright show-report
+```
+
 
 
