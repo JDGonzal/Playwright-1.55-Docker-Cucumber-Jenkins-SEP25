@@ -1,5 +1,5 @@
 {
-  "name": "playwright-1.55-docker-cucumber-jenkins-sep25",
+  "name": "playwright-1.61-docker-cucumber-jenkins-apr26",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -7,7 +7,7 @@
   "author": "Juan David Gonzalez Piza <jdgonzal2@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "1.56.0",
+    "@playwright/test": "1.61.0",
     "@types/node": "24.7.0"
   },
   "scripts": {}

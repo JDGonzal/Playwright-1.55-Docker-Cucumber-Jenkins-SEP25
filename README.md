@@ -1527,7 +1527,7 @@ npx playwright test --workers 3
 ```dos
 npx playwright test tests/028_firstTest.spec.ts
 ```
-6. Creamos una copiua del archivo **`tests/028_firstTest.spec.ts`** y le ponemos los nombres de **`029_secondTest.spec.ts`** y **`029_thirdTest.spec.ts`**.
+6. Creamos una copia del archivo **`tests/028_firstTest.spec.ts`** y le ponemos los nombres de **`029_secondTest.spec.ts`** y **`029_thirdTest.spec.ts`**.
 7. El siguiente comando que vas a ejecutar es para ejecutar múltiples archivos spec de una sola vez:
 ```dos
 npx playwright test 028_firstTest.spec.ts 029_secondTest.spec.ts
@@ -1613,7 +1613,7 @@ npx playwright test --project=chromium --debug
 >El uso de Codegen es.
 >Como su nombre indica, esta herramienta generará el código de `playwright` por nosotros basándose en la acción que realicemos navegador.
 
-1. Para abrir el codegen se exribe en la `TERMINAL` el comando:
+1. Para abrir el codegen se escribe en la `TERMINAL` el comando:
 ```bash
 npx playwright codegen
 ```
@@ -1634,7 +1634,7 @@ npx playwright codegen
 
 
 
-7. Vamos a dare clic en el botón a la derecha-arriba, con algo del texto `profile` y esto despliega un menú.
+7. Vamos a darle clic en el botón a la derecha-arriba, con algo del texto `profile` y esto despliega un menú.
 8. Del menú seleccionamos `Logout` y le damos clic.
 9. Creamos un archivo de nombre **`tests/030_codeGentest.spec.ts`** , copiamos lo obtenido en el `Playwright Inspector` y lo pegamos en este nuevo archivo.
 10. Adiciono esta línea al final del archivo, para que se tenga al menos un `expect`:
@@ -1656,6 +1656,115 @@ Running 1 test using 1 worker
 To open last HTML report run:
 
   npx playwright show-report
+```
+
+
+
+## 31. What are the Various options in CodeGen
+
+
+1. En primer lugar, veamos cómo abrir Codegen en diferentes navegadores. </br> Como ya hemos mencionado, por defecto el Codegen se abre en el navegador Chromium, pero también podemos utilizar el Codegen en el navegador Firefox o WebKit. </br>El comando para abrir el Codegen en otro navegador es:</br> `npx playwright codegen --browser firefox`
+
+
+
+
+2. En la ventana del browser de FireFox, ponemos la ruta de `google`: </br> Pero obtengo un error: </br> ![Error de Solicitud de captcha](images/2026-06-18_162251.png "Error de Solicitud de captcha")
+
+
+
+
+
+
+3. La solución planteada es crear en el proyecto la carpeta **"user_data"**
+4. Y usar este comando completo apuntando a la nueva carpeta: </br> `npx playwright codegen --browser firefox --user-data-dir ./user_data`
+5. Escrivo en la _URL_ `google`
+6. Resulvo el _CAPTCHA_.
+7. Doy `[Ctrl]`+`[C]` en la `TERMINAL`, para finalizar el proceso.
+8. Ejecuto de nuevo el comandio del paso 4.
+9. Vuelvo a escribir en la _URL_ `google` y listo, ya no pide mas el _CAPTCHA_.
+10. Doy `[Ctrl]`+`[C]` en la `TERMINAL`, para finalizar el proceso.
+11. Repetimos el proceso usando _webkit_: </br> `npx playwright codegen --browser webkit --user-data-dir ./user_data` </br>`npx playwright codegen --browser webkit`
+12. Aunque este no es tan fácil de interactuar para el proceso.
+13. Doy `[Ctrl]`+`[C]` en la `TERMINAL`, para finalizar el proceso.
+14. Así que en nuestro caso necesitamos que se guarde en la carpeta de prueba. </br>Y dentro de la carpeta test quiero que se genere como: **`031_codeGentestAuto.spec.ts`** </br>Así que ponemos este comando en la `TERMINAL`:</br>`npx playwright codegen -o ./tests/031_codeGentestAuto.spec.ts`
+15. en la _URL_ pegamos esta ruta: </br> `https://opensource-demo.orangehrmlive.com/`
+16. Y en el archivo ya nos aparece una nueva línea con la ruta completa: </br> `await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');`
+17. Selecciono el cuadro de `Username` y le pongo `Admin`
+18. Selecciono el cuadro de `Password` y le pongo `admin123`
+19. Le doy clic al botón `Login`
+20. Doy clic al botón superior derecho.
+21. y selecciono la opción `logout`
+22. Doy `[Ctrl]`+`[C]` en la `TERMINAL`, para finalizar el proceso.
+23. Reviso el archivo obtenido y debe similar a esto:
+```js
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+  await page.getByRole('textbox', { name: 'Username' }).click();
+  await page.getByRole('textbox', { name: 'Username' }).fill('Admin');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('listitem').filter({ hasText: 'UFLQN RIjSU' }).locator('i').click();
+  await page.getByRole('menuitem', { name: 'Logout' }).click();
+```
+24. Y el siguiente comando que vas a ver es si quería ejecutar la prueba en viewport específico,por ejemplo, en tamaño específico como 800 cross 800 o 700 cross 600 así, entonces podemos pasar esos viewport también.</br>Así que para hacer eso lo que tenemos que hacer sólo tengo que escribir Npx playwright Codegen espacio guión guión vista puerto viewport tamaño igual a.</br> Escribo el siguiente comando:</br>`npx playwright codegen --viewport-size=800,600`
+25. Abre el navegador en un tamaño específico: </br>![s/2026-06-18_165843.png "Tamaño específico para la prueba](images/2026-06-18_165843.png "Tamaño específico para la prueba")
+
+
+
+
+
+
+26. Doy `[Ctrl]`+`[C]` en la `TERMINAL`, para finalizar el proceso.
+27. El siguiente comando que vas a aprender es si quisiéramos inspeccionar el navegador en un dispositivo específico, por ejemplo, en digamos si quisiera probar esto, cómo se ejecutará en el iPhone 11 Pro. </br>Así que en ese caso, lo que tengo que hacer es que tengo que pasar un argumento llamado como dispositivo igual a.</br>Y sólo necesito pasar el nombre del dispositivo: </br> `npx playwright codegen --device="iPhone 11 Pro"` </br> ![--device="iPhone 11 Pro"](images/2026-06-18_170414.png "--device=iPhone 11 Pro")
+
+
+
+
+
+
+
+
+28. Doy `[Ctrl]`+`[C]` en la `TERMINAL`, para finalizar el proceso.
+29. Si queremos todas las opciones usar este comando: </br>`npx playwright codegen --help` </br> Nos sale un texto similar a este:
+```dos
+Usage: npx playwright codegen [options] [url]
+
+open page and generate code for user actions
+
+Options:
+  -o, --output <file name>             saves the generated script to a file
+  --target <language>                  language to generate, one of javascript, playwright-test, python, python-async, python-pytest, csharp, csharp-mstest,
+                                       csharp-nunit, csharp-xunit, java, java-junit (default: "playwright-test")
+  --test-id-attribute <attributeName>  use the specified attribute to generate data test ID selectors
+  -b, --browser <browserType>          browser to use, one of cr, chromium, ff, firefox, wk, webkit (default: "chromium")
+  --block-service-workers              block service workers
+  --channel <channel>                  Chromium distribution channel, "chrome", "chrome-beta", "msedge-dev", etc
+  --color-scheme <scheme>              emulate preferred color scheme, "light" or "dark"
+  --device <deviceName>                emulate device, for example  "iPhone 11"
+  --geolocation <coordinates>          specify geolocation coordinates, for example "37.819722,-122.478611"
+  --ignore-https-errors                ignore https errors
+  --load-storage <filename>            load context storage state from the file, previously saved with --save-storage
+  --lang <language>                    specify language / locale, for example "en-GB"
+  --proxy-server <proxy>               specify proxy server, for example "http://myproxy:3128" or "socks5://myproxy:8080"
+  --proxy-bypass <bypass>              comma-separated domains to bypass proxy, for example ".com,chromium.org,.domain.com"
+  --save-har <filename>                save HAR file with all network activity at the end
+  --save-har-glob <glob pattern>       filter entries in the HAR by matching url against this glob pattern
+  --save-storage <filename>            save context storage state at the end, for later use with --load-storage
+  --timezone <time zone>               time zone to emulate, for example "Europe/Rome"
+  --timeout <timeout>                  timeout for Playwright actions in milliseconds, no timeout by default
+  --user-agent <ua string>             specify user agent string
+  --user-data-dir <directory>          use the specified user data directory instead of a new context
+  --viewport-size <size>               specify browser viewport size in pixels, for example "1280, 720"
+  -h, --help                           display help for command
+
+  Examples:
+
+    $ codegen
+    $ codegen --target=python
+    $ codegen -b webkit https://example.com
 ```
 
 
