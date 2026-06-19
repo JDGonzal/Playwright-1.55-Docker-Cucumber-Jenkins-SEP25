@@ -1768,4 +1768,34 @@ Options:
 ```
 
 
+## 32. What is Trace Viewer ?
 
+1. En playwright, el visor de trazas es una herramienta GUI que ayudará a visualizar la prueba ejecutada junto con instantáneas, línea de tiempo y otros detalles que se denominan trazas. </br>Veamos ahora cómo activar este visor de trazas, empezamos abriendo el archivo **`playwright.config.ts`**, y buscamos el texto </br> `trace:`
+2. El valor actual es este: </br> `trace: 'on-first-retry',`</br> Primer reintento.Ahora, lo que significa es que el rastreo se habilitará cuando la prueba se rastree por primera vez. Así que para ver este rastro, lo que tenemos que hacer es fallar voluntariamente una prueba.
+3. También buscamos el valor de reintentos, para ponerlo en 1, el valor actual es este: </br> `retries: process.env.CI ? 2 : 0,`
+4. Simplemente lo cambiamos a este: </br> `retries: 1`
+5. Copio el archivo **`030_codeGentest.spec.ts`**, en este otro archivo **`032_codeGentest.spec.ts`** y hacemos uno cambio en la línea 10:</br> `await page.getByRole("button", { name: "LoginX" }).click();`
+6. Acorto el tiempo de espera del valor por defecto a solo 5 segundos en el **`playwright.config.ts`**, justo encima del `testDir`: </br> `timeout: 5 * 1000,`
+7. En la `TERMINAL`, ejecutamos este comando: </br> `npx playwright test 032_codeGentest.spec.ts --project=chromium --headed` </br> ![Ejecución, un reintento y muestra del error](images/2026-06-19_103015.gif "Ejecución, un reintento y muestra del error")
+
+
+
+
+
+
+
+
+
+
+8. Detallemos en el informe los tabuladores de:
+* `Run`
+* `Retry #1`
+9. Dentro de `Retry #1`, buscar la opción de `Traces` y darle clic a la imagen: </br> ![Trace](images/2026-06-19_104304.png "Trace") </br> Veamos ahora cuáles son los componentes del vídeo de prueba:
+* El carril superior se denomina línea de tiempo, que mostrará el tiempo que se tardó en ejecutar cada comando.
+* Y en el panel izquierdo se llama como la pestaña de acción, que contiene los metadatos.
+* La pestaña Acción muestra todos y cada uno de los pasos que se ejecutan junto con las capturas de pantalla.
+* En esta captura de pantalla también aparece antes y después de la vista.
+* Así que lo que quiero decir con esto es que aquí está tratando de ejecutar a esta página web.
+* Y aquí no puede mostrar un antes y un después, porque este es el primer elemento que aparece después de que se carga la página web.
+
+10. Presionamos las teclas `[Ctrl]`+`[C]`, en la `TERMINAL`.
