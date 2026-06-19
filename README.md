@@ -1832,4 +1832,14 @@ Options:
 
 ## 34. What are the Various options in Trace Viewer
 
-
+1. Podemos cambie en **`playwright.config.ts`**, mas opciones para el valor de `trace:`, por ejemplo: </br>Indica si se debe grabar vídeo para cada prueba. Por defecto, está desactivado. La ejecución inicial de una prueba se denomina "primera ejecución"; las ejecuciones posteriores causadas por reintentos se denominan "reintentos".
+ * `'off'`: Do not record video.
+ * `'on'`: Record and keep a video for every run.
+ * `'on-first-retry'`: Record and keep a video only for the first retry of a test.
+ * `'on-all-retries'`: Record and keep a video for every retry.
+ * `'retain-on-failure'`: Record a video for every run, but keep it only for runs that failed. A failed run's
+   video is kept even when a later retry passes.
+ * `'retain-on-first-failure'`: Record a video only for the first run of a test (not for retries), and keep it only if that run failed.
+ * `'retain-on-failure-and-retries'`: Record a video for every run, and keep it for any run that failed or that is a retry.
+2. Si borro del archivo **`playwright.config.ts`**, la línea: </br> `retries: 1,` </br> y tengo un error, el no hará reintentos, sino que fallará a la primera.
+3. Dejamos el valor inicial, para que no falle cuando se suba al repositorio.
