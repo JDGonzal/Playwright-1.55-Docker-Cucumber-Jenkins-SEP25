@@ -1799,3 +1799,34 @@ Options:
 * Y aquí no puede mostrar un antes y un después, porque este es el primer elemento que aparece después de que se carga la página web.
 
 10. Presionamos las teclas `[Ctrl]`+`[C]`, en la `TERMINAL`.
+
+
+## 33. Different ways to open Trace Viewer
+
+1. En el último vídeo, hemos abierto el visor de trazas directamente desde la vista de informes. </br>Así que una vez que el informe se ha generado y se abre en el navegador, si nos desplazamos hacia arriba en la sección de trazas aquí, podemos ver la vista de trazas. </br>Y si hago clic en esto se abrirá automáticamente el visor de trazas para nosotros.
+2. Buscamos la carpeta **"test-results"**, y allí hay dos carpetas:
+* **"032_codeGentest-test-chromium"**
+* **"032_codeGentest-test-chromium-retry1"**
+3. Copiamos este comando en la `TERMINAL`: </br> `npx playwright show-trace ./test-results/032_codeGentest-test-chromium-retry1/trace.zip` </br> Abre algo parecido a esto: </br> ![Trace Viewer](images/2026-06-19_110700.png "Trace Viewer")
+
+
+
+
+
+
+
+
+
+4. En un browser cualquiera como `Chrome`, en a _URL_ escribimos este texto: </br> `trace.playwright.dev` y aparece algo como esto: </br> ![Drop Playwright Trace to load](images/2026-06-19_111111.png "Drop Playwright Trace to load")
+
+
+
+
+
+
+
+
+
+5. Arrastramos el archivo **`test-results/032_codeGentest-test-chromium-retry1/trace.zip`** y vemos un resultado similar.
+
+
