@@ -1830,3 +1830,6 @@ Options:
 5. Arrastramos el archivo **`test-results/032_codeGentest-test-chromium-retry1/trace.zip`** y vemos un resultado similar.
 
 
+## 34. What are the Various options in Trace Viewer
+
+

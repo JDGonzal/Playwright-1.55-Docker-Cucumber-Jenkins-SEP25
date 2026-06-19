@@ -7,6 +7,6 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Password' }).click();
   await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
   await page.getByRole('button', { name: 'Login' }).click();
-  await page.getByRole('listitem').filter({ hasText: 'UFLQN RIjSU' }).locator('i').click();
+	await page.getByRole("img", { name: "profile picture" }).click();
   await page.getByRole('menuitem', { name: 'Logout' }).click();
 });
