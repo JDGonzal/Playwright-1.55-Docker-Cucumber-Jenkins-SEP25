@@ -1604,7 +1604,7 @@ npx playwright test --project=chromium --debug
 
 ## Section 6: Automatic Code Generation
 
-## 30. How to enabled automatic Code Generation
+### 30. How to enabled automatic Code Generation
 
 >[!NOTE]
 >
@@ -1660,7 +1660,7 @@ To open last HTML report run:
 
 
 
-## 31. What are the Various options in CodeGen
+### 31. What are the Various options in CodeGen
 
 
 1. En primer lugar, veamos cómo abrir Codegen en diferentes navegadores. </br> Como ya hemos mencionado, por defecto el Codegen se abre en el navegador Chromium, pero también podemos utilizar el Codegen en el navegador Firefox o WebKit. </br>El comando para abrir el Codegen en otro navegador es:</br> `npx playwright codegen --browser firefox`
@@ -1767,8 +1767,9 @@ Options:
     $ codegen -b webkit https://example.com
 ```
 
+## Section 7: Trace Viewer
 
-## 32. What is Trace Viewer ?
+### 32. What is Trace Viewer ?
 
 1. En playwright, el visor de trazas es una herramienta GUI que ayudará a visualizar la prueba ejecutada junto con instantáneas, línea de tiempo y otros detalles que se denominan trazas. </br>Veamos ahora cómo activar este visor de trazas, empezamos abriendo el archivo **`playwright.config.ts`**, y buscamos el texto </br> `trace:`
 2. El valor actual es este: </br> `trace: 'on-first-retry',`</br> Primer reintento.Ahora, lo que significa es que el rastreo se habilitará cuando la prueba se rastree por primera vez. Así que para ver este rastro, lo que tenemos que hacer es fallar voluntariamente una prueba.
@@ -1801,7 +1802,7 @@ Options:
 10. Presionamos las teclas `[Ctrl]`+`[C]`, en la `TERMINAL`.
 
 
-## 33. Different ways to open Trace Viewer
+### 33. Different ways to open Trace Viewer
 
 1. En el último vídeo, hemos abierto el visor de trazas directamente desde la vista de informes. </br>Así que una vez que el informe se ha generado y se abre en el navegador, si nos desplazamos hacia arriba en la sección de trazas aquí, podemos ver la vista de trazas. </br>Y si hago clic en esto se abrirá automáticamente el visor de trazas para nosotros.
 2. Buscamos la carpeta **"test-results"**, y allí hay dos carpetas:
@@ -1830,7 +1831,7 @@ Options:
 5. Arrastramos el archivo **`test-results/032_codeGentest-test-chromium-retry1/trace.zip`** y vemos un resultado similar.
 
 
-## 34. What are the Various options in Trace Viewer
+### 34. What are the Various options in Trace Viewer
 
 1. Podemos cambie en **`playwright.config.ts`**, mas opciones para el valor de `trace:`, por ejemplo: </br>Indica si se debe grabar vídeo para cada prueba. Por defecto, está desactivado. La ejecución inicial de una prueba se denomina "primera ejecución"; las ejecuciones posteriores causadas por reintentos se denominan "reintentos".
  * `'off'`: Do not record video.
@@ -1845,7 +1846,7 @@ Options:
 3. Dejamos el valor inicial, para que no falle cuando se suba al repositorio.
 
 
-## 35. Editing Trace Viewer options via command line
+### 35. Editing Trace Viewer options via command line
 
 1. En este vídeo, entenderemos cómo pasar las opciones del visor de trazas a través de la línea de comandos. </br>Hasta ahora, hemos establecido el valor de traza en la configuración de playwright, pero también podemos establecerlo directamente en la línea de comandos cuando ejecutamos la prueba. </br>El valor que introduzcamos en la línea de comandos sobrescribirá los valores mencionados en **`playwright.config.ts`** </br>Así, por ejemplo, digamos que por defecto el valor de la traza está en primer lugar es como por defecto.
 2. Digamos que quiero habilitar esta traza, pero sin cambiar el **`playwright.config.ts`**. Ingresamos este comando: </br> `npx playwright test --trace off`
@@ -1869,7 +1870,7 @@ Options:
 5. Corregimos el error antes de subir al repositorio y terminamos el proceso en la `TERMINAL`.
 
 
-## 36. How to Set tracing programmatically
+### 36. How to Set tracing programmatically
 
 1. En este vídeo, aprenderemos a configurar el seguimiento mediante programación dentro del propio archivo de especificaciones de la prueba. </br>La razón principal de hacer esto de esta manera es digamos que queremos ver la traza para una sola prueba, en lugar de hacer los cambios globalmente en los conflictos de playwright, lo que afectará a todas las pruebas. </br>En su lugar, podemos añadirlo a una prueba específica que necesitemos.
 2. Copiamos el archivo **`tests/032_codeGentest.spec.ts`**, por este otro: **`tests/036_traceTest.spec.ts`**
@@ -1901,3 +1902,62 @@ test("traceTest", async ({ page, context }) => {
 
 
 8. Cerramos la ventana que abrió para visualizar el _trace_. No necesito hacer cambios de nada, todas las pruebas entan correctas.
+
+
+## Section 8: Locator Strategies
+
+### 37. Different Locator Strategies
+
+1. En este vídeo, entenderemos qué se entiende por localizador y cuáles son las distintas estrategias para encontrarlo. </br> En primer lugar, entendamos qué es un localizador. </br> En la página web, todos los campos tendrán un componente en Dom para identificarlo. </br> Necesitamos un localizador para saber más sobre Dom y el localizador.
+2. Abriremos nuestro sitio web de demostración: </br> `https://www.saucedemo.com/`
+3. Damos clic derecho sobre el cuadro de `Username` y seleccionamos `Inspect` o `Inspeccionar`. </br> ![Inspect -> saucedemo.com](images/2026-06-23_161925.png "Inspect -> saucedemo.com")
+
+
+
+
+
+
+
+
+4. Cerremos el cuadro de _Dock_ y probamos con la tecla `[F12]`, obtenemos la misma imagen.
+5. Seleccionamos con la herramienta de selección <img src="images/2026-06-23_164028.png" height="20" alt="[Ctrl]+[Shift]+[C] on Windows/Linux, or [Cmd]+[Option]+[C] on MAC" title="[Ctrl]+[Shift]+[C] on Windows/Linux, or [Cmd]+[Option]+[C] on MAC"/> o las teclas `[Ctrl]`+`[Shift]`+`[C]` on Windows/Linux, or `[Cmd]`+`[Option]`+`[C]` on MAC, para seleccionar el cuadro de `Username`.
+6. Esto es el contenido de el cambpo seleccionado:
+```html
+<div class="form_group">
+  <input class="input_error form_input" placeholder="Username" type="text" data-test="username" id="user-name" name="user-name" autocorrect="off" autocapitalize="none" value="">
+</div>
+```
+7. Presiono o las teclas `[Ctrl]`+`[F]` o `[Cmd]`+`[F]` y escribimos el símbolo numeral (`#`) y luego el contenido del `id=`, sin las comillas: </br> `#user-name` </br> y miren que nos resalta: </br> ![[Ctrl]+[F]/[Cmd]+[F] #user-name](images/2026-06-23_165707.png "[Ctrl]+[F]/[Cmd]+[F] #user-name")
+
+
+
+
+
+
+
+
+
+8. Probemos con este otro luego de presionar `[Ctrl]`+`[F]` o `[Cmd]`+`[F]` y escribimos esto: </br> `[name="user-name"]"` </br> y miremos que queda resaltado: </br> ![[Ctrl]+[F]/[Cmd]+[F] [name="user-name"]](images/2026-06-23_170324.png '[Ctrl]+[F]/[Cmd]+[F] [name="user-name"]')
+
+
+
+
+
+
+
+
+
+9. Luego de presionar `[Ctrl]`+`[F]` o `[Cmd]`+`[F]` y escribimos esto: </br> `[id="user-name"]"` </br> y miremos que queda resaltado.
+10. Otra opción es con _XPath_, y se empieza con un doble `//` </br> `//input[@name="user-name"]` </br> ![[Ctrl]+[F]/[Cmd]+[F] //input[@name="user-name"]](images/2026-06-23_171140.png '[Ctrl]+[F]/[Cmd]+[F] //input[@name="user-name"]')
+
+
+
+
+
+
+
+
+
+
+11. Estas son las estrategias generales para encontrar cualquier elemento en la _WEB_.
+
