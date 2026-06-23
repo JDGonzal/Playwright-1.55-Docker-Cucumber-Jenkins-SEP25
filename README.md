@@ -1849,4 +1849,55 @@ Options:
 
 1. En este vídeo, entenderemos cómo pasar las opciones del visor de trazas a través de la línea de comandos. </br>Hasta ahora, hemos establecido el valor de traza en la configuración de playwright, pero también podemos establecerlo directamente en la línea de comandos cuando ejecutamos la prueba. </br>El valor que introduzcamos en la línea de comandos sobrescribirá los valores mencionados en **`playwright.config.ts`** </br>Así, por ejemplo, digamos que por defecto el valor de la traza está en primer lugar es como por defecto.
 2. Digamos que quiero habilitar esta traza, pero sin cambiar el **`playwright.config.ts`**. Ingresamos este comando: </br> `npx playwright test --trace off`
-3. Creo una falla a proposito en **`tests/032_codeGentest.spec.ts`**, en el `"button"`, poniendo `"LoginX"`, y repiuto el comando anterior en la `TERMINAL`. </br> Se genera el error, con los dos intentos, sin el _trace_: </br> ![--trace off](images/2026-06-23_142834.png "--trace off")
+3. Creo una falla a proposito en **`tests/032_codeGentest.spec.ts`**, en el `"button"`, poniendo `"LoginX"`, y repito el comando anterior en la `TERMINAL`. </br> Se genera el error, con los dos intentos, sin el _trace_: </br> ![--trace off](images/2026-06-23_142834.png "--trace off")
+
+
+
+
+
+
+
+
+4. Hagamos este otro comando: </br> `npx playwright test --trace on` </br> Obtenemos el botón u opción `[Trace]`: </br> ![--trace on](images/2026-06-23_143514.png "--trace on")
+
+
+
+
+
+
+
+5. Corregimos el error antes de subir al repositorio y terminamos el proceso en la `TERMINAL`.
+
+
+## 36. How to Set tracing programmatically
+
+1. En este vídeo, aprenderemos a configurar el seguimiento mediante programación dentro del propio archivo de especificaciones de la prueba. </br>La razón principal de hacer esto de esta manera es digamos que queremos ver la traza para una sola prueba, en lugar de hacer los cambios globalmente en los conflictos de playwright, lo que afectará a todas las pruebas. </br>En su lugar, podemos añadirlo a una prueba específica que necesitemos.
+2. Copiamos el archivo **`tests/032_codeGentest.spec.ts`**, por este otro: **`tests/036_traceTest.spec.ts`**
+3. Cambiamos el contenido de `test("test"` por `test("traceTest"`.
+4. Al lado de `(( test`, agregamos otro parámetro:
+```js
+test("traceTest", async ({ page, context }) => {
+	await context.tracing.start({ screenshots: true, snapshots: true });
+...
+});
+```
+5. Antes de cerrar esta prueba agrego el `stop` del `tracing`:
+```js
+test("traceTest", async ({ page, context }) => {
+	await context.tracing.start({ screenshots: true, snapshots: true });
+...
+	await context.tracing.stop({ path: "traceTest.zip" });
+});
+```
+6. En la `TERMINAL`, ejecutamos este comando: </br> `npx playwright test --project=chromium --headed` </br> Al final aparece el archivo nuevo **`traceTest.zip`**.
+7. Ejecutamos este comando para ver lo que contiene el nuevo _trace_: </br> `npx playwright show-trace ./traceTest.zip` </br> ![traceTest.zip](images/2026-06-23_150103.png "traceTest.zip")
+
+
+
+
+
+
+
+
+
+8. Cerramos la ventana que abrió para visualizar el _trace_. No necesito hacer cambios de nada, todas las pruebas entan correctas.

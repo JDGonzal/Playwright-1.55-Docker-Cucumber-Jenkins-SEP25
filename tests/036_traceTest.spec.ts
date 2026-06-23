@@ -1,0 +1,20 @@
+import { expect, test } from "@playwright/test";
+
+test("traceTest", async ({ page, context }) => {
+	await context.tracing.start({ screenshots: true, snapshots: true });
+
+	await page.goto(
+		"https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+	);
+	await page.getByRole("textbox", { name: "Username" }).fill("Admin");
+	await page.getByRole("textbox", { name: "Password" }).click();
+	await page.getByRole("textbox", { name: "Password" }).fill("admin123");
+	await page.getByRole("button", { name: "Login" }).click();
+	await page.getByRole("img", { name: "profile picture" }).click();
+	await page.getByRole("menuitem", { name: "Logout" }).click();
+	await expect(
+		page.getByRole("img", { name: "company-branding" }),
+	).toBeVisible();
+
+	await context.tracing.stop({ path: "traceTest.zip" });
+});
