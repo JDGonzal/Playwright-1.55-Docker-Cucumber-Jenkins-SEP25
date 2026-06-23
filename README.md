@@ -1843,3 +1843,10 @@ Options:
  * `'retain-on-failure-and-retries'`: Record a video for every run, and keep it for any run that failed or that is a retry.
 2. Si borro del archivo **`playwright.config.ts`**, la línea: </br> `retries: 1,` </br> y tengo un error, el no hará reintentos, sino que fallará a la primera.
 3. Dejamos el valor inicial, para que no falle cuando se suba al repositorio.
+
+
+## 35. Editing Trace Viewer options via command line
+
+1. En este vídeo, entenderemos cómo pasar las opciones del visor de trazas a través de la línea de comandos. </br>Hasta ahora, hemos establecido el valor de traza en la configuración de playwright, pero también podemos establecerlo directamente en la línea de comandos cuando ejecutamos la prueba. </br>El valor que introduzcamos en la línea de comandos sobrescribirá los valores mencionados en **`playwright.config.ts`** </br>Así, por ejemplo, digamos que por defecto el valor de la traza está en primer lugar es como por defecto.
+2. Digamos que quiero habilitar esta traza, pero sin cambiar el **`playwright.config.ts`**. Ingresamos este comando: </br> `npx playwright test --trace off`
+3. Creo una falla a proposito en **`tests/032_codeGentest.spec.ts`**, en el `"button"`, poniendo `"LoginX"`, y repiuto el comando anterior en la `TERMINAL`. </br> Se genera el error, con los dos intentos, sin el _trace_: </br> ![--trace off](images/2026-06-23_142834.png "--trace off")
