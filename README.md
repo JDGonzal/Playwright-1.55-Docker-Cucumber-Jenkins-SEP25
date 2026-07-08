@@ -1961,3 +1961,89 @@ test("traceTest", async ({ page, context }) => {
 
 11. Estas son las estrategias generales para encontrar cualquier elemento en la _WEB_.
 
+
+### 38. How to find locators which Playwright supports
+
+1. Iniciamos creando en la carpeta **"tests"**, el archivo **`038_locatorStrategy.spec.ts`**.
+2. La primera linea importamos `{test}` de `@playwright/test`.
+3. Creamos un `test`  de nombre `Locator Strategy Test`, con una función asincrónica que apunta al objeto `page`, y el `page.goto` navegando a `saucedemo.com`:
+```js
+import {test} from '@playwright/test';
+
+test('Locator Strategy Test', async ({ page }) => {
+  // Navigate to the target page
+  await page.goto('https://www.saucedemo.com/');
+});
+```
+4. Buscamos de dicha página, el primer campo, el cuadro de texto llamado `Username`, dando clic derecho y seleccionando `Inspect`, siempre se sugiere utilizar el `id`, con `page.locator`, para hacer un llenado o `fill`:
+```js
+  // page.locator('id="user-name"').fill('standard_user');
+  await page.locator('#user-name').fill('standard_user');
+```
+5. Hacemos lo mismo para el cuadro de `Password`, usando también el `page.locator`:
+```js
+  // Use a XPath to find the password input field
+  await page.locator('//input[@id="password"]').fill('secret_sauce');
+```
+6. Otras opciones pueden ser _CSS_:
+```js
+  // Click the login button using a CSS selector
+  // page.locator('text="Login"').click();
+  // page.locator('input:has-text("Login")').click();
+  await page.locator('button[type="submit"]').click();
+```
+
+### 39. Easily find locators using Playwright inspector
+
+1. Copio el archivo **`038_locatorStrategy.spec.ts`** en **`039_locatorStrategy.spec.ts`**.
+2. Borro el cotenido debajo de `page.goto` y añado un `page.pause`.
+3. Ejecuto este test con el comando en la `TERMINAL` de : </br> `npx playwright test 039_locatorStrategy --project=chromium --headed`
+4. Se detiene en la _pause_ y muestra una pantalla de `Playwright Inspector`: </br> ![Playwright Inspector](images/2026-07-08_114348.png "Playwright Inspector")
+
+
+
+
+
+
+
+
+5. Selecciono en la parte superior, al lado de `Record` el ícono de <img title="Pick Locator" alt="Pick Locator" src="images/2026-07-08_115508.png" style="top:0.5px;visibility:visible" width="16px"> `Pick Locator` y luego señalo el cuadro de texto de `Username`: </br> ![data-test="username"](images/2026-07-08_115922.png 'data-test="username"')</br>`locator('[data-test="username"]')`
+
+
+
+
+
+
+
+6. Repito el proceso para señalar el cuadro de texto de `Password` y esto me aparece en el cuadro de `Locator`: </br>`locator('[data-test="password"]')`
+7. Repito despuespués de dar click al ícono de `Pick Locator`, y luego el botón de `Login`, y en la celda de `Locator`sale esto: </br> `locator('[data-test="login-button"]')`
+8. Aprovecho esta información obtenido y la añado al archivo **`039_locatorStrategy.spec.ts`**:
+```js
+import {test} from '@playwright/test';
+
+test('Locator Strategy Test', async ({ page }) => {
+  // Navigate to the target page
+  await page.goto('https://www.saucedemo.com/');
+  // Add a Pause to observe the page before performing actions
+  // await page.pause();
+  // Locate with the data-test attribute
+  await page.locator('[data-test="username"]').fill('standard_user');
+  await page.locator('[data-test="password"]').fill('secret_sauce');
+  await page.locator('[data-test="login-button"]').click();
+  // Verify that the user is logged in by checking for the presence of the inventory container
+  await page.locator('.inventory_container').isVisible();
+});
+```
+9. Detengo la ejecución en la `TERMINAL` y vuelvo a ejecutar el comando del paso 3.
+10. Este es el resultado de `npx playwright show-report` </br> ![Locator Strategy Test](images/2026-07-08_161357.png "Locator Strategy Test")
+
+
+
+
+
+
+
+
+
+11. Cerramos la ejecución con `[Ctrl]`+`[C]`
+
