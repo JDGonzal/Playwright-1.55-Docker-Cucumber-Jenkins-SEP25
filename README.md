@@ -2047,3 +2047,76 @@ test('Locator Strategy Test', async ({ page }) => {
 
 11. Cerramos la ejecución con `[Ctrl]`+`[C]`
 
+
+### 40. Plugins available to find Locators very easily
+
+1. Instalar en el _Browser_ uno de estos _pluggings_ o Extensiones:
+* `SelectorHub`
+* `LetXPath`
+2. El primero da opciones variadas de localizar un elemento
+3. El segundo no aparece ya en el `Chrome web store`.
+
+---
+
+## Section 9: Writing Login scenario test & Assertions
+
+### 41. How to write Login Test ?
+
+1. Creamos el archivo **`041_loginTest.spec.ts`**,y empezamos con la importación de `test` y `expect`:
+```js
+import { expect, test } from "@playwright/test";
+```
+2. Creamos una función asincrónica usando `test`, con el nombre `Login Test for Orange HRM` y con el parámetro de `page`:
+```js
+test("Login Test for Orange HRM", async ({ page }) => {
+	
+});
+```
+3. Usamos el parámetro `page`, para ubicarnos en la página de `orange HRM`:
+```js
+	await page.goto(
+		"https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+	);
+```
+4. Seleccionamos el primer cuadro de `Username`, para llenar con el valor de `Admin`:
+```js
+	await page.locator('input[name="username"]').fill("Admin");
+```
+5. Repito el proceso para `Password` y llenarlo con `admin123`:
+```js
+  await page.locator('input[name="password"]').fill("admin123");
+```
+6. Vamos por el botón de `Login` para darle clic:
+```js
+	await page.locator('button[type="submit"]').click();
+```
+7. Como ingresa a una nueva página, debemos buscar el botón que es una imagen para desplegar el menú y dar el botón de `Logout`:
+```js
+	await page.locator('.oxd-userdropdown-tab').click();
+	await page.locator('text=Logout').click();
+```
+8. Vamos a validar que exista `company-branding"` y damos cerrar:
+```js
+	await expect(page).toHaveURL(
+		"https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+	);
+	await page.close();
+```
+9. En una `TERMINAL` vamos a ejecutar este comando: </br> `npx playwright test 041_loginTest --project=chromium --headed`
+10. El proceso finaliza satisfactoriamente
+
+
+### 42. Assertion - Visible/Hidden Alternate website
+
+**Assertion - Visible/Hidden Alternate website**
+In the upcoming video we will be learning how to assert the visible/hidden element in the website.
+
+In the video I will be doing demo with <https://sripriyapkulkarni.com/>
+
+But unfortunately, the website isn't available anymore.
+
+So instead of that please use - <https://www.letskodeit.com/practice>
+
+Use under the Element Displayed Example section where it has both Show/Hide buttons.
+
+
