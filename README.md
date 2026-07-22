@@ -2165,3 +2165,34 @@ test("Visible/Hidden Assertion", async ({ page }) => {
 
 
 10. Finalizamos con `[Ctrl]`+`[C]`, para salir del reporte.
+
+### 44. Assertions - Present/Not Present
+
+1. Empiezo creando el archivo **`044_assertionTest.spec.ts`**, copiando del archivo anterior **`043_assertionTest.spec.ts`**, con la importación de `test` y `expect`, luego una función asincrónica cobn el parámetro `page`, apuntando al sitio `https://the-internet.herokuapp.com/add_remove_elements/`:
+```js
+import { expect, test } from "@playwright/test";
+
+test("Present/Not Present Assertion", async ({ page }) => {
+  await page.goto("https://the-internet.herokuapp.com/add_remove_elements/");
+
+await page.close();
+```
+2. Verificamos que no esté presente el texto de la clase `added-manually`:
+```js
+  await expect(page.locator('.added-manually')).not.toHaveCount(1);
+```
+3. Verificamos con la ejecución de la prueba desde la `TERMINAL`, con el comando: </br>`npx playwright test 044_assertionTest --project=chromium --headed`
+4. Presionamos el botón para que se cree el nuevo objeto y validamos que esté presente:
+```js
+  await page.locator('button[onclick="addElement()"]').click();
+  await expect(page.locator('.added-manually')).toHaveCount(1); 
+```
+5. Volvemos a ejecutar en la `TERMINAL` el comando del paso 3, y pasa el proceso sin errores.
+
+### 45. New Website on Assertion - Enabled/Disabled
+
+>[!NOTE]
+> New Website on Assertion - Enabled/Disabled
+> In the next video I am using <https://letcode.in/buttons>
+>
+> But the website url has been changed to  <https://letcode.in/button>
