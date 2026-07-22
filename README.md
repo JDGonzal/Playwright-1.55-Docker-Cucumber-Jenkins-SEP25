@@ -2120,3 +2120,48 @@ So instead of that please use - <https://www.letskodeit.com/practice>
 Use under the Element Displayed Example section where it has both Show/Hide buttons.
 
 
+### 43. Assertions - Visible/Hidden
+
+1. Empecemos creando el arhivo **`043_assertionTest.spec.ts`** con solo la importación de `test` y `expect`:
+```js
+import { expect, test } from "@playwright/test";
+```
+1. Creo la función asincrónica `test`, con el texto `Visible/Hidden Assertion` y el parámetro `page`:
+```js
+test("Visible/Hidden Assertion", async ({ page }) => {
+
+});
+```
+3. Vamos a la página que me pertenece donde añadí el botón que muestra y oculta un texto:
+```js
+  await page.goto("https://jdgonzal.github.io/alquimia-software/");
+```
+>[!WARNING]
+>
+> El sitio propuesto por el instructor `https://sripriyapkulkarni.com/` ya no funciona.
+
+4. Buscamos con el `Inspect` el texto que vamos a validar, si está o no presente:
+```js
+  await expect(page.locator('#miTexto')).toBeVisible(); 
+```
+5. Inspecciono el botón para para darle el clic:
+```js
+  await page.locator('#miBoton').click();
+```
+6. Y vuelvo a validar que el texto no sea visible:
+```js
+  await expect(page.locator('#miTexto')).toBeHidden();
+```
+7. Cerramos todo : </br> `await page.close();`
+8. Ejecuto en una `TERMINAL`, el comando para la prueba: </br> `npx playwright test 043_assertionTest --project=chromium --headed`
+9. Corro la verificación con: </br>`npx playwright show-report` </br> ![Visible/Hidden Assertion](images/2026-07-22_105345.png "Visible/Hidden Assertion")
+
+
+
+
+
+
+
+
+
+10. Finalizamos con `[Ctrl]`+`[C]`, para salir del reporte.
