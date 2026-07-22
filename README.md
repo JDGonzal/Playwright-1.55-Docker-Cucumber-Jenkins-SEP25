@@ -2191,8 +2191,45 @@ await page.close();
 
 ### 45. New Website on Assertion - Enabled/Disabled
 
->[!NOTE]
-> New Website on Assertion - Enabled/Disabled
-> In the next video I am using <https://letcode.in/buttons>
+>[!WARNING]
 >
-> But the website url has been changed to  <https://letcode.in/button>
+> ### New Website on Assertion - Enabled/Disabled
+>
+> * In the next video I am using <https://letcode.in/buttons>
+>
+> * **But the website url has been changed to  <https://letcode.in/button>**
+
+
+### 46. Assertions - Enabled/Disabled
+
+1. Creo el archivo **`046_assertionTest.spec.ts`** copiando el archivo **`044_assertionTest.spec.ts`**.
+2. Cambiamos el texto del `test` por `Enabled/Disabled Assertion`.
+3. La ruta para el `goto` es `https://letcode.in/button` y borramos el resto, dejando algo así:
+```js
+import { expect, test } from "@playwright/test";
+
+test("Enabled/Disabled Assertion", async ({ page }) => {
+  await page.goto("https://letcode.in/button");
+
+  await page.close();
+});
+```
+4. Inspecciono el botón con el texto `How tall & fat I am?`, tanto con el `Inspect` como el `SelectorHub`: </br> ![.](images/2026-07-22_163906.png "Inspect & SelectorHub")
+
+
+
+
+
+
+
+
+
+5. Hago clic al elemento con el `id` de nombre `#property` </br> `await page.locator("#property")` </br> Una vez obtenido lo uso para un `expect`:
+```js
+  await expect(page.locator("#property")).toBeEnabled();
+```
+6. Seleccionamos el botón con el texto `Disabled`, que tiene un `id` de nombre `isDisabled`:
+```js
+ await expect(page.locator("#isDisabled")).toBeDisabled();
+```
+7. En una `TERMINAL`, ejecuto el comando: </br> `npx playwright test 046_assertionTest --project=chromium --headed`
