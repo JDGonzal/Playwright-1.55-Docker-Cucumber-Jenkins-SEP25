@@ -2350,3 +2350,34 @@ test("Enabled/Disabled Assertion", async ({ page }) => {
 
 
 11. De nuevo cerramos el reporte con `[Ctrl]`+`[C]`.
+
+### 50. Assertions - Screenshot
+
+1. Creo el archivo **`050_assertionTest.spec.ts`** copiando el archivo **`049_assertionTest.spec.ts`**.
+2. Borro uno de los `test`, para dejar solo uno.
+3. Cambio el título de la función `test` por `Screenshot Assertion`.
+4. Borro los `expect` y dejo uno solo con la condicion: ``:
+```js
+  await expect(page).toHaveScreenshot("assertion-screenshot.png", {
+    fullPage: true,
+  });
+```
+5. Ejecuto en una `TERMINAL` el comando: </br> `npx playwright test 050_assertionTest --project=chromium --headed` </br> Y obtengo un error, pero es porque la imagen aun no existe.
+6. Repito el Comando y ya si obtengo un resultado exitoso, la o las imágenes se almacenan en la carpeta: **"tests/050_assertionTest.spec.ts-snapshots"**.
+7. Hice otro ejercicio, pero este funciona por ratos:
+```js
+test("Screenshot Assertion orange", async ({ page }) => {
+	await page.goto("https://opensource-demo.orangehrmlive.com");
+	// Wait for the page to finish loading and for a visible login element
+	await page.waitForLoadState("networkidle");
+	// Wait for one of several likely selectors on the OrangeHRM login page
+	await page.waitForSelector('input[name="username"]', { timeout: 5000 }).catch(() => null);
+	// Generate an assertion screenshot after the page is stable
+	await expect(page).toHaveScreenshot("assertion-screenshot-orange.png", {
+		fullPage: true,
+	});
+	await page.close();
+});
+```
+8. Finalmente el último lo comenté.
+9. Antes de subir al repositorio ejecuto en una `TERMINAL`: </br> `npx playwright test`
