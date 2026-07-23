@@ -2233,3 +2233,39 @@ test("Enabled/Disabled Assertion", async ({ page }) => {
  await expect(page.locator("#isDisabled")).toBeDisabled();
 ```
 7. En una `TERMINAL`, ejecuto el comando: </br> `npx playwright test 046_assertionTest --project=chromium --headed`
+
+>[!WARNING]
+>
+> Se genera un error, el no halla el elemento por el `Id`,
+> Se usa otro elemento _CSS_ que sería este: </br>
+> `"[title='Disabled button']"`
+
+8. Repito el comando en la `TERMINAL` y ya si funciona.
+
+
+### 47. Assertions - Text Match/Mismatch
+
+1. Creo el archivo **`047_assertionTest.spec.ts`** copiando el archivo **`046_assertionTest.spec.ts`**.
+2. Cambiamos el texto de la función `test` por `Text Match/Mismatch Assertion`.
+3. Inspeccionamos el botón con el texto `What is my color?`, para evaluarlo con el contenido del texto:
+```js
+  await expect(page.locator("#color")).toHaveText("What is my color?");
+```
+4. Duplicamos la línea, añadimos, la opción negativo con el texto `What is my color`:
+```js
+  await expect(page.locator("#color")).not.toHaveText("What is my color");
+```
+5. En una `TERMINAL` ejecutamos el comando para probar: </br> `npx playwright test 047_assertionTest --project=chromium --headed`
+6. Revisamos lo siguiente </br> `npx playwright show-report`</br>![Text Match/Mismatch Assertion](images/2026-07-23_103414.png "Text Match/Mismatch Assertion")
+
+
+
+
+
+
+
+
+
+
+
+7. Finalizamos con `[Ctrl]`+`[C]`, para salir del reporte.
