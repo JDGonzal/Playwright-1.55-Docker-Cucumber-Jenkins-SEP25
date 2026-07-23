@@ -2296,8 +2296,57 @@ test("Enabled/Disabled Assertion", async ({ page }) => {
 
 
 8. Finalizamos con `[Ctrl]`+`[C]`, para salir del reporte.
-9. Añado etra lína para validar atributo por _regex_:
+9. Añado otra lína para validar atributo por _regex_:
 ```js
   await expect(page.locator("input[placeholder='Username']")).toHaveAttribute("class", /.*oxd-input/);
 ```
-10. Ejecuto de nuevo el comando del punto 6 y todo resulta serr exitoso.
+10. Ejecuto de nuevo el comando del punto 6 y todo resulta ser exitoso.
+
+
+### 49. Assertions - URL and Title
+
+1. Creo el archivo **`049_assertionTest.spec.ts`** copiando el archivo **`048_assertionTest.spec.ts`**.
+2. Cambiamos el nombre de la prueba `test` por `URL Assertion`.
+3. Borramos los `expect`, y ponemos uno nuevo por una _URL_ completa:
+```js
+  await expect(page).toHaveURL("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+```
+4. Añadimo otro `expect`, con una parcial _URL_:
+```js
+  await expect(page).toHaveURL(/orangehrmlive/);
+```
+5. Ejecutamos en una `TERMINAL` el comando: </br> `npx playwright test 049_assertionTest --project=chromium --headed`
+6. Revisamos lo siguiente </br> `npx playwright show-report`</br>![URL Assertion](images/2026-07-23_175003.png "URL Assertion")
+
+
+
+
+
+
+
+
+
+
+
+
+7. Finalizamos con `[Ctrl]`+`[C]`, para salir del reporte.
+8. Copio en el archivo la función del `test` y hacemos los cambios del título por `Title Assertion`.
+9. Cambio los `expect`, para verificar el Título:
+```js
+  // Verify by full title
+  await expect(page).toHaveTitle("OrangeHRM");
+  // Verify by partial title
+  await expect(page).toHaveTitle(/HRM/);
+```
+10. Ejecutamos el comando del paso 5, luego miramos el reporte: </br> ![Title Asertion](images/2026-07-23_175746.png "Title Asertion")
+
+
+
+
+
+
+
+
+
+
+11. De nuevo cerramos el reporte con `[Ctrl]`+`[C]`.
