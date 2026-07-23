@@ -2269,3 +2269,35 @@ test("Enabled/Disabled Assertion", async ({ page }) => {
 
 
 7. Finalizamos con `[Ctrl]`+`[C]`, para salir del reporte.
+
+### 48. Assertions - Element Attributes
+
+1. Creo el archivo **`048_assertionTest.spec.ts`** copiando el archivo **`047_assertionTest.spec.ts`**.
+2. En `test` cambiamos el texto por `Attribute Assertion`.
+3. El `goto`, lo apuntamos a esta otra _URL_: `https://opensource-demo.orangehrmlive.com`
+4. Inspeccionamos el cuadro de `Username` para hacer el `expect`, y cambiamos la condición por `toHaveAttribute`:
+```js
+  await expect(page.locator("input[placeholder='Username']")).toHaveAttribute("name", "username")  ;
+```
+5. Duplicamos la linea del `expect` y cambiamos el `name` por la `class`:
+```js
+  await expect(page.locator("input[placeholder='Username']")).toHaveAttribute("class", "oxd-input oxd-input--focus")  ;
+```
+6. Ejecutamos en una `TERMINAL` el comando: </br> `npx playwright test 048_assertionTest --project=chromium --headed`
+7. Revisamos lo siguiente </br> `npx playwright show-report`</br>![Attribute Assertion](images/2026-07-23_172520.png "Attribute Assertion")
+
+
+
+
+
+
+
+
+
+
+8. Finalizamos con `[Ctrl]`+`[C]`, para salir del reporte.
+9. Añado etra lína para validar atributo por _regex_:
+```js
+  await expect(page.locator("input[placeholder='Username']")).toHaveAttribute("class", /.*oxd-input/);
+```
+10. Ejecuto de nuevo el comando del punto 6 y todo resulta serr exitoso.
