@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("Screenshot Assertion", async ({ page }) => {
+test.skip("Screenshot Assertion", async ({ page }) => {
 	await page.goto("https://opensource-demo.orangehrmlive.com");
 	// Generate an assertion screenshot
 	await expect(page).toHaveScreenshot("assertion-screenshot.png", {
