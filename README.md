@@ -2296,7 +2296,7 @@ test("Enabled/Disabled Assertion", async ({ page }) => {
 
 
 8. Finalizamos con `[Ctrl]`+`[C]`, para salir del reporte.
-9. Añado otra lína para validar atributo por _regex_:
+9. Añado otra línea para validar atributo por _regex_:
 ```js
   await expect(page.locator("input[placeholder='Username']")).toHaveAttribute("class", /.*oxd-input/);
 ```
@@ -2380,4 +2380,106 @@ test("Screenshot Assertion orange", async ({ page }) => {
 });
 ```
 8. Finalmente el último lo comenté.
-9. Antes de subir al repositorio ejecuto en una `TERMINAL`: </br> `npx playwright test`
+9. Antes de subir al repositorio ejecuto en una `TERMINAL`: </br> `npx playwright test`</br>Aún así hay pruebas que pueden fallar o considerarse _flaky_.
+
+---
+
+## Section 10: Handling Basic UI elements
+
+### 51. Text box & Button
+
+1. Empiezo creando el archivo **`051_textboxHandling.spec.ts`**
+2. Al igual que los otros archivos empiezo con la importación de `test` y luego uso ese `test` en el método con el texto `Fill Method` y proceso similares al del archivo **`041_loginTest.spec.ts`**:
+```js
+	await page.locator('input[name="username"]').fill("Admin");
+	await page.locator('input[name="password"]').fill("admin123");
+	await page.locator('button[type="submit"]').click();
+	await page.locator('.oxd-userdropdown-tab').click();
+	await page.locator('text=Logout').click();
+```
+3. Creo otro método llamado `Press - Sequentially method` y con algunos cambios, como:
+* En vez de _fill_ se usa `pressSequentially`.
+* En vez de _click_ en el `[button]`, se da `press('Enter')` al momento de cargar el `password`.
+```js
+test("Press - Sequentially method", async ({ page }) => {
+	await page.goto("https://opensource-demo.orangehrmlive.com");
+	await page.locator('input[name="username"]').pressSequentially("Admin");
+	await page.locator('input[name="password"]').pressSequentially("admin123");
+  await page.locator('input[name="password"]').press('Enter');  
+	await page.locator(".oxd-userdropdown-tab").click();
+	await page.locator("text=Logout").click();
+	await page.close();
+});
+```
+* Lo que se pulsa secuencialmente hace es _fill_ (llenar) pondrá los valores directamente en el cuadro de texto en una fracción de segundo.
+* Pero mientras que el pulsa secuencialmente, como su nombre indica, pulsará cada letra una a una de forma similar a como introducimos en el teclado.
+* Esa es la diferencia entre _fill_ (llenar) y presionar secuencialmente.
+4. Verifico como van los cambios ejecutando en la `TERMINAL` el comando: </br> `npx playwright test 051_textboxHandling --project=chromium --headed`
+5. Un último método con el texto `Press - Sequentially method with Delay`:
+```js
+test("Press - Sequentially method with Delay", async ({ page }) => {
+	await page.goto("https://opensource-demo.orangehrmlive.com");
+	await page
+		.locator('input[name="username"]')
+		.pressSequentially("Admin", { delay: 200 });
+	await page
+		.locator('input[name="password"]')
+		.pressSequentially("admin123", { delay: 200 });
+	await page.locator('input[name="password"]').press("Enter");
+	await page.locator(".oxd-userdropdown-tab").click();
+	await page.locator("text=Logout").click();
+	await page.close();
+});
+```
+6. Ejecuto de nuevo en la `TERMINAL` el comando: </br> `npx playwright test 051_textboxHandling --project=chromium --headed`
+7. La última ejecución se ve en pantalla, ingresando caracter por caracter, con un tiempo de 1/5 de segundo.
+8. Creo otro archivo llamado **`051_buttonHandling.spec.ts`** le dejo por ahora solo la imporación de `test` y `expect` adicional el método test asincrónico apuntando a `page`:
+```js
+import { expect, test } from "@playwright/test";
+
+test("", async ({ page }) => {});
+```
+9. Creo tres métodos </br>- `Regular Button single click`</br>- `Double click` </br>- `Right click` </br> Apuntando al sitio: `https://play1.automationcamp.ir/mouse_events.html`:
+```js
+import { expect, test } from "@playwright/test";
+
+test("Regular Button single click", async ({ page }) => {
+	await page.goto("https://play1.automationcamp.ir/mouse_events.html");
+
+});
+
+test("Double click", async ({ page }) => {
+	await page.goto("https://play1.automationcamp.ir/mouse_events.html");
+
+});
+
+test("Right click", async ({ page }) => {
+	await page.goto("https://play1.automationcamp.ir/mouse_events.html");
+
+});
+```
+10. Completamos el método del texto `Regular Button single click`:
+```js
+test("Regular Button single click", async ({ page }) => {
+	await page.goto("https://play1.automationcamp.ir/mouse_events.html");
+	await page.locator("#click_area").click();
+	await expect(page.locator("#click_type")).toHaveText("Click");
+});
+```
+11. Probamos ejecutando en la `TERMINAL`, el comando: </br> `npx playwright test 051_buttonHandling --project=chromium --headed`
+12. Completo los otros dos test-cases:
+```js
+test("Double click", async ({ page }) => {
+	await page.goto("https://play1.automationcamp.ir/mouse_events.html");
+	await page.locator("#click_area").dblclick();
+	await expect(page.locator("#click_type")).toHaveText("Double-Click");
+});
+
+test("Right click", async ({ page }) => {
+	await page.goto("https://play1.automationcamp.ir/mouse_events.html");
+	await page.locator("#click_area").click({ button: "right" });
+	await expect(page.locator("#click_type")).toHaveText("Right-Click");
+});
+```
+13. Ejecuto el comando de nuevo en la `TERMINAL` y todo pasa sin problemas.
+14. Em la terminal, antes de cualquier cosa ejecuto las pruebas de todo con: </br> `npx playwright test`
