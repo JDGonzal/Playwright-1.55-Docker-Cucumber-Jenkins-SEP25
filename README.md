@@ -2482,4 +2482,50 @@ test("Right click", async ({ page }) => {
 });
 ```
 13. Ejecuto el comando de nuevo en la `TERMINAL` y todo pasa sin problemas.
-14. Em la terminal, antes de cualquier cosa ejecuto las pruebas de todo con: </br> `npx playwright test`
+14. En la terminal, antes de cualquier cosa ejecuto las pruebas de todo con: </br> `npx playwright test`
+
+### 52. Radio Buttons
+
+1. Creamoa el archivo **`052_radioButtonsHandling.spec.ts`**, importamos `test` y `expect`, dentro de la función `test` con el nombre `radio buttons handling` apuntamos al sitio `https://practice.expandtesting.com/radio-buttons` ya que el sitio `https://demoautomationtesting.in/Register.html` ya no existe:
+```js
+import { expect, test } from "@playwright/test";
+
+test("radio buttons handling", async ({ page }) => {
+	// await page.goto("https://demoautomationtesting.in/Register.html");
+  await page.goto("https://practice.expandtesting.com/radio-buttons");
+
+	await page.close();
+});
+```
+2. Defino una constante con el color favorito elegido de nombre `colorRadioButton` y le llevo el valor de `Yellow`: </br> `const colorRadioButton = page.locator("label[for='yellow']");`
+3. Ahora si como se va a probar, la primera con un _Assertion_:
+```js
+  //Way 1 assertion
+  await expect(colorRadioButton).not.toBeChecked();
+```
+4. Modo 2, que el `isChecked` sea `tobeFalsy`:
+```js
+	// Way 2 assertion
+	expect(await colorRadioButton.isChecked()).toBeFalsy();
+```
+5. Modo 3, con una propiedad de `toHaveJSProperty`:
+```js
+	//Way 3 assertion
+	await expect(colorRadioButton).toHaveJSProperty("checked", false);
+```
+6. Ponemos el _check_ y validamos las tres formas, que este seleccionado:
+```js
+	await colorRadioButton.check();
+
+  // Way 1 assertion
+	await expect(colorRadioButton).toBeChecked();
+  // Way 2 assertion
+	expect(await colorRadioButton.isChecked()).toBeTruthy();
+  // Way 3 assertion
+	await expect(colorRadioButton).toHaveJSProperty("checked", true);
+
+```
+7. Probamos ejecutando en la `TERMINAL`, el comando: </br> `npx playwright test 052_radioButtonsHandling --project=chromium --headed`
+8. El modo 3 no funciona, simplemente se comenta.
+9. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
+
