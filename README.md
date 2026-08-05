@@ -2543,7 +2543,7 @@ test("checkbox handling", async ({ page }) => {
 	await page.close();
 });
 ```
-2. Definimos una xonstante de nombre `checkbox1` que tome la infor del elemento `label[for='checkbox1']`: </br> `const checkbox1 = page.locator("label[for='checkbox1']");`
+2. Definimos una constante de nombre `checkbox1` que tome la infor del elemento `label[for='checkbox1']`: </br> `const checkbox1 = page.locator("label[for='checkbox1']");`
 3. Repito por el otro elemento : </br> `const checkbox2 = page.locator("label[for='checkbox2']");`
 4. Agregamos el modo 1 del _assert_:
 ```js
@@ -2571,6 +2571,31 @@ test("checkbox handling", async ({ page }) => {
   expect(await checkbox1.isChecked()).toBeTruthy();
   expect(await checkbox2.isChecked()).toBeFalsy();
 ```
-1. Probamos ejecutando en la `TERMINAL`, el comando: </br> `npx playwright test 053_checkBoxHandling --project=chromium --headed`
-2. Todo pasa correctamente.
-3. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
+7. Probamos ejecutando en la `TERMINAL`, el comando: </br> `npx playwright test 053_checkBoxHandling --project=chromium --headed`
+8. Todo pasa correctamente.
+9. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
+
+### 54. Single Static Dropdown
+
+1. Empecemos por crear el archivo **`054_dropdownHandling.spec.ts`**, con las importaciones, la funcion base de `test` y apuntando al sitio `practice.expandtesting.com/dropdown`:
+```js
+import { expect, test } from "@playwright/test";
+
+test("dropdown handling", async ({ page }) => {
+	// await page.goto("https://demoautomationtesting.in/Register.html");
+  await page.goto("https://practice.expandtesting.com/dropdown");
+
+	await page.close();
+});
+```
+2. Definimos una constante de nombre `countryDropdown` que tome la infor del elemento `#country`: </br> `const countryDropdown = page.locator("#country");`
+3. Completo con un clic, luego obtengo el _label_ sea `India` y valido el _value_ se `IN`:
+```js
+	await countryDropdown.click();
+	await countryDropdown.selectOption({ label: "India" });
+	const selectedCountry = await countryDropdown.inputValue();
+	expect(selectedCountry).toBe("IN");
+```
+4. Probamos ejecutando en la `TERMINAL`, el comando: </br> `npx playwright test 054_dropdownHandling --project=chromium --headed`
+5. Todo pasa correctamente.
+6. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
