@@ -2529,3 +2529,48 @@ test("radio buttons handling", async ({ page }) => {
 8. El modo 3 no funciona, simplemente se comenta.
 9. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
 
+
+### 53. Check Boxes
+
+1. Empezamos creando el archivo **`053_checkBoxHandling.spec.ts`**, con las importaciones, la funcion base de `test` y apuntando al sitio `practice.expandtesting.com/checkboxes`:
+```js
+import { expect, test } from "@playwright/test";
+
+test("checkbox handling", async ({ page }) => {
+	// await page.goto("https://demoautomationtesting.in/Register.html");
+  await page.goto("https://practice.expandtesting.com/checkboxes");
+
+	await page.close();
+});
+```
+2. Definimos una xonstante de nombre `checkbox1` que tome la infor del elemento `label[for='checkbox1']`: </br> `const checkbox1 = page.locator("label[for='checkbox1']");`
+3. Repito por el otro elemento : </br> `const checkbox2 = page.locator("label[for='checkbox2']");`
+4. Agregamos el modo 1 del _assert_:
+```js
+  // Way 1 assertion
+  await expect(checkbox1).not.toBeChecked();
+  await expect(checkbox2).toBeChecked();
+```
+5. Y luego el modo 2 de _assert_:
+```js
+  //Way 2 assertion
+  expect(await checkbox1.isChecked()).toBeFalsy();
+  expect(await checkbox2.isChecked()).toBeTruthy();
+```
+6. Hacemos el _check_ y el _uncheck_, para hacer las validaciones o _assert_ justo después:
+```js
+  //Checking the checkbox1 and unchecking the checkbox2
+  await checkbox1.check();
+  await checkbox2.uncheck();
+
+  // Way 1 assertion
+  await expect(checkbox1).toBeChecked();
+  await expect(checkbox2).not.toBeChecked();
+
+  //Way 2 assertion
+  expect(await checkbox1.isChecked()).toBeTruthy();
+  expect(await checkbox2.isChecked()).toBeFalsy();
+```
+1. Probamos ejecutando en la `TERMINAL`, el comando: </br> `npx playwright test 053_checkBoxHandling --project=chromium --headed`
+2. Todo pasa correctamente.
+3. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
