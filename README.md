@@ -2591,7 +2591,7 @@ test("dropdown handling", async ({ page }) => {
 2. Definimos una constante de nombre `countryDropdown` que tome la infor del elemento `#country`: </br> `const countryDropdown = page.locator("#country");`
 3. Completo con un clic, luego obtengo el _label_ sea `India` y valido el _value_ se `IN`:
 ```js
-	await countryDropdown.click();
+	const countryDropdown = page.locator("#country");
 	await countryDropdown.selectOption({ label: "India" });
 	const selectedCountry = await countryDropdown.inputValue();
 	expect(selectedCountry).toBe("IN");
@@ -2599,3 +2599,62 @@ test("dropdown handling", async ({ page }) => {
 4. Probamos ejecutando en la `TERMINAL`, el comando: </br> `npx playwright test 054_dropdownHandling --project=chromium --headed`
 5. Todo pasa correctamente.
 6. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
+
+> [!IMPORTANT]
+>
+> ### Instalar la últimas versiones
+>
+> 1. Para `Playwright` ejecutamos el comando en una `TERMINAL`: </br> `yarn add -D @playwright/test@latest` </br> y la versión resultante es `1.62.1`.
+> 2. Para `pnpm`, el comando: </br> `pnpm self-update` </br> y la versión devuelta es `11.20.0`.
+> 3. Para `node` no es necesario, está en la versión `24.14.0`.
+> 4. Para `yarn`, son varios pasos:
+>     * Con node 18.x o superior el comando: </br> `corepack enable`
+>     * Indícale a Corepack que prepare y active la versión estable más reciente en tu sistema: </br> `corepack prepare yarn@stable --activate`
+>     * A diferencia de Yarn v1, las versiones modernas de Yarn se gestionan por cada proyecto. Ve a la carpeta raíz de tu repositorio/proyecto y ejecuta el comando de actualización interna: </br> `yarn set version stable` </br>Este comando descargará la versión más reciente de forma local en tu proyecto, creará un archivo .yarnrc.yml y actualizará las dependencias internas automáticamente.
+>
+>  **No lo ejecuto pues no lo requiero aún, dentro de este proyecto**.
+>
+> * Si tu terminal sigue mostrando `1.22.22` y quieres migrar tu proyecto actual a la última versión, sitúate en la carpeta del proyecto y fuerza el cambio de generación de la siguiente manera: </br> `# Cambia el motor del proyecto a la línea moderna (Berry)` </br> `yarn set version berry` </br> `# Instala los binarios necesarios actualizados` </br> `yarn install`
+>
+> **Por ahora sigo en la versión `1.22.22` de `yarn`**.
+>
+> 5. Actualizo el `playwright` con el comando: </br> `npx playwright install`
+
+
+### 55. Multi Static Dropdown
+
+1. Empecemos por crear el archivo **`055_dropdownHandling.spec.ts`**, con las importaciones, la funcion base de `test` y apuntando al sitio `practice.expandtesting.com/dropdown`:
+```js
+import { expect, test } from "@playwright/test";
+
+test("dropdown handling", async ({ page }) => {
+	// await page.goto("https://demoautomationtesting.in/Register.html");
+	await page.goto("https://www.testmuai.com/selenium-playground/select-dropdown-demo/");
+
+	await page.close();
+});
+```
+2. Selecciono el elemento con el _id_ `multi-select`:
+```js
+	await page.selectOption("#multi-select", [
+		{ value: "Ohio" },
+		{ label: "Texas" },
+		{ index: 3 },
+	]);
+	await page.pause();
+```
+3. Ejecuto la prueba en una `TERMINAL` con el comando: </br> `npx playwright test 055_dropdownHandling --project=chromium --headed` </br> Le doy a la flecha para que termine el proceso.
+4. Ahora comento el `pause` y añado la validación:
+```js
+	// await page.pause();
+	const selectedOptions = await page.$$eval(
+		"#multi-select option:checked",
+		(els) => els.map((el) => el.textContent.trim()),
+	);
+	expect(selectedOptions).toEqual(["New York", "Ohio", "Texas"]);
+```
+5. Ejecuto de nuevo la prueba y todo es correcto.
+6. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
+
+
+
