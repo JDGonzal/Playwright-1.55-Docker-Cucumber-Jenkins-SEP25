@@ -2627,7 +2627,7 @@ test("dropdown handling", async ({ page }) => {
 ```js
 import { expect, test } from "@playwright/test";
 
-test("dropdown handling", async ({ page }) => {
+test("multi static dropdown handling", async ({ page }) => {
 	// await page.goto("https://demoautomationtesting.in/Register.html");
 	await page.goto("https://www.testmuai.com/selenium-playground/select-dropdown-demo/");
 
@@ -2656,5 +2656,39 @@ test("dropdown handling", async ({ page }) => {
 5. Ejecuto de nuevo la prueba y todo es correcto.
 6. Antes de subir al repositorio se ejecuta en la `TERMINAL`, que todas las pruebas funcionen: </br> `npx playwright test`
 
+### 56. Dynamic Dropdown
+
+1. Creo el archivo **`056_dropdownHandling.spec.ts`** con base en **`055_dropdownHandling.spec.ts`**, apunto al sitio `https://qaplayground.com/practice/dropdowns`:
+```js
+import { expect, test } from "@playwright/test";
+
+test("Searchable Dynamic dropdown handling", async ({ page }) => {
+	// await page.goto("https://demoautomationtesting.in/Register.html");
+	await page.goto(
+		"https://qaplayground.com/practice/dropdowns",
+	);
+
+	await page.close();
+});
+```
+2. Primero damos clic al elemento con _id_ `citySearch` y ese mismo es el que llenamos con el texto `del`:
+```js
+	// Selecciono y lleno el campo de busqueda del dropdown
+	await page.locator('#citySearch').click();
+	await page.locator('#citySearch').fill('del');
+```
+3. Luego tomo el dato completo y añado una pausa:
+```js
+	// Selecciono la opcion del dropdown
+	await page.locator("button[role='option']").press("Enter");
+	await page.pause();
+```
+4. Ejecuto la prueba en la terminal con: </br> `npx playwright test 056_dropdownHandling --project=chromium --headed` </br> Le doy a la flecha para que termine el proceso.
+5. Añado el `expect`:
+```js
+	// Verifico que la opción seleccionada sea 'Delhi'
+	const selectedCity = await page.locator('#citySearch').inputValue();
+	expect(selectedCity).toBe('Delhi');
+```
 
 
