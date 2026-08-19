@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("dropdown handling", async ({ page }) => {
+test("multi static dropdown handling", async ({ page }) => {
 	// await page.goto("https://demoautomationtesting.in/Register.html");
 	await page.goto(
 		"https://www.testmuai.com/selenium-playground/select-dropdown-demo/",
