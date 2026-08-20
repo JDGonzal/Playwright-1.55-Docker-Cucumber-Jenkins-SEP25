@@ -2692,3 +2692,111 @@ test("Searchable Dynamic dropdown handling", async ({ page }) => {
 ```
 
 
+### 57. Simple Alert
+
+1. El instructor sugiere esta _URL_: </br> `www.the-internet.herrcuapp.com/javascript_alerts`</br>Pero no funciona. Entonce utilizo esta ruta: </br> `https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/`
+2. A menos que gestionemos esta alerta, no podremos interactuar con la interfaz de usuario. </br>Pero en playwright por defecto cerrará la ventana de alerta. </br>No necesitamos escribir ningún código para manejarlo, pero es una buena práctica entender el flujo de la interfaz de usuario y automatizar la alerta para comprobar si se dispara en el lugar correcto con el texto correcto. </br>En cualquier página web, sólo habrá tres alertas:
+* Alerta simple.
+* Alerta de confirmación.
+* Alerta con un cuadro de texto.
+3. Creamos el archivo **`057_alertHandling.spec.ts`**, le pongo, las importaciones y la funcion base con el texto `Simple Alert Handling`:
+```js
+import { expect, test } from "@playwright/test";
+
+test("Simple Alert Handling", async ({ page }) => {
+	// await page.goto("https://www.the-internet.herrcuapp.com/javascript_alerts");
+	await page.goto(
+		"https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/",
+	);
+
+	await page.close();
+});
+```
+4. Podemos acceder al botón o por el _cssSelector_ o por `getByRole`:
+```js
+  // Uso el botón por cssSelector
+  await page.locator("button[class='btn btn-dark my-30 mx-10 hover:bg-lambda-900 hover:border-lambda-900']").click();
+  // o uso el botón de Alerta simple — con el primer botón accesible "Click Me"
+  //await page.getByRole('button', { name: 'Click Me' }).first().click();
+```
+5. El abre y cierra el proceso, pero realmente no validamos o capturamos el mensaje que hay en el _alert_ que aparece, con el texto `I am an alert box!`.
+6. Para validar el contenido del _alert_ y el texto interno usamos el `page.on` a modo de método y procesamos allí:
+```js
+import { expect, test } from '@playwright/test';
+
+test('Simple Alert Handling', async ({ page }) => {
+  // await page.goto("https://www.the-internet.herrcuapp.com/javascript_alerts");
+  await page.goto(
+    'https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/',
+  );
+  // Espero que se abra la alerta y la manejo con el evento 'dialog'
+  page.on('dialog', async (alert) => {
+    const alertMessage = alert.message();
+    // Verifico el mensaje de la alerta
+    console.log('Alert message:', alertMessage);
+    expect(alertMessage).toEqual('I am an alert box!, error');
+    await alert.accept();
+  });
+  // Depues es que debo hacer click en el boton que dispara la alerta
+  // Uso el botón por cssSelector
+  await page.locator("button[class='btn btn-dark my-30 mx-10 hover:bg-lambda-900 hover:border-lambda-900']").click();
+  // o uso el botón de Alerta simple — con el primer botón accesible "Click Me"
+  // await page.getByRole('button', { name: 'Click Me' }).first().click();
+
+  await page.close();
+});
+```
+7. Depués de probar varias opciones parece que la _alert_ no es un formato válido, puesto que no ingresa a solo mostrar, así sea, el `console.log` con el contenido del mensaje, así que con la _A.I._, se implementó otra opción mas compleja:
+```js
+import { expect, test } from '@playwright/test';
+
+test('Simple Alert Handling', async ({ page }) => {
+  // await page.goto("https://www.the-internet.herrcuapp.com/javascript_alerts");
+  await page.goto(
+    'https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/',
+  );
+  // Espero que se abra la alerta y la manejo esperando el evento 'dialog'
+  // Para evitar que la prueba se quede colgada si NO aparece un dialog,
+  // registramos waitForEvent con timeout y capturamos excepciones.
+  const locator = page.locator("button[class='btn btn-dark my-30 mx-10 hover:bg-lambda-900 hover:border-lambda-900']");
+  let dialog = null;
+  try {
+    const wait = page.waitForEvent('dialog', { timeout: 5000 });
+    await locator.click(); // mantenemos el mismo click/selector solicitado
+    dialog = await wait;
+  } catch (e) {
+    console.log('No native dialog detected within 5s:', e && e.message ? e.message : e);
+  }
+
+  if (dialog) {
+    const alertMessage = dialog.message();
+    // Verifico el mensaje de la alerta
+    console.log('Alert message:', alertMessage);
+    expect(alertMessage).toEqual('I am an alert box!, error');
+    await dialog.accept();
+  } else {
+    // Si no hay dialog nativo, registramos una nota para el depurador.
+    console.log('No dialog event — the page may use an HTML modal instead of window.alert.');
+  }
+  // o uso el botón de Alerta simple — con el primer botón accesible "Click Me"
+  // await page.getByRole('button', { name: 'Click Me' }).first().click();
+
+  await page.close();
+});
+```
+8. Y este es el resultado arrojado:
+```dos
+No native dialog detected within 5s: page.waitForEvent: Timeout 5000ms exceeded while waiting for event "dialog"
+=========================== logs ===========================
+waiting for event "dialog"
+============================================================
+No dialog event — the page may use an HTML modal instead of window.alert.
+  1 passed (7.7s)
+```
+9. Había un error en la línea _18._, dentro del `catch (e)` y así se corrigió:
+```js
+  } catch (e) {
+    const errMsg = (e as any)?.message ?? String(e);
+    console.log('No native dialog detected within 5s:', errMsg);
+  }
+```

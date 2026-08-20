@@ -4,24 +4,62 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
+# Permisos necesarios para escribir y desplegar en GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita que múltiples ejecuciones simultáneas corrompan el despliegue
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+        cache: 'yarn'
+        
+    # Instalación limpia usando tu lockfile de Yarn
     - name: Install dependencies
-      run: npm install -g yarn && yarn
+      run: yarn install --frozen-lockfile
+      
     - name: Install Playwright Browsers
       run: yarn playwright install --with-deps
+      
     - name: Run Playwright tests
       run: yarn playwright test
+      
+    # 1. Guardar el reporte tradicional en Actions (por seguridad si todo falla)
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+
+    # 2. Preparar el reporte para GitHub Pages (Solo si corre en la rama principal)
+    - name: Setup Pages
+      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && !cancelled()
+      uses: actions/configure-pages@v5
+
+    # 3. Empaquetar la carpeta del reporte de Playwright
+    - name: Upload Pages Artifact
+      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && !cancelled()
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'playwright-report/'
+
+    # 4. Desplegar el reporte de forma pública en la web de GitHub
+    - name: Deploy to GitHub Pages
+      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && !cancelled()
+      id: deployment
+      uses: actions/deploy-pages@v4
