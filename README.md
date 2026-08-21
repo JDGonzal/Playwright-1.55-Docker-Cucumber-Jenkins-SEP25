@@ -2800,3 +2800,330 @@ No dialog event — the page may use an HTML modal instead of window.alert.
     console.log('No native dialog detected within 5s:', errMsg);
   }
 ```
+10. La primer versión funciona en `webkit`, pero no funciona con `chromium` o `firefox`.
+
+>[!IMPORTANT]
+>
+> ### Integración Continua
+>
+> El despliegue de pruebas en la nube o repositorio, es lo que se denomina _CI_ (Continuous Integration). </br>
+> Es una práctica de desarrollo que consiste en automatizar la unión y verificación del código de todo un equipo en un repositorio central tantas veces como sea posible (normalmente varias veces al día).
+>
+> #### 🛠️ ¿Cómo funciona en la práctica?
+>
+> En lugar de que cada programador trabaje de forma aislada durante semanas y luego intente juntar todo el código al final (lo que solía causar un caos lleno de errores), la CI sigue este flujo cada vez que subes un cambio (un git push):
+> 1. **Compilación automática**: Un servidor en la nube (como GitHub Actions) detecta el nuevo código y "construye" la aplicación desde cero.
+> 2. **Pruebas automatizadas**: El servidor ejecuta inmediatamente todas tus pruebas (como tus test de Playwright) para asegurarse de que el código nuevo no rompió lo que ya funcionaba.
+> 3. **Reporte inmediato**: Si algo falla, el sistema avisa al equipo de inmediato (el pipeline se pone en rojo ❌) para que se arregle antes de avanzar.
+>
+> #### 💡 Término relacionado: CD
+>
+> Casi siempre escucharás el término CI/CD. La CD significa **Entrega Continua** o **Despliegue Continuo** (Continuous Delivery / Deployment). </br> Mientras que la CI se asegura de probar y validar tu código, la CD toma ese código aprobado y lo sube automáticamente a producción (a la página web que usan tus clientes) sin intervención humana.
+>
+> #### 1. Modifica tu archivo playwright.config.ts (Recomendado)
+>
+> La mejor práctica es definir los reintentos para que se apliquen solo cuando corren en la nube (CI). Agrega la propiedad `retries` apuntando a `process.env.CI`:
+>```typescript
+>import { defineConfig } from '@playwright/test';
+>
+>export default defineConfig({
+>  // Si está en CI, reintenta la prueba hasta 2 veces. Si es local, 0 veces.
+>  retries: process.env.CI ? 2 : 0,
+>  
+>  use: {
+>    // Opcional: graba video o trace solo en el primer reintento para analizar el "flake"
+>    trace: 'on-first-retry',
+>    video: 'on-first-retry',
+>  },
+>});
+>```
+>
+> #### 2. Tu archivo .github/workflows/playwright.yml
+>
+> Si ya configuraste lo anterior en tu archivo de configuración, tu archivo de flujo de trabajo de GitHub Actions no necesita ningún parámetro raro. Se ejecutará normalmente y no fallará por culpa de un "flaky test":
+> ```yaml
+>name: Playwright Tests
+>on:
+>  push:
+>    branches: [ main, master ]
+>  pull_request:
+>    branches: [ main, master ]
+>jobs:
+>  test:
+>    timeout-minutes: 60
+>    runs-on: ubuntu-latest
+>    steps:
+>    - uses: actions/checkout@v4
+>    - uses: actions/setup-node@v4
+>      with:
+>        node-version: lts/*
+>    - name: Install dependencies
+>      run: npm ci
+>    - name: Install Playwright Browsers
+>      run: npx playwright install --with-deps
+>    - name: Run Playwright tests
+>      run: npx playwright test
+>    - uses: actions/upload-artifact@v4
+>      if: ${{ !cancelled() }}
+>      with:
+>        name: playwright-report
+>        path: playwright-report/
+>        retention-days: 30
+>```
+>
+> #### Alternativa: Configurarlo directamente en el comando del .yml
+>
+> Si por alguna razón no quieres modificar tu archivo playwright.config.ts, puedes forzar los reintentos directamente en el comando de ejecución dentro de tu **`.github/workflows/playwright.yml`**:
+> * Reemplaza la línea de ejecución por: </br> `run: npx playwright test --retries=2`
+>
+> #### Archivo **`playwright.config.ts`**
+>
+> Para solucionarlo de forma definitiva y limpia, la manera correcta en la que Playwright espera recibir la configuración de los workers es usando un operador ternario directo.Modifica el inicio de tu archivo **`playwright.config.ts`** para que quede exactamente así:
+> ```typescript
+>import { defineConfig, devices } from '@playwright/test';
+>
+>export default defineConfig({
+>  timeout: 30 * 1000,
+>  testDir: './tests',
+>  /* Run tests in files in parallel */
+>  fullyParallel: true,
+>  /* Fail the build on CI if you accidentally left test.only in the source code. */
+>  forbidOnly: !!process.env.CI,
+>  
+>  /* CAMBIO 1: Reintentos en CI para detectar flaky tests, 0 en local */
+>  retries: process.env.CI ? 2 : 0,
+>  
+>  /* SOLUCIÓN AL CAMBIO 2: Sintaxis correcta aceptada por el tipado de Playwright */
+>  workers: process.env.CI ? 2 : '100%',
+>  
+>  /* Reporter to use. See https://playwright.dev */
+>  reporter: 'html',
+>  
+>  /* Shared settings for all the projects below. See https://playwright.dev. */
+>  use: {
+>    headless: true,
+>    screenshot: 'only-on-failure',
+>    video: 'retain-on-failure',
+>    viewport: { width: 1280, height: 720 },
+>    trace: 'on-first-retry',
+>  },
+>  // ... resto de tus projects idénticos
+>```
+>
+> #### Archivo **`.github/workflows/playwright.yml`**
+>
+> **1. Activar la caché de Yarn (Ahorra hasta 2-3 minutos por ejecución)**
+> Actualmente, GitHub Actions descarga todas tus dependencias desde cero en cada ejecución. Configurando la propiedad cache: 'yarn', los paquetes se almacenarán en la infraestructura de GitHub y las ejecuciones subsecuentes serán muchísimo más rápidas.
+>
+> **2. Quitar la instalación global de Yarn (npm install -g yarn)**
+> Las imágenes virtuales de GitHub Actions (ubuntu-latest) ya traen Yarn preinstalado por defecto. Eliminar ese comando innecesario reduce el tiempo de arranque de tus pruebas.
+>
+> **3. Usar yarn install --frozen-lockfile en lugar de yarn a secas**
+> En entornos de integración continua (CI), siempre se debe usar --frozen-lockfile. Esto garantiza que GitHub Actions instale las versiones exactas que tienes en tu archivo yarn.lock, evitando que dependencias secundarias se actualicen solas y rompan tus pruebas misteriosamente en la nube.
+>
+> #### 📄 Archivo sugerido y optimizado (playwright.yml)
+>
+> Reemplaza todo el contenido de tu archivo por este:
+> ```yaml
+>name: Playwright Tests
+>on:
+>  push:
+>    branches: [ main, master ]
+>  pull_request:
+>    branches: [ main, master ]
+>jobs:
+>  test:
+>    timeout-minutes: 60
+>    runs-on: ubuntu-latest
+>    steps:
+>    - uses: actions/checkout@v4
+>    
+>    # Configuración de Node optimizada con Caché para Yarn
+>    - uses: actions/setup-node@v4
+>      with:
+>        node-version: lts/*
+>        cache: 'yarn'
+>        
+>    # Instalación segura y rápida usando el lockfile existente
+>    - name: Install dependencies
+>      run: yarn install --frozen-lockfile
+>      
+>    - name: Install Playwright Browsers
+>      run: yarn playwright install --with-deps
+>      
+>    - name: Run Playwright tests
+>      run: yarn playwright test
+>      
+>    - uses: actions/upload-artifact@v4
+>      if: ${{ !cancelled() }}
+>      with:
+>        name: playwright-report
+>        path: playwright-report/
+>        retention-days: 30
+> ```
+>
+> #### 💡 Una última recomendación para tus reportes
+>
+> **Paso 1: Configurar GitHub Pages en tu repositorio**
+>
+> Antes de modificar el código, debes darle permisos a tu repositorio para que acepte publicaciones automáticas:
+> 1. Entra a tu repositorio en GitHub.
+> 2. Ve a la pestaña Settings (Configuración) en el menú superior.
+> 3. En la barra lateral izquierda, haz clic en Pages.
+> 4. Dentro de la sección Build and deployment, busca la opción Source y asegúrate de cambiarla de "Deploy from a branch" a GitHub Actions. (Esto le permite a tu pipeline subir el reporte directamente sin crear ramas basura).
+>
+> **Paso 2: Actualizar tu archivo** **`.github/workflows/playwright.yml`**
+>
+> Debes agregar permisos de seguridad para que el pipeline pueda escribir en GitHub Pages y añadir los pasos necesarios para procesar y desplegar el reporte.Reemplaza todo el contenido de tu archivo .yml por el siguiente código optimizado:
+> ```yaml
+>name: Playwright Tests
+>on:
+>  push:
+>    branches: [ main, master ]
+>  pull_request:
+>    branches: [ main, master ]
+>
+># Permisos necesarios para escribir y desplegar en GitHub Pages
+>permissions:
+>  contents: read
+>  pages: write
+>  id-token: write
+>
+># Evita que múltiples ejecuciones simultáneas corrompan el despliegue
+>concurrency:
+>  group: "pages"
+>  cancel-in-progress: false
+>
+>jobs:
+>  test:
+>    timeout-minutes: 60
+>    runs-on: ubuntu-latest
+>    steps:
+>    - uses: actions/checkout@v4
+>
+>    - uses: actions/setup-node@v4
+>      with:
+>        node-version: lts/*
+>        cache: 'yarn'
+>        
+>    # Instalación limpia usando tu lockfile de Yarn
+>    - name: Install dependencies
+>      run: yarn install --frozen-lockfile
+>      
+>    - name: Install Playwright Browsers
+>      run: yarn playwright install --with-deps
+>      
+>    - name: Run Playwright tests
+>      run: yarn playwright test
+>      
+>    # 1. Guardar el reporte tradicional en Actions (por seguridad si todo falla)
+>    - uses: actions/upload-artifact@v4
+>      if: ${{ !cancelled() }}
+>      with:
+>        name: playwright-report
+>        path: playwright-report/
+>        retention-days: 30
+>
+>    # 2. Preparar el reporte para GitHub Pages (Solo si corre en la rama principal)
+>    - name: Setup Pages
+>      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && !cancelled()
+>      uses: actions/configure-pages@v5
+>
+>    # 3. Empaquetar la carpeta del reporte de Playwright
+>    - name: Upload Pages Artifact
+>      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && !cancelled()
+>      uses: actions/upload-pages-artifact@v3
+>      with:
+>        path: 'playwright-report/'
+>
+>    # 4. Desplegar el reporte de forma pública en la web de GitHub
+>    - name: Deploy to GitHub Pages
+>      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && !cancelled()
+>      id: deployment
+>      uses: actions/deploy-pages@v4
+>```
+>
+> **Paso 3: ¿Cómo ver el reporte en vivo?**
+>
+> Una vez que subas estos cambios a tu rama main o master, el pipeline correrá por completo. Al finalizar (incluso si hay pruebas fallidas o inestables), notarás lo siguiente:
+> 1. Ve a la pestaña Actions en GitHub y haz clic en la última ejecución de tus pruebas.
+> 2. En la parte inferior, verás un nuevo bloque llamado deploy.
+> 3. Al finalizar ese bloque, GitHub te dará un enlace directo parecido a: <https://github.io>
+>
+> Al hacer clic en ese enlace, verás tu reporte HTML interactivo completo. Podrás desplegar los tests que quedaron marcados con el estado _Flaky_ (icono amarillo) para analizar el paso a paso exacto, revisar los registros de la consola, las peticiones de red y los pantallazos del error del primer intento sin descargar nada.
+>
+
+### 58. Confirmation Alert
+
+1. Copiamos el archivo **`057_alertHandlingWebkit.spec.ts`** en **`058_alertHandling.spec.ts`**.
+2. Dejo lo básico y en el nombre le pongo: `Confirmation Alert - OK Button`
+```js
+import { expect, test } from '@playwright/test';
+
+test('Confirmation Alert - OK Button', async ({ page }) => {
+  // await page.goto("https://www.the-internet.herrcuapp.com/javascript_alerts");
+  await page.goto(
+    'https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/',
+  );
+  
+  await page.close();
+});
+```
+3. Copio lo mismo de **`057_alertHandlingWebkit.spec.ts`**, cambiando el `locator` del botón:
+```js
+import { expect, test } from '@playwright/test';
+
+test('Confirmation Alert - OK Button', async ({ page }) => {
+  // await page.goto("https://www.the-internet.herrcuapp.com/javascript_alerts");
+  await page.goto(
+    'https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/',
+  );
+  // Espero que se abra la alerta y la manejo con el evento 'dialog'
+  page.on('dialog', async (alert) => {
+    const alertMessage = alert.message();
+    // Verifico el mensaje de la alerta
+    console.log('Alert message:', alertMessage);
+    expect(alertMessage).toEqual('Press a button!');
+    await alert.accept();
+    await expect(page.locator('#confirm-demo')).toHaveText('You pressed OK!');
+  });
+  // Depues es que debo hacer click en el boton que dispara la alerta
+  await page
+    .locator(
+      "p[class='text-gray-900 text-size-16 mt-10 text-black font-bold'] button[type='button']",
+    )
+    .click();
+
+  await page.close();
+});
+```
+4. En una `TERMINAL` ejecutamos el comando: </br> `npx playwright test 058_alertHandling --project=webkit --headed`
+5. Copiamos el `test`, pero apuntando al botón de `Cancel`:
+```js
+test('Confirmation Alert - Cancel Button', async ({ page }) => {
+  // await page.goto("https://www.the-internet.herrcuapp.com/javascript_alerts");
+  await page.goto(
+    'https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/',
+  );
+  // Espero que se abra la alerta y la manejo con el evento 'dialog'
+  page.on('dialog', async (alert) => {
+    const alertMessage = alert.message();
+    // Verifico el mensaje de la alerta
+    console.log('Alert message:', alertMessage);
+    expect(alertMessage).toEqual('Press a button!');
+    await alert.dismiss();
+    await expect(page.locator('#confirm-demo')).toHaveText('You pressed Cancel!');
+  });
+  // Depues es que debo hacer click en el boton que dispara la alerta
+  await page
+    .locator(
+      "p[class='text-gray-900 text-size-16 mt-10 text-black font-bold'] button[type='button']",
+    )
+    .click();
+
+  await page.close();
+});
+```
+6. Ejecutamos de nuevo el comando del paso 4.
+7. Ejecutamos en la `TERMINAL`, las pruebas de todo, antes de subirlo al repositorio: </br> `npx playwright test`
+
