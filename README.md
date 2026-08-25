@@ -3183,3 +3183,161 @@ test('Prompt Alert - Cancel Button', async ({ page }) => {
 ```
 2. Ejecuto la prueba en la `TERMINAL`: </br> `npx playwright test 059_alertHandling --project=webkit --headed`
 3. Y verifico el resto de pruebas como siempre.
+
+## Section 11: Handling Advanced UI elements
+
+### 60. WebTable - Part 1
+
+1. El sitio que muestra el instructor `https://testautomationpractice.blogspot.com/` funciona.
+2. En la inspección identificamos las partes de la _table_: </br> ![id=HTML1](images/2026-08-24_17.56.41.png "id=HTML1")
+
+
+
+
+
+
+
+
+
+3. Creamos el archivo **`060_staticWebTableHandling.spec.ts`** y dentro tres `test` con los nombres de `Handling Static Web Table`,  `Selecting Single Checkbox in the Table` y `Selecting Multiple Checkbox using function`:
+```js
+import { expect, test } from '@playwright/test';
+
+test('Handling Static Web Table', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
+  await page.close();
+});
+
+test('Selecting Single Checkbox in the Table', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
+  await page.close();
+});
+
+test('Selecting Multiple Checkbox using function', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
+  await page.close();
+});
+```
+4. Encontramos que el nombre de la etiqueta `table`:
+```html
+<table name="BookTable">
+  <tbody><tr>
+    <th>BookName</th>
+    <th>Author</th>
+    <th>Subject</th>
+    <th>Price</th>
+  </tr>
+  <tr>
+    <td>Learn Selenium</td>
+    <td>Amit</td>
+    <td>Selenium</td>
+    <td>300</td>
+  </tr>
+  <tr>
+    <td>Learn Java</td>
+    <td>Mukesh</td>
+    <td>Java</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>Learn JS</td>
+    <td>Animesh</td>
+    <td>Javascript</td>
+    <td>300</td>
+  </tr>
+  <tr>
+    <td>Master In Selenium</td>
+    <td>Mukesh</td>
+    <td>Selenium</td>
+    <td>3000</td>
+  </tr>
+  <tr>
+    <td>Master In Java</td>
+    <td>Amod</td>
+    <td>JAVA</td>
+    <td>2000</td>
+  </tr>
+  <tr>
+    <td>Master In JS</td>
+    <td>Amit</td>
+    <td>Javascript</td>
+    <td>1000</td>
+  </tr>
+</tbody></table>
+```
+5. Definimos una constante de nombre `tableLocator`, que apunta a este _name_: </br> `const tableLocator = page.locator('table[name="BookTable"]');`
+6. Solo contamos el total de filas y columnas:
+```js
+  //Total de Columnas y Filas
+  const totalRows = await tableLocator.locator('tr').count();
+  const totalColumns = await tableLocator.locator('tr').first().locator('th').count();
+
+  console.log(`Total Rows: ${totalRows}`);
+  console.log(`Total Columns: ${totalColumns}`);
+```
+7. Cuando lo ejecuto en una `TERMINAL` con el comando: </br> `npx playwright test 060_staticWebTableHandling --project=webkit --headed` </br> Obtengo esta respuesta:
+```dos
+Total Rows: 7
+Total Columns: 4
+```
+8. Entonces con lo anterior puedo proceder a comentar los `console.log` y hacer uso de los `expect`:
+```js
+  // console.log(`Total Rows: ${totalRows}`);
+  // console.log(`Total Columns: ${totalColumns}`);
+
+  expect(totalRows).toBe(7); // 1 header row + 6 data rows
+  expect(totalColumns).toBe(4); // 4 columns in the table
+```
+9. Lo siquiente es seleccionar un solo _checkbox_ en la tabla, y eso está en otro elemento que parece con el título de `Pagination Web Table` y este ya tiene un _id_=`"productTable"`: </br> `const tableLocator = page.locator('#productTable');`
+10. Creamos las dos constantes para `columns` y `rows`:
+```js
+  const columnLocator = tableLocator.locator('thead tr th'); 
+  const rowLocator = tableLocator.locator('tbody tr');
+```
+11. Vamos a buscar las filas donde para el texto `Tablet`:
+```js
+  // Buscamos donde está la fila `Tablet`
+  const matchedRow = rowsLocator.filter({
+    has: page.locator('td'),
+    hasText: 'Tablet',
+  });
+```
+12. Buscamos ahora si donde esta el _checkbox_ y le damos el _check_ y lo validamos:
+```js
+  // await matchedRow.locator('input').check();
+  await matchedRow.locator('td input[type="checkbox"]').check();
+  expect(await matchedRow.locator('td input[type="checkbox"]').isChecked()).toBe(true);
+```
+13. Para el último copiamos lo recién creado en lo último.
+14. Creamos una función asincrónica para que por cada producto obtenga el estado de cada _checkbox_:
+```js
+async function selectCheckboxByRowText(rowsLocator: any, page: Page, productName: string): Promise<boolean> {
+  const matchedRow = rowsLocator.filter({
+    has: page.locator('td'),
+    hasText: productName,
+  });
+  // await matchedRow.locator('input').check();
+  await matchedRow.locator('td input[type="checkbox"]').check();
+  return await matchedRow.locator('td input[type="checkbox"]').isChecked();
+}
+```
+15. Hacemos uso de la nueva función y reemplazamos algunos datos ahí:
+```js
+test('Selecting Multiple Checkbox using function', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+  const tableLocator = page.locator('#productTable');
+  const rowsLocator = tableLocator.locator('tbody tr');
+  // Buscamos donde está la fila `Tablet` y otros
+  expect(await selectCheckboxByRowText(rowsLocator, page, 'Tablet')).toBe(true);
+  expect(await selectCheckboxByRowText(rowsLocator, page, 'Laptop')).toBe(true);
+  expect(await selectCheckboxByRowText(rowsLocator, page, 'Smartwatch')).toBe(true);  
+
+  await page.close();
+});
+```
+16. Ejecutamos de nuevo la prueba del paso `7.`.
+17. Pongo en modo `skip` las pruebas `048` y `036`, luego de correr todas las pruebas.
+
