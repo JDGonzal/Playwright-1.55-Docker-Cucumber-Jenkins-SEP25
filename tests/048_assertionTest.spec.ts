@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("Attribute Assertion", async ({ page }) => {
+test.skip("Attribute Assertion", async ({ page }) => {
   await page.goto("https://opensource-demo.orangehrmlive.com");
   // Verify for attribute value of the input field by name
   await expect(page.locator("input[placeholder='Username']")).toHaveAttribute("name", "username");

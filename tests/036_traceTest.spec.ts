@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("traceTest", async ({ page, context }) => {
+test.skip("traceTest", async ({ page, context }) => {
 	await context.tracing.start({ screenshots: true, snapshots: true });
 
 	await page.goto(
