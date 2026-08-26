@@ -3341,3 +3341,135 @@ test('Selecting Multiple Checkbox using function', async ({ page }) => {
 16. Ejecutamos de nuevo la prueba del paso `7.`.
 17. Pongo en modo `skip` las pruebas `048` y `036`, luego de correr todas las pruebas.
 
+
+### 61. WebTable - Part 2
+
+1. En este video aprenderemos a manejar la tabla de paginación en playwright. </br>Así que vamos a nuestra aplicación de demostración. </br>Así que aquí está la tabla de paginación que hemos trabajado en un video anterior. </br>Aquí puedes ver que en la primera página tiene cinco productos. </br>Si voy a la página siguiente, aparecerá el siguiente grupo de cinco productos. </br>Y continúa durante cuatro páginas.
+2. Creo el archivo **`061_paginationWebTableHandling.spec.ts`** basado en **`060_staticWebTableHandling.spec.ts`**:
+```js
+import { expect, test} from '@playwright/test';
+
+test('Printing all items from Page1 in Pagination table', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
+  await page.close();
+});
+
+test('Printing all items from all Pages in Pagination table', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+
+  await page.close();
+});
+```
+3. Hacemos para ambos `test`, los `locators`:
+```js
+import { expect, test} from '@playwright/test';
+
+test('Printing all items from Page1 in Pagination table', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+  const tableLocator = page.locator('#productTable');
+  const columnsLocator = tableLocator.locator('thead tr th');
+  const rowsLocator = tableLocator.locator('tbody tr');
+
+  await page.close();
+});
+
+test('Printing all items from all Pages in Pagination table', async ({ page }) => {
+  await page.goto('https://testautomationpractice.blogspot.com/');
+  const tableLocator = page.locator('#productTable');
+  const columnsLocator = tableLocator.locator('thead tr th');
+  const rowsLocator = tableLocator.locator('tbody tr');
+
+  await page.close();
+});
+```
+4. Empezamos por el primero añadiendo un ciclo `for` para recorrer las filas _row_, dentro otro parar recorrer las columnas _col_ , almacenar en un arreglo y luego mostrar este arreglo:
+```js
+  for (let rowIndex = 0; rowIndex < await rowsLocator.count(); rowIndex++) {
+    const rowLocator = rowsLocator.nth(rowIndex);
+    const rowData = []; // const rowData = row.locator(''td');
+    for (let colIndex = 0; colIndex < await columnsLocator.count(); colIndex++) {
+      const cellLocator = rowLocator.locator('td').nth(colIndex);
+      const cellText = await cellLocator.textContent();
+      rowData.push(cellText?.trim());
+    }
+    console.log(`Row ${rowIndex + 1}:`, rowData.join(' | '));
+  }
+```
+5. Cuando ejecuto la prueba en una `TERMINAL`, con el comando: </br> `npx playwright test 061_paginationWebTableHandling --project=webkit --headed` </br> Obtengo esta respuesta:
+```dos
+Running 1 test using 1 worker
+[webkit] › tests/061_paginationWebTableHandling.spec.ts:3:6 › Printing all items from Page1 in Pagination table
+Row 1: 1 | Smartphone | $10.99 | 
+Row 2: 2 | Laptop | $19.99 | 
+Row 3: 3 | Tablet | $5.99 | 
+Row 4: 4 | Smartwatch | $7.99 | 
+Row 5: 5 | Wireless Earbuds | $8.99 | 
+  1 passed (8.9s)
+```
+6. El otro `test`, va a ser similar pero vamos a dar clic a cada botón para avanzar en la paginación, primero localizamos el adminstrador de páginas y su cantidad:
+```js
+  //Localizamos el manejador de páginas y su cantidad de páginas
+  const paginationLocator = page.locator('#pagination li a');
+  const totalPages = await paginationLocator.count();
+```
+7. Hacemos un ciclo parar recorrer las páginas:
+```js
+  //Ciclo para recorer todas las páginas
+  for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
+    //Clic en el manejador de página correspondiente
+    await paginationLocator.nth(pageIndex).click();
+    console.log(`\nPage ${pageIndex + 1}:`);
+  }
+```
+8. y justo en este cilo copiamos el ciclo para recorre la pagina en si, hecho en el proceso anterior:
+```js
+    //Recorremos las filas de la página actual
+    for (let rowIndex = 0; rowIndex < await rowsLocator.count(); rowIndex++) {
+      const rowLocator = rowsLocator.nth(rowIndex);
+      const rowData = [];
+      for (let colIndex = 0; colIndex < await columnsLocator.count(); colIndex++) {
+        const cellLocator = rowLocator.locator('td').nth(colIndex);
+        const cellText = await cellLocator.textContent();
+        rowData.push(cellText?.trim());
+      }
+      console.log(`Row ${rowIndex + 1}:`, rowData.join(' | '));
+    }
+```
+9. Ejecutamos el proceso del punto `5.` y el resultado es:
+```dos
+Running 1 test using 1 worker
+[webkit] › tests/061_paginationWebTableHandling.spec.ts:23:6 › Printing all items from all Pages in Pagination table
+
+Page 1:
+Row 1: 1 | Smartphone | $10.99 | 
+Row 2: 2 | Laptop | $19.99 | 
+Row 3: 3 | Tablet | $5.99 | 
+Row 4: 4 | Smartwatch | $7.99 | 
+Row 5: 5 | Wireless Earbuds | $8.99 | 
+
+Page 2:
+Row 1: 6 | Bluetooth Speaker | $9.99 | 
+Row 2: 7 | Television | $20.99 | 
+Row 3: 8 | Action Camera | $15.99 | 
+Row 4: 9 | Gaming Console | $5.99 | 
+Row 5: 10 | Digital Camera | $16.99 | 
+
+Page 3:
+Row 1: 11 | Smart Home Hub | $20.99 | 
+Row 2: 12 | Router | $24.99 | 
+Row 3: 13 | Portable Charger | $30.99 | 
+Row 4: 14 | Fitness Tracker | $19.99 | 
+Row 5: 15 | Desktop Computer | $2.99 | 
+
+Page 4:
+Row 1: 16 | E-Reader | $10.99 | 
+Row 2: 17 | VR Headset | $11.99 | 
+Row 3: 18 | Streaming Device | $13.99 | 
+Row 4: 19 | Soundbar | $16.99 | 
+Row 5: 20 | Wireless Mouse 20 | $17.99 | 
+  1 passed (4.3s)
+```
+10. Antes de subir al repositorio, verificamos todas las pruebas con: </br> `npx playwright test`
+
+
