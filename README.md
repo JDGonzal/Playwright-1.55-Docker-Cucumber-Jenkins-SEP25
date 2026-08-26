@@ -2694,7 +2694,11 @@ test("Searchable Dynamic dropdown handling", async ({ page }) => {
 
 ### 57. Simple Alert
 
-1. El instructor sugiere esta _URL_: </br> `www.the-internet.herrcuapp.com/javascript_alerts`</br>Pero no funciona. Entonce utilizo esta ruta: </br> `https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/`
+>[!WARNING]
+>
+>### El sitio correcto ha sido `https://the-internet.herokuapp.com/`
+
+1. El instructor sugiere esta _URL_: </br> ~~`www.the-internet.herrcuapp.com/javascript_alerts`~~ </br> **Realmente es `https://the-internet.herokuapp.com/`** </br>Pero no funciona. Entonce utilizo esta ruta: </br> `https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/`
 2. A menos que gestionemos esta alerta, no podremos interactuar con la interfaz de usuario. </br>Pero en playwright por defecto cerrará la ventana de alerta. </br>No necesitamos escribir ningún código para manejarlo, pero es una buena práctica entender el flujo de la interfaz de usuario y automatizar la alerta para comprobar si se dispara en el lugar correcto con el texto correcto. </br>En cualquier página web, sólo habrá tres alertas:
 * Alerta simple.
 * Alerta de confirmación.
@@ -3472,4 +3476,50 @@ Row 5: 20 | Wireless Mouse 20 | $17.99 |
 ```
 10. Antes de subir al repositorio, verificamos todas las pruebas con: </br> `npx playwright test`
 
+
+### 62. Frames - Part 1
+
+1. el sitio de prueba es `https://the-internet.herokuapp.com/`, y dentro de este la opción de `frames` y dentro de este `iframes`.
+2. Luego cambiamos a `https://ui.vision/demo/webtest/frames/`
+3. Creo el archivo **`062_iframeHandling.spec.ts`**, con las importaciones de siempre, con los nomnbres `Frame handling Using Page.frame()` y `Frame handling Using Page.frameLocator()`:
+```js
+import { expect, test } from '@playwright/test';
+
+test('Frame handling Using Page.frame()', async ({ page }) => {
+  // await page.goto('https://the-internet.herokuapp.com/iframe');
+  await page.goto('https://ui.vision/demo/webtest/frames/');
+
+  await page.close();
+});
+
+test('Frame handling Using Page.frameLocator()', async ({ page }) => {
+  // await page.goto('https://the-internet.herokuapp.com/iframe');
+  await page.goto('https://ui.vision/demo/webtest/frames/');
+
+  await page.close();
+});
+```
+3. En el primero contamos el numero de `iframes`:
+```js
+  // Localizamos el total de frames en la página
+  const frames = page.frames();
+  console.log(`Total frames in the page: ${frames.length}`);
+```
+4. Voy a seleccionar el primer _frame_, y lo tomo como si se tratara de una _URL_, luego si existe escribo un texto ahí:
+```js
+  // Tomo el primer frame como un URL
+  const firstFrame = page.frame({url:'https://ui.vision/demo/webtest/frames/frame_1'});
+  //Si existe el frame, localizamos el input y escribimos un texto
+  if (firstFrame) {
+    await firstFrame.locator('input[name="mytext1"]').fill('Hello from Frame 1');
+  }
+```
+5. Validamos la ejecución en la `TERMINAL`, con el comando: </br> `npx playwright test 062_iframeHanding --project=webkit --headed`
+6. Vamos para segunda prueba usando el `frameLocator`, esto recude muchos pasos:
+```js
+  // Localizamos el primer frame usando frameLocator y escribimos un texto en el input
+  const firstFrameLocator = page.frameLocator('frame[src="frame_1.html"]');
+  await firstFrameLocator?.locator('input[name="mytext1"]').fill('Hello from Frame 1');
+```
+7. Repetimos el paso `.5` y listo.
 

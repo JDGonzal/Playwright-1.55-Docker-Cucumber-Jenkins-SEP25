@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('Simple Alert Handling', async ({ page }) => {
   // await page.goto("https://www.the-internet.herrcuapp.com/javascript_alerts");
+  // El Correcto es https://the-internet.herokuapp.com/
   await page.goto(
     'https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/',
   );

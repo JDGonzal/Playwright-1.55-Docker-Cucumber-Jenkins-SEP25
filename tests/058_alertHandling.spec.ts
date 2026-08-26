@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('Confirmation Alert - OK Button', async ({ page }) => {
   // await page.goto("https://www.the-internet.herrcuapp.com/javascript_alerts");
+  // El correcto es https://the-internet.herokuapp.com/
   await page.goto(
     'https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/',
   );
