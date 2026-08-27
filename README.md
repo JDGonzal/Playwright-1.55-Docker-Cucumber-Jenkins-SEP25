@@ -17,8 +17,9 @@
 > * Gain complete knowledge on Web Automation techniques and tricks
 > * Practical knowledge in designing framework from scratch
 
-## Section 1: Introduction
+---
 
+## Section 1: Introduction
 
 ### 1. Must Watch before Enrolling the course
 
@@ -408,8 +409,7 @@
 >
 >
 
-
-
+---
 
 ## Section 2: Typescript Basics
 
@@ -840,6 +840,8 @@ switch (today) {
 console.log("Today is " + dayName + ".");
 ```
 
+---
+
 ## Section 3: Typescript Advanced
 
 ### 18. Loops
@@ -1141,7 +1143,7 @@ if (true) {
 }
 ```
 
-
+---
 
 ## Section 4: Playwright Installation and Project Setup
 
@@ -1477,7 +1479,7 @@ To open last HTML report run:
 4. Hace un proceso similar al anterior [26. Installation of Playwright - Way 1](#26-installation-of-playwright---way-1), desde el paso 5, pero utilizando por defecto `npm`, en vez de uno seleccionado por el usuario como `pnpm` o `yarn`.
 5. Se hacen los ajustes necesarios antes de que en una `TERMINAL`, se ejecute ese comando: <br/> `npx playwright test` <br/>
 
-
+---
 
 ## Section 5: Writing First Playwright test
 
@@ -1600,7 +1602,7 @@ npx playwright test --headed
 npx playwright test --project=chromium --debug
 ```
 
-
+---
 
 ## Section 6: Automatic Code Generation
 
@@ -1766,6 +1768,7 @@ Options:
     $ codegen --target=python
     $ codegen -b webkit https://example.com
 ```
+---
 
 ## Section 7: Trace Viewer
 
@@ -1903,6 +1906,7 @@ test("traceTest", async ({ page, context }) => {
 
 8. Cerramos la ventana que abrió para visualizar el _trace_. No necesito hacer cambios de nada, todas las pruebas entan correctas.
 
+---
 
 ## Section 8: Locator Strategies
 
@@ -3188,6 +3192,8 @@ test('Prompt Alert - Cancel Button', async ({ page }) => {
 2. Ejecuto la prueba en la `TERMINAL`: </br> `npx playwright test 059_alertHandling --project=webkit --headed`
 3. Y verifico el resto de pruebas como siempre.
 
+---
+
 ## Section 11: Handling Advanced UI elements
 
 ### 60. WebTable - Part 1
@@ -3522,4 +3528,70 @@ test('Frame handling Using Page.frameLocator()', async ({ page }) => {
   await firstFrameLocator?.locator('input[name="mytext1"]').fill('Hello from Frame 1');
 ```
 7. Repetimos el paso `.5` y listo.
+
+### 63. Frames - Part 2
+
+1. Seguimos en el sitio `https://ui.vision/demo/webtest/frames/`, empezamos por inspeccionar el cuadro azul del medio, y de este el formulario o _form_: </br> ![form action=...](images/2026-08-26_15.08.18.png "<form action=...")
+
+
+
+
+
+
+
+
+
+2. Porque hay un `iframe` dentro de otro `iframe`.
+3. Empezamos copiando el archivo **`062_iframeHandling.spec.ts`** en el archivo **`063_iframeHandling.spec.ts`** y dejamos solo un `test`:
+```js
+import { expect, test } from '@playwright/test';
+
+test('Nested Frame handling', async ({ page }) => {
+  await page.goto('https://ui.vision/demo/webtest/frames/');
+  
+  await page.close();
+});
+```
+4. Localizamos el `frame` tres y luego el _subFrame_:
+```js
+  //Localizamos el tercer frame mediante su URL y luego contamos los frames anidados dentro de él
+  const thirdFrameLocator = page.frame({url:'https://ui.vision/demo/webtest/frames/frame_3'});
+  if (thirdFrameLocator) {
+    const nestedFrames = thirdFrameLocator.childFrames();
+    console.log(`Total nested frames in the third frame: ${nestedFrames.length}`);
+  } else {
+    console.log('Third frame not found');
+  }
+```
+5. Lo anterior lo mejoro usando el condicional `?` para el objeto:
+```js
+  const nestedFrames = thirdFrameLocator?.childFrames();
+  console.log(`Total nested frames in the third frame: ${nestedFrames?.length}`);
+```
+6. Esta es la forma que sugiere el instructor para alcanzar los elementos y hacer el _check_:
+```js
+    await nestedFrames[0]
+      ?.locator("//*[@id='i9']/div[3]/div")      
+      .check({ force: true });
+    await nestedFrames[0]
+      ?.locator("//*[@id='i24']/div[3]")
+      .check({ force: true });  
+```
+7. Ejecuté en la `TERMINAL`: </br> `npx playwright test 063_iframeHandling --project=webkit --headed` </br> Pero obtengo un error.
+8. Utilizo otro método, usando constantes y este es el resultado:
+```js
+  if (nestedFrames && nestedFrames.length > 0) {
+    const firstNestedFrame = nestedFrames[0];
+
+    const radioBoxLocator = firstNestedFrame?.locator(
+      "//*[@id='i9']/div[3]/div",
+    );
+    await radioBoxLocator?.check({ force: true });
+    const checkBoxLocator = firstNestedFrame?.locator("//*[@id='i24']/div[3]");
+    await checkBoxLocator?.check({ force: true });
+  }
+
+```
+9. Ejecuto el paso `7.` y ahi si obtengo un resultado correcto.
+10. Pero al ejecutarlos en todos los ambiente, solo funciona en `chromium`, entonces le pongo mas bien un `skip` a la prueba.
 
